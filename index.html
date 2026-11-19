@@ -1065,6 +1065,8 @@ body.td-open .content{padding-left:414px}
 @keyframes spglow{0%,100%{box-shadow:0 0 0 0 rgba(79,142,255,.55)}50%{box-shadow:0 0 0 16px rgba(79,142,255,0)}}
 @media(prefers-reduced-motion:reduce){.sp-ring,.sp-orb,.sp-btn{animation:none}}
 
+.sync-chip{max-width:48vw;overflow:hidden;text-overflow:ellipsis}
+
 </style>
 </head>
 <body>
@@ -3099,7 +3101,7 @@ const LECS=[];
 ].forEach(([c,k,arr])=>arr.forEach((t,i)=>LECS.push({id:`lec_${k}_${String(i+1).padStart(2,'0')}`,c,t,no:i+1,d:(k==='i'&&i===0)?OVERVIEW.join(' • '):''})));
 
 /* ─── Constants, seeds, legacy inventory ─── */
-const FB_V='13.4.0',FB_BASE='https://www.gstatic.com/firebasejs/'+FB_V+'/';
+const FB_VERS=['12.4.0','13.1.0','12.3.0'];let FB_V=FB_VERS[0];
 const FB_CFG={apiKey:'AIzaSyBVIyM2anUZL9FQJ8evF0rk1JLvek1dK-Y',authDomain:'movement-training.firebaseapp.com',projectId:'movement-training',storageBucket:'movement-training.firebasestorage.app',messagingSenderId:'912664614872',appId:'1:912664614872:web:339305b831acfa8c6c04ad',measurementId:'G-TW1HL73FQC'};
 const SYNC_COLL=[...COLL,'legacy'];
 const WS='movement-training-main'; /* single shared workspace: workspaces/{WS}/{collection}/{id} — same data on every device that opens the link */
@@ -3159,39 +3161,34 @@ const S={db:{},Q:[],conf:J('iab2_conflicts',[]),quiet:0,
  pending(){return this.Q.length}};
 
 /* ─── Sync: Auth + Firestore users/{uid}/{collection}/{id}. Server-revision transactions; bootstrap gate; persistent queue. ─── */
-const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],boot:null,booted:false,running:false,timer:null,lastErr:'',report:'',legacyDiff:[],verNote:'',last:J('iab2_meta',{}).lastSync||null,
+const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],bt:null,booted:false,running:false,timer:null,lastErr:'',report:'',legacyDiff:[],verNote:'',last:J('iab2_meta',{}).lastSync||null,
  cfg(){return{...FB_CFG,apiKey:localStorage.getItem('iab2_apikey')||FB_CFG.apiKey}},
- async loadSDK(){if(window.__IAB2_SDK)return window.__IAB2_SDK;const[A,Au,F]=await Promise.all([import(FB_BASE+'firebase-app.js'),import(FB_BASE+'firebase-auth.js'),import(FB_BASE+'firebase-firestore.js')]);return{A,Au,F}},
+ async loadSDK(){const s=window.__IAB2_SDK;if(s)return s;let last;for(const v of FB_VERS){try{const b='https://www.gstatic.com/firebasejs/'+v+'/';const[A,F]=await Promise.all([import(b+'firebase-app.js'),import(b+'firebase-firestore.js')]);FB_V=v;return{A,F}}catch(e){last=e;console.warn('Firebase SDK '+v+' failed to load',e)}}throw last||new Error('Firebase SDK failed to load')},
  status(){const on=navigator.onLine;if(this.phase==='init')return'init';if(this.phase==='fatal')return'error';if(!this.user)return on?'connecting':'offline';if(this.phase==='connecting')return on?'connecting':'offline';if(!on)return'offline';if(this.running)return'syncing';if(this.lastErr&&S.pending())return'error';if(S.pending())return'pending';return'synced'},
  paint(){const s=this.status(),n=S.pending(),L={init:'Initializing',signedout:'Signed Out',connecting:'Connecting',syncing:'Syncing',synced:'Synced',offline:'Offline – Changes Saved Locally',pending:'Pending Changes',error:'Error'};
-  const e=document.getElementById('sync-chip');if(e){e.className='sync-chip '+({pending:'offline',connecting:'syncing',init:'syncing',signedout:''}[s]??s);e.textContent='● '+L[s]+(n&&s!=='synced'?' ('+n+')':'');e.title=this.lastErr}
+  const e=document.getElementById('sync-chip');if(e){e.className='sync-chip '+({pending:'offline',connecting:'syncing',init:'syncing',signedout:''}[s]??s);e.textContent='● '+L[s]+(n&&s!=='synced'?' ('+n+')':'')+(this.lastErr&&s!=='synced'?' — '+this.lastErr.slice(0,48):'');e.title=this.lastErr}
   const t=(id,v)=>{const x=document.getElementById(id);if(x)x.textContent=v};
-  t('fb-proj',FB_CFG.projectId+' · SDK '+FB_V+this.verNote);t('fb-stat',L[s]);t('fb-auth',this.user?'Automatic session (no sign-in needed)':'Connecting…');t('fb-pend',String(n));
+  t('fb-proj',FB_CFG.projectId+' · SDK '+FB_V+this.verNote);t('fb-stat',L[s]);t('fb-auth','No sign-in — shared workspace '+WS);t('fb-pend',String(n));
   t('fb-last',this.last?new Date(this.last).toLocaleString('ar-EG'):'—');t('fb-err',this.lastErr||'—');t('fb-rep',this.report||'—');
   t('fb-conf',S.conf.slice(-5).map(c=>`${c.coll}/${c.id}.${c.field}: kept «${c.kept}» · not applied «${c.lost}»`).join(' | ')||'—');t('fb-leg',this.legacyDiff.length?this.legacyDiff.join(', '):'—')},
- boot(){window.addEventListener('online',()=>{this.lastErr='';if(!this.user&&this.fb&&this.fb.auth)this.signIn();this.paint();this.kick(true)});window.addEventListener('offline',()=>this.paint());this.connect()},
+ start(){window.addEventListener('online',()=>{this.lastErr='';if(!this.fb)this.connect();else if(this.booted)this.kick(true);else if(this.user&&!this.unsubs.length)this.listen();this.paint()});window.addEventListener('offline',()=>this.paint());this.connect()},
  fatal(e){this.phase='fatal';this.lastErr=authMsg(e);console.error('Firebase:',e);this.paint()},
- async connect(){try{const sdk=await this.loadSDK(),{A,Au,F}=sdk;this.fb={...sdk};
+ async connect(){if(this.connecting)return;this.connecting=true;
+  try{this.phase='init';this.paint();const sdk=await this.loadSDK(),{A,F}=sdk;this.fb={...sdk};this.lastErr='';
    if(A.SDK_VERSION&&A.SDK_VERSION!==FB_V)this.verNote=' ⚠ loaded '+A.SDK_VERSION;
    let app;if(A.getApps().length){app=A.getApp();if(app.options.projectId!==FB_CFG.projectId)throw new Error('Existing Firebase app belongs to another project ('+app.options.projectId+')')}else app=A.initializeApp(this.cfg());
-   this.fb.auth=Au.getAuth(app);this.fb.db=F.getFirestore(app);
-   try{await Au.setPersistence(this.fb.auth,Au.browserLocalPersistence)}catch(e){console.warn('Auth persistence:',e.code)}
-   this.phase='connecting';this.paint();Au.onAuthStateChanged(this.fb.auth,u=>this.onUser(u).catch(x=>this.fatal(x)),x=>this.fatal(x))}catch(e){this.fatal(e)}},
- async signIn(){if(this.signing||!this.fb)return;this.signing=true;
-  try{await this.fb.Au.signInAnonymously(this.fb.auth);this.authTries=0}
-  catch(x){this.lastErr=authMsg(x);this.paint();this.authTries=(this.authTries||0)+1;clearTimeout(this.atimer);this.atimer=setTimeout(()=>this.signIn(),bo(this.authTries))}
-  finally{this.signing=false}},
- teardown(){this.gen++;this.unsubs.forEach(f=>{try{f()}catch(e){}});this.unsubs=[];clearTimeout(this.timer);this.timer=null;this.boot=null;this.booted=false;this.running=false;this.lastErr='';this.report='';this.user=null},
- async onUser(u){this.teardown();if(!u){this.phase='connecting';this.paint();this.signIn();return}
-  this.user=u;this.phase='connecting';S.adopt();this.paint();this.listen()},
- listen(){if(this.unsubs.length)return;const{F,db}=this.fb,gen=this.gen;this.boot={left:new Set(SYNC_COLL),remote:0};
+   try{this.fb.db=F.initializeFirestore(app,{experimentalAutoDetectLongPolling:true})}catch(e){this.fb.db=F.getFirestore(app)}
+   this.user={uid:'shared'};S.adopt();this.phase='connecting';this.ct=0;this.paint();this.listen()}
+  catch(e){this.fatal(e);setTimeout(()=>this.connect(),bo(this.ct=(this.ct||0)+1))}finally{this.connecting=false}},
+ teardown(){this.gen++;this.unsubs.forEach(f=>{try{f()}catch(e){}});this.unsubs=[];clearTimeout(this.timer);this.timer=null;this.bt=null;this.booted=false;this.running=false;this.lastErr='';this.report='';this.user=null},
+ listen(){if(this.unsubs.length)return;const{F,db}=this.fb,gen=this.gen;this.bt={left:new Set(SYNC_COLL),remote:0};const bt=this.bt;setTimeout(()=>{if(gen===this.gen&&this.bt===bt&&navigator.onLine){this.lastErr='No response from Firestore — check: database created, rules published, API key valid, network allows firestore.googleapis.com';this.paint()}},this.bootTimeout||12000);
   SYNC_COLL.forEach(c=>this.unsubs.push(F.onSnapshot(F.collection(db,'workspaces',WS,c),{includeMetadataChanges:true},snap=>{if(gen!==this.gen)return;let n=0;
     snap.docChanges().forEach(x=>{if(x.type==='removed'){const d=S.db[c][x.doc.id];if(d)d._rev=0;return}S.applyRemote(c,{...x.doc.data(),id:x.doc.id});n++});
     if(n){S.save();S.emit()}
-    if(!snap.metadata.fromCache&&this.boot&&this.boot.left.has(c)){this.boot.left.delete(c);this.boot.remote+=snap.size;if(!this.boot.left.size)this.bootDone()}
+    if(!snap.metadata.fromCache&&this.bt&&this.bt.left.has(c)){this.bt.left.delete(c);this.bt.remote+=snap.size;if(!this.bt.left.size)this.bootDone()}
     this.paint()},e=>{if(gen!==this.gen)return;this.lastErr=(e.code||'error')+': '+e.message+(e.code==='permission-denied'?' — check Firestore rules / account':'');this.paint()})))},
  /* Local ops are only uploaded after every collection's first SERVER snapshot has been applied. */
- bootDone(){const rc=this.boot.remote;this.boot=null;S.scanLegacy();const n=S.pending();
+ bootDone(){const rc=this.bt.remote;this.bt=null;this.lastErr='';S.scanLegacy();const n=S.pending();
   this.report=rc?(n?`Merged: cloud had ${rc} docs, ${n} local changes uploading`:`Restored ${rc} docs from cloud`):(n?`First sync: uploading ${n} local changes`:'Cloud empty; nothing local to upload');
   this.booted=true;this.phase='ready';if(!n)this.stamp();S.emit();this.kick(true)},
  stamp(){this.last=new Date().toISOString();const m=J('iab2_meta',{});m.lastSync=this.last;try{localStorage.setItem('iab2_meta',JSON.stringify(m))}catch(e){}},
@@ -3228,8 +3225,8 @@ const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],boot:null,booted:fals
   ${row('Project / SDK','fb-proj')}${row('Status','fb-stat')}${row('Account','fb-auth')}${row('Pending changes','fb-pend')}${row('Last successful sync','fb-last')}${row('Last error','fb-err')}${row('Initial sync','fb-rep')}${row('Conflicts (latest)','fb-conf')}${row('Legacy keys differing from cloud','fb-leg')}
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="Sync.syncNow()">🔄 Sync Now</button></div>
   <details style="margin-top:14px"><summary style="cursor:pointer;color:var(--a)">Setup steps &amp; Firestore rules</summary>
-  <div class="form-hint">One-time setup in Firebase Console: (1) Authentication → Sign-in method → enable <b>Anonymous</b> (the app signs in automatically; nobody types anything). (2) Firestore Database → Create database. (3) Firestore → Rules → paste and Publish. (4) Authentication → Settings → Authorized domains → add the domain that hosts this file. ⚠ Anyone who has this link can read and edit the data — keep the link private.</div>
-  <pre>rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /workspaces/movement-training-main/{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>
+  <div class="form-hint">One-time setup in Firebase Console: (1) Firestore Database → Create database. (2) Firestore → Rules → paste and Publish. No sign-in and no authorized-domain setup is needed. ⚠ Anyone who has this link can read and edit the data — keep the link private.</div>
+  <pre>rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /workspaces/movement-training-main/{document=**} {\n      allow read, write: if true;\n    }\n  }\n}</pre>
   <div class="form-group" style="margin-top:10px"><label class="form-label">API key override (leave empty to use the built-in key)</label><input id="fb-key" value="${esc(localStorage.getItem('iab2_apikey')||'')}" style="direction:ltr"/></div><button class="btn btn-secondary btn-sm" onclick="Sync.saveKey()">Save &amp; reload</button></details></div>`}};
 
 /* ─── App UI ─── */
@@ -3342,7 +3339,7 @@ UI.renderSettings=function(){_rs.call(this);U.id('page-settings').insertAdjacent
 
 window.App=App;window.Sync=Sync;window.IAB2={Store:S,LECS,PROGS,CATS,Sync};
 S.init();
-document.addEventListener('DOMContentLoaded',()=>{UI.navigate('cover');Sync.boot()});
+document.addEventListener('DOMContentLoaded',()=>{UI.navigate('cover');Sync.start()});
 document.addEventListener('DOMContentLoaded',()=>{const sp=document.getElementById('splash'),b=document.getElementById('sp-open');if(!sp||!b)return;
  const k=e=>{if(e.key==='Enter')go()},go=()=>{document.removeEventListener('keydown',k);sp.classList.add('out');setTimeout(()=>sp.remove(),700)};
  b.addEventListener('click',go);document.addEventListener('keydown',k);b.focus()});
