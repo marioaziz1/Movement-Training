@@ -3102,6 +3102,7 @@ const LECS=[];
 const FB_V='13.4.0',FB_BASE='https://www.gstatic.com/firebasejs/'+FB_V+'/';
 const FB_CFG={apiKey:'AIzaSyBVIyM2anUZL9FQJ8evF0rk1JLvek1dK-Y',authDomain:'movement-training.firebaseapp.com',projectId:'movement-training',storageBucket:'movement-training.firebasestorage.app',messagingSenderId:'912664614872',appId:'1:912664614872:web:339305b831acfa8c6c04ad',measurementId:'G-TW1HL73FQC'};
 const SYNC_COLL=[...COLL,'legacy'];
+const WS='movement-training-main'; /* single shared workspace: workspaces/{WS}/{collection}/{id} — same data on every device that opens the link */
 const SEED={programs:{},categories:{},lectures:{},instances:{}};
 PROGS.forEach((p,i)=>{SEED.programs[p.id]={name:p.name,order:i+1};SEED.instances['inst_'+p.id+'_1']={programId:p.id,name:'النسخة 1',order:1}});
 CATS.forEach((c,i)=>{SEED.categories[c.id]={name:c.name,order:i+1}});
@@ -3114,7 +3115,7 @@ const clean=r=>{const o={};for(const k in r)if(!INTERNAL.has(k))o[k]=r[k];return
 const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const bo=n=>Math.min(60000,1000*2**n)*(0.5+Math.random()*0.5);
 const isTransient=e=>!navigator.onLine||['unavailable','deadline-exceeded','aborted','resource-exhausted','cancelled','internal'].includes(e&&e.code)||/network|offline|unavailable|fetch/i.test((e&&e.message)||'');
-const authMsg=e=>({'auth/invalid-credential':'بريد أو كلمة مرور غير صحيحة','auth/wrong-password':'كلمة المرور غير صحيحة','auth/user-not-found':'الحساب غير موجود','auth/user-disabled':'هذا الحساب معطّل','auth/email-already-in-use':'البريد مستخدم بالفعل','auth/weak-password':'كلمة المرور ضعيفة (6 أحرف على الأقل)','auth/invalid-email':'بريد غير صالح','auth/too-many-requests':'محاولات كثيرة — حاول لاحقًا','auth/network-request-failed':'تعذّر الاتصال بالشبكة','auth/operation-not-allowed':'فعّل Email/Password في Firebase Console','auth/unauthorized-domain':'النطاق غير مضاف إلى Authorized domains','auth/operation-not-supported-in-this-environment':'البيئة لا تدعم Auth (استخدم https أو localhost)','auth/api-key-not-valid.-please-pass-a-valid-api-key.':'API Key غير صالح — راجع الإعدادات','auth/invalid-api-key':'API Key غير صالح — راجع الإعدادات','auth/user-token-expired':'انتهت الجلسة — سجّل الدخول مجددًا','auth/requires-recent-login':'سجّل الدخول مجددًا'}[e.code]||((e.code||'error')+': '+(e.message||e)));
+const authMsg=e=>({'auth/invalid-credential':'بريد أو كلمة مرور غير صحيحة','auth/wrong-password':'كلمة المرور غير صحيحة','auth/user-not-found':'الحساب غير موجود','auth/user-disabled':'هذا الحساب معطّل','auth/email-already-in-use':'البريد مستخدم بالفعل','auth/weak-password':'كلمة المرور ضعيفة (6 أحرف على الأقل)','auth/invalid-email':'بريد غير صالح','auth/too-many-requests':'محاولات كثيرة — حاول لاحقًا','auth/network-request-failed':'تعذّر الاتصال بالشبكة','auth/operation-not-allowed':'فعّل Anonymous في Firebase Console → Authentication → Sign-in method','auth/admin-restricted-operation':'فعّل Anonymous في Firebase Console → Authentication → Sign-in method','auth/unauthorized-domain':'النطاق غير مضاف إلى Authorized domains','auth/operation-not-supported-in-this-environment':'البيئة لا تدعم Auth (استخدم https أو localhost)','auth/api-key-not-valid.-please-pass-a-valid-api-key.':'API Key غير صالح — راجع الإعدادات','auth/invalid-api-key':'API Key غير صالح — راجع الإعدادات','auth/user-token-expired':'انتهت الجلسة — سجّل الدخول مجددًا','auth/requires-recent-login':'سجّل الدخول مجددًا'}[e.code]||((e.code||'error')+': '+(e.message||e)));
 
 /* ─── Store: local-first. Local doc = seed ⊕ confirmed remote ⊕ pending ops. Writes go through a persistent op queue. ─── */
 const S={db:{},Q:[],conf:J('iab2_conflicts',[]),quiet:0,
@@ -3151,42 +3152,40 @@ const S={db:{},Q:[],conf:J('iab2_conflicts',[]),quiet:0,
   this.save();this.emit()},
  exportDb(){const o={};COLL.forEach(c=>{o[c]={};Object.values(this.db[c]).forEach(d=>{o[c][d.id]=clean(d)})});return o},
  importDb(db){this.quiet=1;try{COLL.forEach(c=>Object.values((db&&db[c])||{}).forEach(d=>{if(d&&d.id)this.put(c,d.id,clean(d))}))}finally{this.quiet=0}this.scanLegacy(1);this.save();this.emit()},
- scanLegacy(force){if(Sync.user&&localStorage.getItem('iab2_owner')!==Sync.user.uid)return;this.quiet=1;Sync.legacyDiff=[];
+ scanLegacy(force){if(Sync.user&&localStorage.getItem('iab2_owner')!=='ws:'+WS)return;this.quiet=1;Sync.legacyDiff=[];
   try{legKeys().forEach(k=>{const j=localStorage.getItem(k);if(j==null)return;if(j.length>9e5){Sync.legacyDiff.push(k+' (>900KB, not synced)');return}
    const d=this.db.legacy[k];if(!d||(force&&d.json!==j))this.put('legacy',k,{key:k,json:j});else if(d.json!==j)Sync.legacyDiff.push(k)})}finally{this.quiet=0}this.save()},
- /* A different account signing in on this device never sees or uploads the previous account's data: it is stashed per-uid. */
- adopt(uid){const o=localStorage.getItem('iab2_owner');if(o===uid)return;if(!o){localStorage.setItem('iab2_owner',uid);return}
-  const st={db:this.db,q:this.Q,leg:{}};legKeys().forEach(k=>{st.leg[k]=localStorage.getItem(k);localStorage.removeItem(k)});
-  localStorage.setItem('iab2_stash_'+o,JSON.stringify(st));const mine=J('iab2_stash_'+uid,null);
-  this.db=mine?mine.db:{};this.Q=mine?mine.q:[];SYNC_COLL.forEach(c=>{this.db[c]=this.db[c]||{}});
-  if(mine)Object.entries(mine.leg||{}).forEach(([k,v])=>{if(v!=null)localStorage.setItem(k,v)});
-  localStorage.setItem('iab2_owner',uid);this.seed();this.save();this.emit()},
+ adopt(){localStorage.setItem('iab2_owner','ws:'+WS)},
  pending(){return this.Q.length}};
 
 /* ─── Sync: Auth + Firestore users/{uid}/{collection}/{id}. Server-revision transactions; bootstrap gate; persistent queue. ─── */
 const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],boot:null,booted:false,running:false,timer:null,lastErr:'',report:'',legacyDiff:[],verNote:'',last:J('iab2_meta',{}).lastSync||null,
  cfg(){return{...FB_CFG,apiKey:localStorage.getItem('iab2_apikey')||FB_CFG.apiKey}},
  async loadSDK(){if(window.__IAB2_SDK)return window.__IAB2_SDK;const[A,Au,F]=await Promise.all([import(FB_BASE+'firebase-app.js'),import(FB_BASE+'firebase-auth.js'),import(FB_BASE+'firebase-firestore.js')]);return{A,Au,F}},
- status(){const on=navigator.onLine;if(this.phase==='init')return'init';if(this.phase==='fatal')return'error';if(!this.user)return'signedout';if(this.phase==='connecting')return on?'connecting':'offline';if(!on)return'offline';if(this.running)return'syncing';if(this.lastErr&&S.pending())return'error';if(S.pending())return'pending';return'synced'},
+ status(){const on=navigator.onLine;if(this.phase==='init')return'init';if(this.phase==='fatal')return'error';if(!this.user)return on?'connecting':'offline';if(this.phase==='connecting')return on?'connecting':'offline';if(!on)return'offline';if(this.running)return'syncing';if(this.lastErr&&S.pending())return'error';if(S.pending())return'pending';return'synced'},
  paint(){const s=this.status(),n=S.pending(),L={init:'Initializing',signedout:'Signed Out',connecting:'Connecting',syncing:'Syncing',synced:'Synced',offline:'Offline – Changes Saved Locally',pending:'Pending Changes',error:'Error'};
   const e=document.getElementById('sync-chip');if(e){e.className='sync-chip '+({pending:'offline',connecting:'syncing',init:'syncing',signedout:''}[s]??s);e.textContent='● '+L[s]+(n&&s!=='synced'?' ('+n+')':'');e.title=this.lastErr}
   const t=(id,v)=>{const x=document.getElementById(id);if(x)x.textContent=v};
-  t('fb-proj',FB_CFG.projectId+' · SDK '+FB_V+this.verNote);t('fb-stat',L[s]);t('fb-auth',this.user?'Signed in: '+this.user.email:'Signed out');t('fb-pend',String(n));
+  t('fb-proj',FB_CFG.projectId+' · SDK '+FB_V+this.verNote);t('fb-stat',L[s]);t('fb-auth',this.user?'Automatic session (no sign-in needed)':'Connecting…');t('fb-pend',String(n));
   t('fb-last',this.last?new Date(this.last).toLocaleString('ar-EG'):'—');t('fb-err',this.lastErr||'—');t('fb-rep',this.report||'—');
   t('fb-conf',S.conf.slice(-5).map(c=>`${c.coll}/${c.id}.${c.field}: kept «${c.kept}» · not applied «${c.lost}»`).join(' | ')||'—');t('fb-leg',this.legacyDiff.length?this.legacyDiff.join(', '):'—')},
- boot(){window.addEventListener('online',()=>{this.lastErr='';this.paint();this.kick(true)});window.addEventListener('offline',()=>this.paint());this.connect()},
+ boot(){window.addEventListener('online',()=>{this.lastErr='';if(!this.user&&this.fb&&this.fb.auth)this.signIn();this.paint();this.kick(true)});window.addEventListener('offline',()=>this.paint());this.connect()},
  fatal(e){this.phase='fatal';this.lastErr=authMsg(e);console.error('Firebase:',e);this.paint()},
  async connect(){try{const sdk=await this.loadSDK(),{A,Au,F}=sdk;this.fb={...sdk};
    if(A.SDK_VERSION&&A.SDK_VERSION!==FB_V)this.verNote=' ⚠ loaded '+A.SDK_VERSION;
    let app;if(A.getApps().length){app=A.getApp();if(app.options.projectId!==FB_CFG.projectId)throw new Error('Existing Firebase app belongs to another project ('+app.options.projectId+')')}else app=A.initializeApp(this.cfg());
    this.fb.auth=Au.getAuth(app);this.fb.db=F.getFirestore(app);
    try{await Au.setPersistence(this.fb.auth,Au.browserLocalPersistence)}catch(e){console.warn('Auth persistence:',e.code)}
-   this.phase='signedout';this.paint();Au.onAuthStateChanged(this.fb.auth,u=>this.onUser(u).catch(x=>this.fatal(x)),x=>this.fatal(x))}catch(e){this.fatal(e)}},
+   this.phase='connecting';this.paint();Au.onAuthStateChanged(this.fb.auth,u=>this.onUser(u).catch(x=>this.fatal(x)),x=>this.fatal(x))}catch(e){this.fatal(e)}},
+ async signIn(){if(this.signing||!this.fb)return;this.signing=true;
+  try{await this.fb.Au.signInAnonymously(this.fb.auth);this.authTries=0}
+  catch(x){this.lastErr=authMsg(x);this.paint();this.authTries=(this.authTries||0)+1;clearTimeout(this.atimer);this.atimer=setTimeout(()=>this.signIn(),bo(this.authTries))}
+  finally{this.signing=false}},
  teardown(){this.gen++;this.unsubs.forEach(f=>{try{f()}catch(e){}});this.unsubs=[];clearTimeout(this.timer);this.timer=null;this.boot=null;this.booted=false;this.running=false;this.lastErr='';this.report='';this.user=null},
- async onUser(u){this.teardown();if(!u){this.phase='signedout';this.paint();return}
-  this.user=u;this.phase='connecting';S.adopt(u.uid);this.paint();this.listen()},
- listen(){if(this.unsubs.length)return;const{F,db}=this.fb,gen=this.gen,uid=this.user.uid;this.boot={left:new Set(SYNC_COLL),remote:0};
-  SYNC_COLL.forEach(c=>this.unsubs.push(F.onSnapshot(F.collection(db,'users',uid,c),{includeMetadataChanges:true},snap=>{if(gen!==this.gen)return;let n=0;
+ async onUser(u){this.teardown();if(!u){this.phase='connecting';this.paint();this.signIn();return}
+  this.user=u;this.phase='connecting';S.adopt();this.paint();this.listen()},
+ listen(){if(this.unsubs.length)return;const{F,db}=this.fb,gen=this.gen;this.boot={left:new Set(SYNC_COLL),remote:0};
+  SYNC_COLL.forEach(c=>this.unsubs.push(F.onSnapshot(F.collection(db,'workspaces',WS,c),{includeMetadataChanges:true},snap=>{if(gen!==this.gen)return;let n=0;
     snap.docChanges().forEach(x=>{if(x.type==='removed'){const d=S.db[c][x.doc.id];if(d)d._rev=0;return}S.applyRemote(c,{...x.doc.data(),id:x.doc.id});n++});
     if(n){S.save();S.emit()}
     if(!snap.metadata.fromCache&&this.boot&&this.boot.left.has(c)){this.boot.left.delete(c);this.boot.remote+=snap.size;if(!this.boot.left.size)this.bootDone()}
@@ -3211,7 +3210,7 @@ const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],boot:null,booted:fals
    if(gen===this.gen&&!S.Q.length)this.stamp()}
   finally{if(gen===this.gen)this.running=false;this.paint()}},
  /* Server-revision transaction: idempotent (mutation id), per-field conflict detection, tombstones never resurrected. */
- apply(op){const{F,db}=this.fb,ref=F.doc(db,'users',this.user.uid,op.coll,op.docId);
+ apply(op){const{F,db}=this.fb,ref=F.doc(db,'workspaces',WS,op.coll,op.docId);
   return F.runTransaction(db,async tx=>{const sn=await tx.get(ref),r=sn.exists()?sn.data():null;
    if(r&&(r._applied||[]).includes(op.id))return{rev:r.revision||0,conflicts:[]};
    if(r&&r.deleted)return{rev:r.revision||0,conflicts:[],skipped:'deleted'};
@@ -3222,21 +3221,15 @@ const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],boot:null,booted:fals
    Object.assign(out,{id:op.docId,revision:rev,_fr:fr,_fu:fu,updatedBy:DEV,mutationId:op.id,_applied:[...((r&&r._applied)||[]).slice(-19),op.id]});
    tx.set(ref,{...out,updatedAt:F.serverTimestamp(),serverUpdatedAt:F.serverTimestamp(),...(r?{}:{createdAt:F.serverTimestamp()})});
    return{rev,conflicts}})},
- async auth(mode){const f=this.fb;if(!f||!f.auth){U.toast('Firebase غير جاهز: '+(this.lastErr||'جارٍ التحميل'),'error');return}
-  const em=document.getElementById('fb-email').value.trim(),pw=document.getElementById('fb-pass').value;if(!em||pw.length<6){U.toast('أدخل بريدًا وكلمة مرور (6 أحرف على الأقل)','error');return}
-  try{mode==='up'?await f.Au.createUserWithEmailAndPassword(f.auth,em,pw):await f.Au.signInWithEmailAndPassword(f.auth,em,pw);document.getElementById('fb-pass').value=''}
-  catch(x){this.lastErr=authMsg(x);this.paint();U.toast(this.lastErr,'error',6000)}},
- async out(){if(this.fb&&this.user)await this.fb.Au.signOut(this.fb.auth)},
  saveKey(){const v=(document.getElementById('fb-key').value||'').trim();if(v)localStorage.setItem('iab2_apikey',v);else localStorage.removeItem('iab2_apikey');location.reload()},
  html(){const row=(k,id)=>`<div class="info-row"><div class="info-key">${k}</div><div class="info-val" id="${id}" style="direction:ltr;text-align:left;word-break:break-word">—</div></div>`;
   return `<div class="card" id="fb-card" style="margin-bottom:16px"><div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:12px">☁️ Firebase Connection &amp; Sync</div>
   ${location.protocol==='file:'?'<div class="form-hint" style="color:var(--amber);margin-bottom:8px">⚠ الملف مفتوح من file:// — Firebase Auth يحتاج https أو localhost.</div>':''}
   ${row('Project / SDK','fb-proj')}${row('Status','fb-stat')}${row('Account','fb-auth')}${row('Pending changes','fb-pend')}${row('Last successful sync','fb-last')}${row('Last error','fb-err')}${row('Initial sync','fb-rep')}${row('Conflicts (latest)','fb-conf')}${row('Legacy keys differing from cloud','fb-leg')}
-  <div class="form-grid" style="margin-top:14px"><div class="form-group"><label class="form-label">Email</label><input id="fb-email" type="email" autocomplete="username" style="direction:ltr"/></div><div class="form-group"><label class="form-label">Password</label><input id="fb-pass" type="password" autocomplete="current-password" style="direction:ltr"/></div></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="Sync.auth('in')">Sign in</button><button class="btn btn-secondary btn-sm" onclick="Sync.auth('up')">Create account</button><button class="btn btn-secondary btn-sm" onclick="Sync.out()">Sign out</button><button class="btn btn-secondary btn-sm" onclick="Sync.syncNow()">🔄 Sync Now</button></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="Sync.syncNow()">🔄 Sync Now</button></div>
   <details style="margin-top:14px"><summary style="cursor:pointer;color:var(--a)">Setup steps &amp; Firestore rules</summary>
-  <div class="form-hint">Firebase Console → (1) Authentication → Sign-in method → enable Email/Password. (2) Authentication → Settings → Authorized domains → add the domain hosting this file (localhost is allowed by default). (3) Firestore Database → Create database. (4) Firestore → Rules → paste and Publish:</div>
-  <pre>rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{userId}/{document=**} {\n      allow read, write: if request.auth != null\n                         &amp;&amp; request.auth.uid == userId;\n    }\n  }\n}</pre>
+  <div class="form-hint">One-time setup in Firebase Console: (1) Authentication → Sign-in method → enable <b>Anonymous</b> (the app signs in automatically; nobody types anything). (2) Firestore Database → Create database. (3) Firestore → Rules → paste and Publish. (4) Authentication → Settings → Authorized domains → add the domain that hosts this file. ⚠ Anyone who has this link can read and edit the data — keep the link private.</div>
+  <pre>rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /workspaces/movement-training-main/{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>
   <div class="form-group" style="margin-top:10px"><label class="form-label">API key override (leave empty to use the built-in key)</label><input id="fb-key" value="${esc(localStorage.getItem('iab2_apikey')||'')}" style="direction:ltr"/></div><button class="btn btn-secondary btn-sm" onclick="Sync.saveKey()">Save &amp; reload</button></details></div>`}};
 
 /* ─── App UI ─── */
