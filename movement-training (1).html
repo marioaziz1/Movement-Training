@@ -1,0 +1,3359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>Movement Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   IMPACT ACADEMY BUILDER SYSTEM — Premium Dark SaaS Platform
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:       #070810;
+  --bg1:      #0c0e1a;
+  --bg2:      #101320;
+  --bg3:      #151928;
+  --bg4:      #1a1f30;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.10);
+
+  --a:        #4f8eff;
+  --a2:       #7c5cf6;
+  --a3:       #00d4ff;
+  --ag:       rgba(79,142,255,0.12);
+  --ag2:      rgba(124,92,246,0.12);
+
+  --green:    #00e5a0;
+  --amber:    #ffb340;
+  --red:      #ff4d6d;
+  --pink:     #ff6bcb;
+  --teal:     #00d4c8;
+  --orange:   #ff7c3a;
+
+  --t1:  #edf0ff;
+  --t2:  #8892b0;
+  --t3:  #4a5280;
+  --t4:  #2a2f50;
+
+  --sw:  260px;
+  --hh:  60px;
+  --r:   10px;
+  --r2:  14px;
+  --r3:  18px;
+
+  --sh:  0 4px 24px rgba(0,0,0,0.5);
+  --sh2: 0 8px 48px rgba(0,0,0,0.6);
+  --gsh: 0 0 40px rgba(79,142,255,0.12);
+
+  --ease: cubic-bezier(0.4,0,0.2,1);
+  --tr: 0.2s var(--ease);
+  --tr2: 0.35s var(--ease);
+
+  --f1: 'Cairo', sans-serif;
+  --f2: 'Tajawal', sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:15px;scroll-behavior:smooth;}
+body{
+  font-family:var(--f1);
+  background:var(--bg);
+  color:var(--t1);
+  line-height:1.6;
+  min-height:100vh;
+  overflow-x:hidden;
+  direction:rtl;
+}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;font-size:inherit;}
+input,select,textarea{
+  font-family:inherit;font-size:inherit;
+  color:var(--t1);background:var(--bg3);
+  border:1px solid var(--border2);
+  border-radius:var(--r);padding:10px 14px;width:100%;
+  outline:none;transition:var(--tr);
+}
+input:focus,select:focus,textarea:focus{border-color:var(--a);box-shadow:0 0 0 3px var(--ag);}
+select option{background:var(--bg2);}
+textarea{resize:vertical;min-height:80px;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
+::placeholder{color:var(--t3);}
+
+/* ─── Animations ──────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(79,142,255,0.2)}50%{box-shadow:0 0 40px rgba(79,142,255,0.4)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
+/* ─── Layout ─────────────────────────────────────────────── */
+#app{display:flex;min-height:100vh;}
+
+/* ─── Sidebar ─────────────────────────────────────────────── */
+.sidebar{
+  width:var(--sw);background:var(--bg1);
+  border-left:1px solid var(--border);
+  position:fixed;top:0;right:0;height:100vh;
+  display:flex;flex-direction:column;z-index:200;
+  transition:transform var(--tr2);
+}
+.sidebar::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(79,142,255,0.03) 0%,transparent 50%);
+  pointer-events:none;
+}
+.sb-logo{
+  padding:18px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.logo-mark{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f2);font-size:16px;font-weight:900;color:#fff;
+  box-shadow:0 0 24px rgba(79,142,255,0.4);flex-shrink:0;
+  position:relative;overflow:hidden;
+}
+.logo-mark::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.2),transparent);
+}
+.logo-text h2{font-family:var(--f2);font-size:13px;font-weight:800;color:var(--t1);}
+.logo-text p{font-size:10.5px;color:var(--t3);margin-top:1px;}
+
+.sb-nav{flex:1;padding:14px 10px;overflow-y:auto;}
+.nav-section{margin-bottom:6px;}
+.nav-label{
+  font-size:9.5px;font-weight:700;color:var(--t4);
+  letter-spacing:0.12em;padding:10px 12px 5px;
+  text-transform:uppercase;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:var(--r);
+  cursor:pointer;transition:var(--tr);
+  margin-bottom:1px;font-size:13.5px;font-weight:500;
+  color:var(--t2);position:relative;
+}
+.nav-item:hover{background:var(--bg3);color:var(--t1);}
+.nav-item.active{
+  background:linear-gradient(90deg,var(--ag),rgba(124,92,246,0.08));
+  color:var(--a);font-weight:600;
+}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:50%;
+  transform:translateY(-50%);width:3px;height:55%;
+  background:linear-gradient(180deg,var(--a),var(--a2));
+  border-radius:0 3px 3px 0;
+}
+.nav-icon{font-size:16px;flex-shrink:0;opacity:0.7;transition:var(--tr);}
+.nav-item:hover .nav-icon,.nav-item.active .nav-icon{opacity:1;}
+.nav-badge{
+  margin-right:auto;background:var(--a);color:#fff;
+  font-size:10px;font-weight:700;padding:1px 7px;
+  border-radius:99px;min-width:20px;text-align:center;
+}
+
+.sb-footer{padding:14px;border-top:1px solid var(--border);}
+.user-card{
+  display:flex;align-items:center;gap:10px;padding:10px;
+  border-radius:var(--r);background:var(--bg3);cursor:pointer;
+  transition:var(--tr);
+}
+.user-card:hover{background:var(--bg4);}
+.user-av{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+}
+.user-name{font-size:12.5px;font-weight:600;color:var(--t1);}
+.user-role{font-size:11px;color:var(--t3);}
+
+/* ─── Main ─────────────────────────────────────────────────── */
+.main{
+  margin-right:var(--sw);flex:1;
+  display:flex;flex-direction:column;min-height:100vh;
+}
+.header{
+  height:var(--hh);background:rgba(7,8,16,0.85);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 24px;
+  position:sticky;top:0;z-index:100;gap:16px;
+}
+.header-burger{
+  display:none;padding:8px;border-radius:8px;
+  color:var(--t2);transition:var(--tr);font-size:20px;
+}
+.header-burger:hover{background:var(--bg3);color:var(--t1);}
+.breadcrumb{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--t3);
+}
+.breadcrumb span{color:var(--t1);font-weight:600;}
+.breadcrumb i{opacity:0.4;font-size:10px;}
+.header-right{margin-right:auto;display:flex;align-items:center;gap:10px;}
+.header-search{
+  display:flex;align-items:center;gap:8px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:7px 12px;width:220px;transition:var(--tr);
+}
+.header-search:focus-within{border-color:var(--a);box-shadow:0 0 0 3px var(--ag);}
+.header-search input{background:none;border:none;box-shadow:none;padding:0;font-size:13px;width:100%;}
+.hs-icon{color:var(--t3);font-size:14px;flex-shrink:0;}
+.icon-btn{
+  width:36px;height:36px;border-radius:var(--r);
+  background:var(--bg3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t2);font-size:16px;transition:var(--tr);
+}
+.icon-btn:hover{background:var(--bg4);color:var(--t1);border-color:var(--border2);}
+
+.content{flex:1;padding:24px;overflow:hidden;}
+.page{display:none;animation:fadeUp 0.3s var(--ease);}
+.page.active{display:block;}
+
+/* ─── Section Header ─────────────────────────────────────── */
+.sec-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;}
+.sec-title{font-family:var(--f2);font-size:22px;font-weight:800;color:var(--t1);}
+.sec-sub{font-size:13px;color:var(--t3);margin-top:3px;}
+.sec-actions{display:flex;gap:10px;flex-shrink:0;}
+
+/* ─── Buttons ─────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 18px;border-radius:var(--r);
+  font-size:13.5px;font-weight:600;transition:var(--tr);
+  white-space:nowrap;position:relative;overflow:hidden;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(rgba(255,255,255,0.08),transparent);
+  opacity:0;transition:var(--tr);
+}
+.btn:hover::before{opacity:1;}
+.btn-primary{
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  color:#fff;box-shadow:0 4px 16px rgba(79,142,255,0.3);
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(79,142,255,0.4);}
+.btn-secondary{
+  background:var(--bg3);border:1px solid var(--border2);
+  color:var(--t2);
+}
+.btn-secondary:hover{background:var(--bg4);color:var(--t1);}
+.btn-ghost{color:var(--a);padding:9px 14px;}
+.btn-ghost:hover{background:var(--ag);}
+.btn-danger{background:rgba(255,77,109,0.12);border:1px solid rgba(255,77,109,0.3);color:var(--red);}
+.btn-danger:hover{background:rgba(255,77,109,0.2);}
+.btn-sm{padding:6px 12px;font-size:12.5px;}
+.btn-icon{padding:9px;}
+
+/* ─── Cards ─────────────────────────────────────────────── */
+.card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px;
+  transition:var(--tr2);position:relative;overflow:hidden;
+}
+.card:hover{border-color:var(--border2);}
+.card-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(79,142,255,0.06),transparent 40%);
+  opacity:0;transition:opacity 0.3s;
+}
+.card:hover .card-glow{opacity:1;}
+
+/* ─── Grid ───────────────────────────────────────────────── */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+
+/* ─── Stat Cards ─────────────────────────────────────────── */
+.stat-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:var(--tr2);position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;right:0;
+  width:80px;height:80px;border-radius:50%;
+  background:radial-gradient(circle,var(--c,rgba(79,142,255,0.1)) 0%,transparent 70%);
+  transform:translate(20px,-20px);
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--sh);}
+.stat-label{font-size:12px;color:var(--t3);font-weight:600;letter-spacing:0.03em;}
+.stat-val{
+  font-family:var(--f2);font-size:28px;font-weight:900;
+  background:linear-gradient(135deg,var(--t1),var(--t2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-trend{
+  font-size:12px;display:flex;align-items:center;gap:5px;color:var(--t3);
+}
+.trend-up{color:var(--green);}
+.trend-icon{font-size:10px;}
+
+/* ─── Tags / Badges ─────────────────────────────────────── */
+.tag{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:600;
+}
+.tag-blue{background:rgba(79,142,255,0.12);color:var(--a);}
+.tag-purple{background:rgba(124,92,246,0.12);color:#9b7cff;}
+.tag-green{background:rgba(0,229,160,0.10);color:var(--green);}
+.tag-amber{background:rgba(255,179,64,0.12);color:var(--amber);}
+.tag-red{background:rgba(255,77,109,0.12);color:var(--red);}
+.tag-teal{background:rgba(0,212,200,0.10);color:var(--teal);}
+.tag-orange{background:rgba(255,124,58,0.12);color:var(--orange);}
+.tag-pink{background:rgba(255,107,203,0.12);color:var(--pink);}
+
+/* ─── Priority Dot ───────────────────────────────────────── */
+.priority{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;}
+.priority-dot{width:8px;height:8px;border-radius:50%;}
+.p-high .priority-dot{background:var(--red);box-shadow:0 0 8px rgba(255,77,109,0.6);}
+.p-med .priority-dot{background:var(--amber);box-shadow:0 0 8px rgba(255,179,64,0.6);}
+.p-low .priority-dot{background:var(--green);box-shadow:0 0 8px rgba(0,229,160,0.6);}
+.p-high{color:var(--red);}
+.p-med{color:var(--amber);}
+.p-low{color:var(--green);}
+
+/* ─── Toggle ──────────────────────────────────────────────── */
+.toggle{display:inline-flex;align-items:center;cursor:pointer;}
+.toggle input{display:none;}
+.toggle-track{
+  width:40px;height:22px;border-radius:99px;
+  background:var(--bg4);border:1px solid var(--border2);
+  position:relative;transition:var(--tr);
+}
+.toggle input:checked+.toggle-track{background:var(--a);border-color:var(--a);}
+.toggle-track::after{
+  content:'';position:absolute;top:3px;right:3px;
+  width:14px;height:14px;border-radius:50%;background:#fff;
+  transition:var(--tr);
+}
+.toggle input:checked+.toggle-track::after{right:auto;left:3px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   DASHBOARD PAGE
+   ═══════════════════════════════════════════════════════════════ */
+.dashboard-hero{
+  background:linear-gradient(135deg,rgba(79,142,255,0.08),rgba(124,92,246,0.06));
+  border:1px solid var(--border);border-radius:var(--r3);
+  padding:28px 32px;margin-bottom:24px;
+  position:relative;overflow:hidden;
+}
+.dashboard-hero::before{
+  content:'';position:absolute;top:-60px;left:-60px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(79,142,255,0.1),transparent 70%);
+}
+.dashboard-hero::after{
+  content:'';position:absolute;bottom:-80px;right:-80px;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,92,246,0.08),transparent 70%);
+}
+.hero-content{position:relative;z-index:1;}
+.hero-greeting{
+  font-size:12px;color:var(--a);font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-greeting::before{content:'';width:20px;height:2px;background:var(--a);}
+.hero-title{font-family:var(--f2);font-size:26px;font-weight:900;margin-bottom:6px;}
+.hero-sub{font-size:14px;color:var(--t3);}
+
+.quick-actions{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;
+}
+.qa-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:var(--r);
+  background:rgba(255,255,255,0.05);border:1px solid var(--border2);
+  font-size:13px;font-weight:600;color:var(--t1);transition:var(--tr);
+}
+.qa-btn:hover{background:rgba(255,255,255,0.08);border-color:var(--a);color:var(--a);}
+.qa-icon{font-size:16px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACADEMIES LIST PAGE
+   ═══════════════════════════════════════════════════════════════ */
+.filter-bar{
+  display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;
+}
+.filter-search{
+  display:flex;align-items:center;gap:8px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:8px 14px;flex:1;min-width:200px;
+  transition:var(--tr);
+}
+.filter-search:focus-within{border-color:var(--a);}
+.filter-search input{background:none;border:none;box-shadow:none;padding:0;font-size:13.5px;}
+.filter-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{
+  padding:5px 14px;border-radius:99px;font-size:12.5px;font-weight:600;
+  border:1px solid var(--border);color:var(--t2);background:var(--bg2);
+  cursor:pointer;transition:var(--tr);
+}
+.chip:hover{border-color:var(--border2);color:var(--t1);}
+.chip.active{background:var(--ag);border-color:var(--a);color:var(--a);}
+
+.academy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+
+.academy-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;
+  transition:var(--tr2);cursor:pointer;
+  position:relative;
+}
+.academy-card:hover{
+  border-color:var(--border2);
+  transform:translateY(-3px);box-shadow:var(--sh2);
+}
+.ac-cover{
+  height:120px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));
+}
+.ac-cover-bg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;opacity:0.15;
+}
+.ac-cover-gradient{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--c1,rgba(79,142,255,0.4)),var(--c2,rgba(124,92,246,0.4)));
+}
+.ac-cover-label{
+  position:absolute;bottom:10px;right:12px;
+  background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:99px;padding:3px 10px;
+  font-size:11px;font-weight:600;color:#fff;
+}
+.ac-body{padding:16px;}
+.ac-name{font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:4px;}
+.ac-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t3);margin-bottom:12px;flex-wrap:wrap;}
+.ac-meta-item{display:flex;align-items:center;gap:4px;}
+.ac-progress{margin-bottom:12px;}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--t3);margin-bottom:6px;}
+.progress-bar{height:4px;background:var(--bg4);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--a2));transition:width 0.8s var(--ease);}
+.ac-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
+.ac-trainers{display:flex;}
+.trainer-av{
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  border:2px solid var(--bg2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:#fff;
+  margin-right:-8px;
+}
+.trainer-av:first-child{margin-right:0;}
+
+/* ═══════════════════════════════════════════════════════════════
+   CREATE ACADEMY — Multi-step
+   ═══════════════════════════════════════════════════════════════ */
+.create-wizard{max-width:800px;margin:0 auto;}
+.wizard-steps{
+  display:flex;align-items:center;margin-bottom:32px;
+  position:relative;
+}
+.wizard-steps::before{
+  content:'';position:absolute;top:18px;right:18px;left:18px;
+  height:2px;background:var(--bg3);z-index:0;
+}
+.wizard-progress-line{
+  position:absolute;top:18px;right:18px;
+  height:2px;background:linear-gradient(90deg,var(--a2),var(--a));
+  z-index:1;transition:width 0.5s var(--ease);
+}
+.step-item{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  flex:1;position:relative;z-index:2;cursor:pointer;
+}
+.step-circle{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg2);border:2px solid var(--bg4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--t3);
+  transition:all 0.3s var(--ease);
+}
+.step-item.active .step-circle,.step-item.done .step-circle{
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  border-color:transparent;color:#fff;
+  box-shadow:0 0 20px rgba(79,142,255,0.4);
+}
+.step-label{font-size:11.5px;font-weight:600;color:var(--t3);transition:color 0.3s;}
+.step-item.active .step-label{color:var(--a);}
+.step-item.done .step-label{color:var(--t2);}
+
+.wizard-body{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r3);padding:32px;margin-bottom:20px;
+}
+.wizard-step{display:none;}
+.wizard-step.active{display:block;animation:fadeUp 0.3s var(--ease);}
+.step-heading{
+  font-family:var(--f2);font-size:19px;font-weight:800;margin-bottom:6px;
+}
+.step-sub{font-size:13px;color:var(--t3);margin-bottom:24px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-label{
+  font-size:12.5px;font-weight:700;color:var(--t2);
+  display:flex;align-items:center;gap:6px;
+}
+.form-label .required{color:var(--red);}
+.form-hint{font-size:11.5px;color:var(--t3);margin-top:3px;}
+
+.wizard-nav{display:flex;align-items:center;justify-content:space-between;}
+.step-count{font-size:13px;color:var(--t3);}
+
+/* Theme picker */
+.theme-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;}
+.theme-opt{
+  height:40px;border-radius:var(--r);cursor:pointer;
+  border:2px solid transparent;transition:var(--tr);position:relative;
+}
+.theme-opt.selected{border-color:#fff;transform:scale(1.05);}
+.theme-opt::after{
+  content:'✓';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:16px;font-weight:700;opacity:0;transition:var(--tr);
+}
+.theme-opt.selected::after{opacity:1;}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACADEMY DETAIL PAGE
+   ═══════════════════════════════════════════════════════════════ */
+.detail-hero{
+  border-radius:var(--r3);overflow:hidden;margin-bottom:24px;position:relative;
+}
+.detail-cover{
+  height:180px;position:relative;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));
+}
+.detail-cover-gradient{position:absolute;inset:0;}
+.detail-cover-emoji{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:72px;opacity:0.2;
+}
+.detail-info{
+  background:var(--bg2);border:1px solid var(--border);
+  border-top:none;padding:24px;
+}
+.detail-name{font-family:var(--f2);font-size:22px;font-weight:900;margin-bottom:6px;}
+.detail-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--t3);}
+.detail-meta-item{display:flex;align-items:center;gap:6px;}
+
+.detail-tabs{
+  display:flex;gap:2px;margin-bottom:20px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:4px;
+  overflow-x:auto;
+}
+.detail-tab{
+  padding:8px 16px;border-radius:var(--r);
+  font-size:13px;font-weight:600;color:var(--t2);
+  cursor:pointer;transition:var(--tr);white-space:nowrap;flex-shrink:0;
+}
+.detail-tab:hover{color:var(--t1);}
+.detail-tab.active{
+  background:linear-gradient(135deg,var(--ag),rgba(124,92,246,0.08));
+  color:var(--a);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FRAMEWORK BLOCKS
+   ═══════════════════════════════════════════════════════════════ */
+.framework-header{
+  background:linear-gradient(135deg,rgba(79,142,255,0.08),rgba(124,92,246,0.06));
+  border:1px solid rgba(79,142,255,0.2);
+  border-radius:var(--r2);padding:20px 24px;margin-bottom:20px;
+  display:flex;align-items:center;gap:16px;
+}
+.fw-badge{
+  padding:5px 14px;border-radius:99px;font-size:11.5px;font-weight:700;
+  background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;
+  box-shadow:0 4px 12px rgba(79,142,255,0.3);flex-shrink:0;
+  letter-spacing:0.04em;
+}
+.fw-title{font-family:var(--f2);font-size:16px;font-weight:800;}
+.fw-sub{font-size:12.5px;color:var(--t3);margin-top:2px;}
+
+.foundation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.foundation-block{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:18px;
+  transition:var(--tr2);cursor:pointer;position:relative;
+  overflow:hidden;
+}
+.foundation-block::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--c1,var(--a)),var(--c2,var(--a2)));
+}
+.foundation-block:hover{
+  border-color:var(--border2);transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+.fb-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+.fb-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  flex-shrink:0;
+}
+.fb-num{
+  font-family:var(--f2);font-size:11px;font-weight:800;color:var(--t3);
+  border:1px solid var(--border2);padding:2px 8px;border-radius:99px;
+}
+.fb-name{font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:5px;}
+.fb-desc{font-size:12.5px;color:var(--t3);margin-bottom:12px;line-height:1.6;}
+.fb-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.fb-expand{
+  display:none;margin-top:14px;padding-top:14px;
+  border-top:1px solid var(--border);
+  animation:fadeUp 0.25s var(--ease);
+}
+.fb-expand.open{display:block;}
+.fb-expand-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12.5px;padding:6px 0;border-bottom:1px solid var(--border);
+}
+.fb-expand-row:last-child{border-bottom:none;}
+.fb-expand-key{color:var(--t3);font-weight:600;}
+.fb-expand-val{color:var(--t1);font-weight:500;}
+
+/* ═══════════════════════════════════════════════════════════════
+   SESSION ENGINE
+   ═══════════════════════════════════════════════════════════════ */
+.session-add-methods{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;
+}
+.method-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px;cursor:pointer;
+  transition:var(--tr2);position:relative;overflow:hidden;text-align:center;
+}
+.method-card:hover,.method-card.selected{
+  border-color:var(--a);background:var(--ag);
+}
+.method-card.selected::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:2px;
+  background:linear-gradient(90deg,var(--a),var(--a2));
+}
+.method-icon{font-size:30px;margin-bottom:12px;}
+.method-name{font-family:var(--f2);font-size:14px;font-weight:800;margin-bottom:5px;}
+.method-desc{font-size:12px;color:var(--t3);}
+
+.session-panel{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:24px;
+  display:none;animation:scaleIn 0.25s var(--ease);
+}
+.session-panel.active{display:block;}
+
+/* Session library dropdown */
+.lib-search{position:relative;margin-bottom:14px;}
+.lib-list{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;max-height:400px;overflow-y:auto;
+}
+.lib-item{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px;cursor:pointer;
+  transition:var(--tr);position:relative;
+}
+.lib-item:hover{border-color:var(--border2);background:var(--bg4);}
+.lib-item.selected{border-color:var(--a);background:var(--ag);}
+.lib-type-icon{font-size:24px;margin-bottom:8px;}
+.lib-name{font-size:13.5px;font-weight:700;margin-bottom:4px;}
+.lib-dur{font-size:11.5px;color:var(--t3);}
+
+/* Session cards in list */
+.sessions-list{display:flex;flex-direction:column;gap:12px;}
+.session-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:18px;
+  display:flex;align-items:flex-start;gap:14px;
+  transition:var(--tr2);position:relative;overflow:hidden;
+}
+.session-card:hover{border-color:var(--border2);}
+.session-card::before{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:3px;
+  background:var(--c,var(--a));
+}
+.sc-num{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--bg3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f2);font-size:14px;font-weight:800;color:var(--t2);
+  flex-shrink:0;
+}
+.sc-body{flex:1;}
+.sc-name{font-weight:700;margin-bottom:5px;font-size:14.5px;}
+.sc-meta{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--t3);}
+.sc-meta-i{display:flex;align-items:center;gap:4px;}
+.sc-actions{display:flex;gap:6px;flex-shrink:0;}
+.sc-action{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--bg3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--t2);cursor:pointer;transition:var(--tr);
+}
+.sc-action:hover{background:var(--bg4);color:var(--t1);}
+.sc-action.danger:hover{background:rgba(255,77,109,0.12);color:var(--red);border-color:rgba(255,77,109,0.3);}
+
+/* Session type badges */
+.stype{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:700;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STRUCTURE VIEW
+   ═══════════════════════════════════════════════════════════════ */
+.structure-tree{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;
+}
+.tree-node{border-bottom:1px solid var(--border);}
+.tree-node:last-child{border-bottom:none;}
+.tree-row{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  cursor:pointer;transition:var(--tr);
+}
+.tree-row:hover{background:var(--bg3);}
+.tree-indent{flex-shrink:0;}
+.tree-toggle{
+  width:20px;height:20px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--t3);background:var(--bg3);
+  transition:var(--tr);flex-shrink:0;
+}
+.tree-toggle.open{transform:rotate(90deg);}
+.tree-icon{font-size:16px;flex-shrink:0;}
+.tree-label{font-size:13.5px;font-weight:600;flex:1;}
+.tree-meta{font-size:12px;color:var(--t3);}
+.tree-children{display:none;padding-right:20px;}
+.tree-children.open{display:block;}
+
+/* ═══════════════════════════════════════════════════════════════
+   TIMELINE
+   ═══════════════════════════════════════════════════════════════ */
+.timeline{position:relative;padding-right:20px;}
+.timeline::before{
+  content:'';position:absolute;right:8px;top:0;bottom:0;
+  width:2px;background:linear-gradient(180deg,var(--a),var(--a2),transparent);
+}
+.tl-item{
+  position:relative;margin-bottom:24px;padding-right:28px;
+}
+.tl-dot{
+  position:absolute;right:-6px;top:6px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--c,var(--a));border:2px solid var(--bg);
+  box-shadow:0 0 12px var(--c,var(--a));
+}
+.tl-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:16px;transition:var(--tr2);
+}
+.tl-card:hover{border-color:var(--border2);}
+.tl-date{font-size:11.5px;color:var(--t3);font-weight:600;margin-bottom:6px;letter-spacing:0.04em;}
+.tl-title{font-weight:700;margin-bottom:4px;font-size:14px;}
+.tl-desc{font-size:12.5px;color:var(--t3);}
+.tl-milestone{
+  background:linear-gradient(135deg,rgba(79,142,255,0.08),rgba(124,92,246,0.06));
+  border-color:rgba(79,142,255,0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SESSION LIBRARY PAGE
+   ═══════════════════════════════════════════════════════════════ */
+.library-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.lib-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px;
+  transition:var(--tr2);cursor:pointer;position:relative;overflow:hidden;
+}
+.lib-card::before{
+  content:'';position:absolute;top:0;right:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--c1,var(--a)),var(--c2,var(--a2)));
+}
+.lib-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--sh);}
+.lc-type{font-size:32px;margin-bottom:14px;}
+.lc-name{font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:6px;}
+.lc-desc{font-size:12.5px;color:var(--t3);margin-bottom:14px;line-height:1.6;}
+.lc-meta{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
+.lc-actions{display:flex;gap:6px;margin-top:12px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════════════════════════ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(8px);z-index:1000;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.show{display:flex;animation:fadeIn 0.2s var(--ease);}
+.modal{
+  background:var(--bg1);border:1px solid var(--border2);
+  border-radius:var(--r3);width:100%;max-width:600px;
+  max-height:90vh;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 24px 80px rgba(0,0,0,0.7);
+  animation:scaleIn 0.25s var(--ease);
+}
+.modal-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.modal-title{font-family:var(--f2);font-size:17px;font-weight:800;}
+.modal-close{
+  width:32px;height:32px;border-radius:8px;display:flex;
+  align-items:center;justify-content:center;color:var(--t2);
+  background:var(--bg3);cursor:pointer;transition:var(--tr);font-size:18px;
+}
+.modal-close:hover{background:var(--bg4);color:var(--t1);}
+.modal-body{padding:24px;overflow-y:auto;flex:1;}
+.modal-footer{
+  padding:16px 24px;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════════════════════════════ */
+.toast-container{position:fixed;bottom:24px;left:24px;z-index:2000;display:flex;flex-direction:column;gap:10px;}
+.toast{
+  background:var(--bg1);border:1px solid var(--border2);
+  border-radius:var(--r2);padding:12px 18px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:var(--sh2);min-width:280px;max-width:360px;
+  animation:slideIn 0.3s var(--ease);font-size:13.5px;font-weight:500;
+}
+.toast-icon{font-size:18px;flex-shrink:0;}
+.toast.success .toast-icon{color:var(--green);}
+.toast.error .toast-icon{color:var(--red);}
+.toast.info .toast-icon{color:var(--a);}
+.toast.warning .toast-icon{color:var(--amber);}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONFIRM DIALOG
+   ═══════════════════════════════════════════════════════════════ */
+.confirm-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(12px);z-index:2000;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.confirm-overlay.show{display:flex;animation:fadeIn 0.2s var(--ease);}
+.confirm-box{
+  background:var(--bg1);border:1px solid var(--border2);
+  border-radius:var(--r3);padding:28px;max-width:400px;width:100%;
+  box-shadow:0 24px 80px rgba(0,0,0,0.8);text-align:center;
+  animation:scaleIn 0.25s var(--ease);
+}
+.confirm-icon{font-size:40px;margin-bottom:12px;}
+.confirm-title{font-family:var(--f2);font-size:17px;font-weight:800;margin-bottom:8px;}
+.confirm-msg{font-size:13.5px;color:var(--t3);margin-bottom:24px;line-height:1.6;}
+.confirm-actions{display:flex;gap:10px;justify-content:center;}
+
+/* ═══════════════════════════════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════════════════════════════ */
+.empty{
+  text-align:center;padding:60px 24px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);
+}
+.empty-icon{font-size:56px;margin-bottom:16px;opacity:0.5;}
+.empty-title{font-family:var(--f2);font-size:18px;font-weight:800;margin-bottom:8px;}
+.empty-sub{font-size:13.5px;color:var(--t3);margin-bottom:24px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR OVERLAY (mobile)
+   ═══════════════════════════════════════════════════════════════ */
+.sidebar-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.7);
+  z-index:199;display:none;
+}
+.sidebar-overlay.show{display:block;}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  .sidebar{transform:translateX(100%);box-shadow:var(--sh2);}
+  .sidebar.open{transform:none;}
+  .main{margin-right:0;}
+  .header-burger{display:flex;}
+  .grid-4{grid-template-columns:repeat(2,1fr);}
+  .grid-3{grid-template-columns:1fr 1fr;}
+  .session-add-methods{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .theme-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:600px){
+  .content{padding:16px;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .sec-hdr{flex-direction:column;}
+  .filter-bar{flex-direction:column;}
+  .header-search{display:none;}
+  .wizard-body{padding:20px;}
+  .foundation-grid{grid-template-columns:1fr;}
+  .detail-tabs{gap:1px;}
+  .detail-tab{padding:7px 12px;font-size:12px;}
+}
+
+/* ─── Divider ─────────────────────────────────────────────── */
+.divider{height:1px;background:var(--border);margin:20px 0;}
+
+/* ─── Info row ───────────────────────────────────────────── */
+.info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border);
+  font-size:13.5px;
+}
+.info-row:last-child{border-bottom:none;}
+.info-key{color:var(--t3);font-weight:600;}
+.info-val{color:var(--t1);font-weight:500;}
+
+/* ─── Scrollbar for lib list ──────────────────────────────── */
+.lib-list::-webkit-scrollbar{width:4px;}
+.lib-list::-webkit-scrollbar-thumb{background:var(--border2);}
+
+/* ─── Editable Curriculum ────────────────────────────────── */
+.fw-editable-list{display:flex;flex-direction:column;gap:8px;}
+.fw-item{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:14px 16px;
+  transition:var(--tr2);position:relative;
+}
+.fw-item:hover{border-color:var(--border2);}
+.fw-item.dragging{opacity:0.4;border-color:var(--a);}
+.fw-item.drag-over{border-color:var(--a);background:var(--ag);}
+.fw-drag-handle{
+  cursor:grab;color:var(--t4);font-size:18px;flex-shrink:0;
+  padding:4px;transition:var(--tr);user-select:none;
+}
+.fw-drag-handle:hover{color:var(--t2);}
+.fw-drag-handle:active{cursor:grabbing;}
+.fw-item-num{
+  width:28px;height:28px;border-radius:8px;
+  background:var(--bg3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:var(--t3);flex-shrink:0;
+}
+.fw-item-body{flex:1;min-width:0;}
+.fw-item-name{font-weight:700;font-size:14px;margin-bottom:2px;}
+.fw-item-meta{font-size:12px;color:var(--t3);}
+.fw-item-actions{display:flex;gap:6px;flex-shrink:0;}
+
+/* ─── Coach Autocomplete ─────────────────────────────────── */
+.autocomplete-wrap{position:relative;}
+.autocomplete-list{
+  position:absolute;top:100%;right:0;left:0;z-index:500;
+  background:var(--bg1);border:1px solid var(--border2);
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);display:none;
+}
+.autocomplete-list.open{display:block;}
+.autocomplete-item{
+  padding:10px 14px;cursor:pointer;font-size:13px;
+  transition:var(--tr);display:flex;align-items:center;gap:8px;
+}
+.autocomplete-item:hover{background:var(--bg3);}
+.autocomplete-item .ac-av{
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;flex-shrink:0;
+}
+
+/* ─── Trainer duplicate suggestion ──────────────────────── */
+.trainer-suggest{
+  background:rgba(79,142,255,0.08);border:1px solid rgba(79,142,255,0.25);
+  border-radius:var(--r);padding:12px 14px;margin-top:8px;
+  display:none;font-size:13px;gap:10px;align-items:center;
+}
+.trainer-suggest.visible{display:flex;}
+
+/* ─── Form hint ──────────────────────────────────────────── */
+.form-hint{font-size:12px;color:var(--t3);margin-top:6px;padding:8px 10px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);}
+/* ═══ IAB2: Cover · Programs · TOC Drawer · Sync ═══ */
+.cov{position:relative;overflow:hidden;border-radius:var(--r3);padding:56px 40px;margin-bottom:22px;background:linear-gradient(135deg,#0d1030,#14123a 55%,#0b1a33);border:1px solid var(--border2)}
+.cov-orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.45;animation:orb 14s ease-in-out infinite}
+.cov-orb.o1{width:340px;height:340px;background:var(--a);top:-120px;left:-80px}
+.cov-orb.o2{width:300px;height:300px;background:var(--a2);bottom:-120px;right:-60px;animation-delay:-7s}
+@keyframes orb{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,30px) scale(1.15)}}
+.cov-in{position:relative;z-index:1;max-width:760px}
+.cov-badge{display:inline-block;font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--a3);border:1px solid rgba(0,212,255,.3);padding:4px 12px;border-radius:99px;margin-bottom:16px;direction:ltr}
+.cov-t{font-family:var(--f2);font-size:40px;font-weight:900;line-height:1.25;direction:ltr;text-align:right}
+.cov-t span{font-size:19px;font-weight:600;color:var(--t2)}
+.cov-s{color:var(--t2);margin-top:12px;font-size:14.5px}
+.cov-stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.cov-st{background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:var(--r2);padding:10px 18px;min-width:120px}
+.cov-st b{display:block;font-family:var(--f2);font-size:24px;color:var(--t1)}.cov-st small{color:var(--t3);font-size:12px}
+.cov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cov-card{cursor:pointer;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r3);padding:22px;position:relative;overflow:hidden;transition:var(--tr2)}
+.cov-card::before{content:'';position:absolute;inset:0 0 auto 0;height:4px;background:var(--g)}
+.cov-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:var(--sh2)}
+.cov-ic{font-size:34px}.cov-n{font-family:var(--f2);font-weight:800;font-size:17px;margin:10px 0 4px;direction:ltr;text-align:right}
+.cov-d{font-size:12.5px;color:var(--t3);min-height:38px}.cov-m{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.s2-list{min-height:140px;border-radius:var(--r2);padding:4px;transition:var(--tr)}
+.dnd .s2-list{outline:2px dashed var(--a);background:var(--ag)}
+.s2-list.over{background:rgba(79,142,255,.2)}
+.s2-card{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:14px;margin-bottom:10px;cursor:grab}
+.s2-card:hover{border-color:var(--border2)}.s2-card.s2-new{animation:s2pop .7s var(--ease)}
+@keyframes s2pop{0%{transform:scale(.94);box-shadow:0 0 0 0 rgba(0,229,160,.7);border-color:var(--green)}100%{transform:none;box-shadow:0 0 0 18px rgba(0,229,160,0)}}
+.s2-h{color:var(--t3);font-size:18px;user-select:none}.s2-no{font-family:var(--f2);font-weight:900;color:var(--a);min-width:26px}
+.s2-b{flex:1;min-width:0}.s2-t{font-weight:700;font-size:14.5px}.s2-m{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--t3);margin-top:5px}
+.s2-nt{font-size:12px;color:var(--t3);font-style:italic;margin-top:4px}
+.s2-line{height:4px;border-radius:4px;background:var(--green);margin:2px 0 8px;box-shadow:0 0 12px var(--green)}
+.s2-empty{text-align:center;color:var(--t3);padding:44px 16px;border:1px dashed var(--border2);border-radius:var(--r2);font-size:13.5px}
+.toc-drawer{position:fixed;top:0;bottom:0;left:0;width:390px;max-width:100%;background:var(--bg1);border-right:1px solid var(--border2);z-index:300;display:flex;flex-direction:column;transform:translateX(-105%);transition:transform var(--tr2);box-shadow:var(--sh2)}
+.toc-drawer.open{transform:none}
+.td-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--border);font-family:var(--f2);font-weight:800;direction:ltr}
+.td-q{padding:12px 14px}#td-body{flex:1;overflow-y:auto;padding:0 12px 12px}
+.td-foot{font-size:11.5px;color:var(--t3);padding:10px 16px;border-top:1px solid var(--border)}
+.td-sec{margin-bottom:8px}.td-sh{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:10px 8px;font-weight:700;font-size:13.5px;color:var(--t2);position:sticky;top:0;background:var(--bg1);z-index:1}
+.lec{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border-radius:var(--r);background:var(--bg2);border:1px solid var(--border);margin-bottom:6px}
+.lec[draggable=true]{cursor:grab}.lec:hover{border-color:var(--a)}
+.lec-n{font-size:11px;color:var(--t3);min-width:20px;padding-top:3px}.lec-b{flex:1;min-width:0}.lec-t{font-size:13.5px;font-weight:600;direction:ltr;text-align:right}
+.lec-d{font-size:11px;color:var(--t3);opacity:.75;margin-top:4px;line-height:1.55;direction:ltr;text-align:right}
+body.td-open .content{padding-left:414px}
+.sync-chip{font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:99px;cursor:pointer;border:1px solid var(--border2);color:var(--t2);white-space:nowrap}
+.sync-chip.synced{color:var(--green);border-color:rgba(0,229,160,.35)}.sync-chip.syncing{color:var(--a);animation:pulse 1.2s infinite}
+.sync-chip.offline{color:var(--amber);border-color:rgba(255,179,64,.35)}.sync-chip.error{color:var(--red);border-color:rgba(255,77,109,.4)}
+#fb-card pre{background:var(--bg3);padding:12px;border-radius:var(--r);font-size:11.5px;direction:ltr;text-align:left;overflow:auto;margin-top:8px}
+@media(max-width:900px){.cov-grid{grid-template-columns:1fr 1fr}.cov{padding:36px 22px}.cov-t{font-size:28px}
+.toc-drawer{top:auto;height:72vh;width:100%;border-right:0;border-top:1px solid var(--border2);border-radius:18px 18px 0 0;transform:translateY(105%)}body.td-open .content{padding-left:24px;padding-bottom:72vh}}
+@media(max-width:600px){.cov-grid{grid-template-columns:1fr}.sync-chip{font-size:10px;padding:4px 8px}}
+
+#print-root{display:none}
+@page{margin:14mm}
+@media print{html,body{background:#fff!important}body>*{display:none!important}body>#print-root{display:block!important;color:#000;font-family:Cairo,Tajawal,sans-serif;direction:rtl}
+#print-root h1{font-size:24px;margin:0 0 4px}#print-root h2{font-size:15px;color:#444;font-weight:600;margin:0 0 6px}#print-root p{font-size:12px;color:#555;margin:0 0 14px}
+#print-root table{width:100%;border-collapse:collapse;font-size:13px}#print-root th,#print-root td{border:1px solid #999;padding:7px 9px;text-align:right}#print-root th{background:#eee}#print-root tr{page-break-inside:avoid}}
+/* ═══ Splash ═══ */
+#splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 25% 15%,#1b1760,#080a20 60%);overflow:hidden;transition:opacity .6s,transform .6s,visibility .6s}
+#splash.out{opacity:0;transform:scale(1.08);visibility:hidden;pointer-events:none}
+.sp-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;animation:orb 14s ease-in-out infinite}
+.sp-orb.a{width:380px;height:380px;background:var(--a);top:-140px;left:-100px}.sp-orb.b{width:340px;height:340px;background:var(--a2);bottom:-130px;right:-90px;animation-delay:-7s}
+.sp-stage{position:relative;width:min(560px,92vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center;text-align:center}
+.sp-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(124,92,246,.4)}
+.sp-ring.r1{inset:0;border-style:dashed;animation:spin 46s linear infinite}
+.sp-ring.r2{inset:10%;border-color:rgba(79,142,255,.45);animation:spin 30s linear infinite reverse}
+.sp-ring.r3{inset:20%;border-color:rgba(0,212,255,.35);animation:spin 22s linear infinite}
+.sp-ring::after{content:'';position:absolute;top:-6px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;background:var(--a3);box-shadow:0 0 16px var(--a3)}
+.sp-ring.r2::after{background:var(--a);box-shadow:0 0 16px var(--a)}.sp-ring.r3::after{background:var(--a2);box-shadow:0 0 16px var(--a2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sp-in{position:relative;z-index:1;padding:0 10%}
+.sp-badge{font-size:10.5px;letter-spacing:.22em;font-weight:700;color:var(--a3);margin-bottom:10px;direction:ltr}
+.sp-t{font-family:var(--f2);font-weight:900;font-size:clamp(26px,6.4vw,46px);line-height:1.15;direction:ltr;background:linear-gradient(135deg,#fff,#9db8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sp-btn{margin-top:22px;padding:13px 46px;border:0;border-radius:99px;font-family:var(--f2);font-weight:800;font-size:15px;letter-spacing:.2em;color:#fff;cursor:pointer;background:linear-gradient(135deg,#4f8eff,#7c5cf6);animation:spglow 2.4s ease-in-out infinite;transition:transform .2s}
+.sp-btn:hover{transform:scale(1.06)}
+@keyframes spglow{0%,100%{box-shadow:0 0 0 0 rgba(79,142,255,.55)}50%{box-shadow:0 0 0 16px rgba(79,142,255,0)}}
+@media(prefers-reduced-motion:reduce){.sp-ring,.sp-orb,.sp-btn{animation:none}}
+
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sb-overlay" onclick="UI.closeSidebar()"></div>
+
+  <!-- ─── Sidebar ──────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <div class="logo-mark">MT</div>
+      <div class="logo-text">
+        <h2>Movement Training</h2>
+        <p>Training Platform</p>
+      </div>
+    </div>
+
+    <nav class="sb-nav">
+<div class="nav-section"><div class="nav-label">المنصة</div>
+<div class="nav-item active" data-nav="cover"><span class="nav-icon">🧭</span> الغلاف الرئيسي</div>
+<div class="nav-item" data-nav="program:prog_impact"><span class="nav-icon">🎓</span> Impact Academy</div>
+<div class="nav-item" data-nav="program:prog_ms21"><span class="nav-icon">🗓️</span> Multiply School – MS 21</div>
+<div class="nav-item" data-nav="program:prog_rsg10"><span class="nav-icon">🚀</span> ReadySetGO Plus</div>
+<div class="nav-item" data-nav="toc"><span class="nav-icon">📚</span> Table of Contents</div></div>
+<div class="nav-section"><div class="nav-label">النظام</div>
+<div class="nav-item" data-nav="settings"><span class="nav-icon">⚙️</span> الإعدادات</div></div>
+</nav>
+
+    <div class="sb-footer">
+      <div class="user-card">
+        <div class="user-av">م</div>
+        <div>
+          <div class="user-name">مدير النظام</div>
+          <div class="user-role">Academy Builder</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── Main ───────────────────────────────────────────────── -->
+  <main class="main">
+    <header class="header">
+      <button class="header-burger" onclick="UI.openSidebar()">☰</button>
+      <div class="breadcrumb" id="breadcrumb">
+        <span id="hdr-title">لوحة التحكم</span>
+      </div>
+      <div class="header-right">
+        <div class="sync-chip off" id="sync-chip" onclick="UI.navigate('settings')" title="حالة المزامنة">● Firebase</div>
+        
+        
+        <button class="icon-btn" onclick="UI.exportData()" title="تصدير البيانات">📥</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ═══ DASHBOARD ═══ -->
+      <div class="page active" id="page-cover"></div>
+      <div class="page" id="page-program"></div>
+      <div class="page" id="page-instance"></div>
+      <div class="page" id="page-toc"></div>
+      
+
+      <!-- ═══ ACADEMIES ═══ -->
+      
+
+      <!-- ═══ CREATE ═══ -->
+      
+
+      <!-- ═══ DETAIL ═══ -->
+      
+
+      <!-- ═══ TEMPLATES / LECTURE LIBRARY ═══ -->
+      
+
+      <!-- ═══ TIMELINE ═══ -->
+      
+
+      <!-- ═══ SETTINGS ═══ -->
+      <div class="page" id="page-settings"></div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ─── Session Modal ───────────────────────────────────────── -->
+<div class="modal-overlay" id="session-modal">
+  <div class="modal">
+    <div class="modal-hdr">
+      <div class="modal-title" id="session-modal-title">إضافة جلسة</div>
+      <button class="modal-close" onclick="UI.closeSessionModal()">✕</button>
+    </div>
+    <div class="modal-body" id="session-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="UI.closeSessionModal()">إلغاء</button>
+      <button class="btn btn-primary" onclick="UI.saveSession()">💾 حفظ الجلسة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Confirm Dialog ─────────────────────────────────────── -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-icon" id="confirm-icon">⚠️</div>
+    <div class="confirm-title" id="confirm-title"></div>
+    <div class="confirm-msg" id="confirm-msg"></div>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary" onclick="UI.confirmResolve(false)">إلغاء</button>
+      <button class="btn btn-danger" id="confirm-ok" onclick="UI.confirmResolve(true)">تأكيد</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Toast Container ────────────────────────────────────── -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- ─── Import File Input ──────────────────────────────────── -->
+<input type="file" id="import-file-input" accept=".json" style="display:none;" onchange="UI.importData(this)"/>
+
+<div id="splash"><div class="sp-orb a"></div><div class="sp-orb b"></div><div class="sp-stage"><div class="sp-ring r1"></div><div class="sp-ring r2"></div><div class="sp-ring r3"></div><div class="sp-in"><div class="sp-badge">TRAINING PLATFORM</div><div class="sp-t">Movement<br>Training</div><button class="sp-btn" id="sp-open" type="button">OPEN</button></div></div></div>
+<!-- ─── TOC Drawer ─── -->
+<aside class="toc-drawer" id="toc-drawer" aria-label="Table of Contents">
+  <div class="td-hdr"><span>📚 Table of Contents</span><button class="modal-close" onclick="App.drawer(false)">✕</button></div>
+  <div class="td-q"><input id="td-q" placeholder="🔍 بحث في المحاضرات..." oninput="App.drawerList()"/></div>
+  <div id="td-body"></div>
+  <div class="td-foot">اسحب المحاضرة وأفلتها داخل البرنامج · أو اضغط ＋ للإدراج في نهاية البرنامج</div>
+</aside>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   IMPACT ACADEMY BUILDER SYSTEM — Core JS
+   ═══════════════════════════════════════════════════════════════ */
+
+// ─── Database ────────────────────────────────────────────────
+const DB = {
+  KEY_ACADEMIES: 'iab_academies',
+  KEY_LIB: 'iab_session_library',
+  KEY_SETTINGS: 'iab_settings',
+
+  getAcademies(){ try{ return JSON.parse(localStorage.getItem(this.KEY_ACADEMIES)||'[]'); }catch(e){ return []; } },
+  saveAcademies(d){ localStorage.setItem(this.KEY_ACADEMIES, JSON.stringify(d)); },
+  getLibrary(){ try{ return JSON.parse(localStorage.getItem(this.KEY_LIB)||'[]'); }catch(e){ return SESSION_TEMPLATES; } },
+  saveLibrary(d){ localStorage.setItem(this.KEY_LIB, JSON.stringify(d)); },
+  getSettings(){ try{ return JSON.parse(localStorage.getItem(this.KEY_SETTINGS)||'{}'); }catch(e){ return {}; } },
+  saveSettings(d){ localStorage.setItem(this.KEY_SETTINGS, JSON.stringify(d)); },
+
+  createAcademy(data){
+    const academies = this.getAcademies();
+    const a = { id: 'ac_'+Date.now(), createdAt: new Date().toISOString(), sessions: [], progress: 0, ...data };
+    academies.push(a); this.saveAcademies(academies); return a;
+  },
+  updateAcademy(id, patch){
+    const list = this.getAcademies();
+    const i = list.findIndex(a=>a.id===id);
+    if(i!==-1){ list[i]={...list[i],...patch}; this.saveAcademies(list); return list[i]; }
+  },
+  deleteAcademy(id){
+    const list = this.getAcademies().filter(a=>a.id!==id);
+    this.saveAcademies(list);
+  },
+  getAcademy(id){ return this.getAcademies().find(a=>a.id===id)||null; },
+
+  addSession(academyId, session){
+    const a = this.getAcademy(academyId); if(!a) return;
+    const s = { id:'s_'+Date.now(), ...session };
+    a.sessions = [...(a.sessions||[]), s];
+    this.updateAcademy(academyId, { sessions: a.sessions });
+    return s;
+  },
+  removeSession(academyId, sessionId){
+    const a = this.getAcademy(academyId); if(!a) return;
+    this.updateAcademy(academyId, { sessions: a.sessions.filter(s=>s.id!==sessionId) });
+  }
+};
+
+// ─── Constants ───────────────────────────────────────────────
+const ACADEMY_TYPES = ['قيادة','تنمية ذاتية','روحانية','بدنية','استراتيجية','مجتمعية','تقنية','إبداعية'];
+const SESSION_TYPES = [
+  { id:'reflection', name:'تأمل', icon:'🌙', color:'#7c5cf6', c1:'#7c5cf6', c2:'#a78bfa' },
+  { id:'workshop', name:'ورشة عمل', icon:'🔧', color:'#4f8eff', c1:'#4f8eff', c2:'#7c5cf6' },
+  { id:'training', name:'تدريب', icon:'💪', color:'#00e5a0', c1:'#00d4c8', c2:'#00e5a0' },
+  { id:'discussion', name:'نقاش', icon:'💬', color:'#ffb340', c1:'#ffb340', c2:'#ff7c3a' },
+  { id:'physical', name:'بدني', icon:'🏃', color:'#ff7c3a', c1:'#ff7c3a', c2:'#ff4d6d' },
+  { id:'spiritual', name:'روحاني', icon:'✨', color:'#a78bfa', c1:'#a78bfa', c2:'#ff6bcb' },
+  { id:'strategic', name:'استراتيجي', icon:'🎯', color:'#00d4ff', c1:'#00d4ff', c2:'#4f8eff' },
+  { id:'review', name:'مراجعة', icon:'📋', color:'#10b981', c1:'#00e5a0', c2:'#00d4c8' },
+  { id:'challenge', name:'تحدي', icon:'⚡', color:'#ff4d6d', c1:'#ff4d6d', c2:'#ff7c3a' },
+  { id:'leadership', name:'قيادة', icon:'👑', color:'#ffb340', c1:'#ffb340', c2:'#ff6bcb' },
+];
+
+const SESSION_TEMPLATES = [
+  { id:'t1', name:'جلسة القيادة', type:'leadership', duration:90, description:'تنمية مهارات القيادة الفعّالة وبناء الشخصية القيادية', goal:'بناء قادة مؤثرين', activities:['تحليل نماذج القيادة','تمارين فعلية','مناقشة جماعية'], resources:['مواد القراءة','ورقة العمل'], tags:['قيادة','تطوير'] },
+  { id:'t2', name:'جلسة التأمل', type:'reflection', duration:60, description:'استكشاف الذات وبناء الوعي الداخلي من خلال ممارسات التأمل', goal:'تعزيز الوعي الذاتي', activities:['تمارين التنفس','التأمل الموجه','الكتابة الإبداعية'], resources:['دليل التأمل'], tags:['روحاني','ذات'] },
+  { id:'t3', name:'ورشة الأهداف', type:'workshop', duration:120, description:'ورشة عملية لرسم الأهداف ووضع الخطط التنفيذية', goal:'تحديد أهداف قابلة للتحقيق', activities:['تحليل SMART','خارطة الأهداف','خطة العمل'], resources:['نموذج الأهداف','ورقة التخطيط'], tags:['تخطيط','تطوير'] },
+  { id:'t4', name:'جلسة بناء الفريق', type:'training', duration:90, description:'تمارين وأنشطة لبناء روح الفريق والعمل التعاوني', goal:'تعزيز التعاون والانسجام', activities:['أنشطة الثقة','تمارين التواصل','مشروع جماعي'], resources:['دليل الأنشطة'], tags:['فريق','تعاون'] },
+  { id:'t5', name:'جلسة البدني', type:'physical', duration:75, description:'تمارين بدنية منظمة لتطوير اللياقة والصحة', goal:'تحسين اللياقة البدنية', activities:['إحماء','تمارين أساسية','تبريد'], resources:['برنامج التمرين'], tags:['رياضة','صحة'] },
+  { id:'t6', name:'جلسة الاستراتيجية', type:'strategic', duration:120, description:'تطوير التفكير الاستراتيجي ورسم خارطة المستقبل', goal:'بناء العقل الاستراتيجي', activities:['تحليل SWOT','رسم الخرائط الذهنية','التخطيط'], resources:['أدوات التحليل'], tags:['استراتيجية','تخطيط'] },
+  { id:'t7', name:'جلسة الروحاني', type:'spiritual', duration:60, description:'تعميق الارتباط الروحاني وتنمية القيم والمبادئ', goal:'تقوية البعد الروحاني', activities:['ذكر وتأمل','قراءات مُلهمة','تشارك التجارب'], resources:['المواد الروحانية'], tags:['روحاني','قيم'] },
+  { id:'t8', name:'جلسة المراجعة', type:'review', duration:45, description:'مراجعة شاملة للتقدم والإنجازات وتحديد التحسينات', goal:'تقييم التقدم والتطوير', activities:['مراجعة الأهداف','تقييم جماعي','خطة التطوير'], resources:['نموذج التقييم'], tags:['مراجعة','تقييم'] },
+  { id:'t9', name:'جلسة التحدي', type:'challenge', duration:90, description:'مواجهة تحديات مصممة لاختبار القدرات وكسر الحواجز', goal:'تجاوز الحدود وبناء الثقة', activities:['تحدي الأفكار','تمارين الضغط','احتفال الإنجاز'], resources:['بطاقات التحدي'], tags:['تحدي','شجاعة'] },
+  { id:'t10', name:'ورشة النقاش', type:'discussion', duration:75, description:'جلسة نقاش عميقة حول موضوعات محورية وقضايا جوهرية', goal:'تطوير التفكير النقدي', activities:['عرض الأفكار','نقاش مُنظّم','استخلاص النتائج'], resources:['أوراق النقاش'], tags:['نقاش','تفكير'] },
+];
+
+const FOUNDATION_FRAMEWORK = [
+  { id:'fw1', num:'01', name:'الرؤية والرسالة', icon:'🎯', desc:'جلسة تأسيسية لصياغة الرؤية والرسالة الجوهرية للأكاديمية وتحديد البوصلة القيمية', duration:120, objective:'صياغة رؤية واضحة وملهمة للأكاديمية', priority:'high', tags:['أساسي','تأسيس','هوية'], objectives:['تحديد الهدف الكبير','صياغة الرسالة','رسم خارطة القيم'], c1:'#4f8eff', c2:'#7c5cf6' },
+  { id:'fw2', num:'02', name:'الخريطة الذهنية', icon:'🗺️', desc:'استكشاف شامل لكل عناصر الأكاديمية وترابطها من خلال رسم خريطة ذهنية متكاملة', duration:90, objective:'رسم صورة كاملة لمكونات الأكاديمية', priority:'high', tags:['تخطيط','تصور','بناء'], objectives:['رسم الهيكل الكامل','تحديد المحاور','ربط العناصر'], c1:'#00d4c8', c2:'#00e5a0' },
+  { id:'fw3', num:'03', name:'استراتيجية القيمة', icon:'💎', desc:'تطوير الاستراتيجية القيمية للأكاديمية وتحديد مقترح القيمة الفريد لكل مشارك', duration:120, objective:'بناء استراتيجية قيمة متميزة', priority:'high', tags:['استراتيجية','قيمة','تميز'], objectives:['تحديد القيمة الفريدة','رسم مسار التأثير','قياس النتائج'], c1:'#ffb340', c2:'#ff7c3a' },
+  { id:'fw4', num:'04', name:'DMM', icon:'⚡', desc:'نموذج اتخاذ القرار والتحرك المبني على البيانات والمنطق والتأثير المباشر', duration:90, objective:'تطوير منهجية قرار واضحة', priority:'med', tags:['قرار','منهجية','تحليل'], objectives:['فهم نموذج DMM','تطبيق عملي','اتخاذ قرارات فعّالة'], c1:'#7c5cf6', c2:'#a78bfa' },
+  { id:'fw5', num:'05', name:'Born to Play', icon:'🖨️', desc:'تحويل الأفكار إلى أدوات ومواد تنفيذية جاهزة للتطبيق الفوري في البيئة الواقعية', duration:90, objective:'إنتاج مواد جاهزة للتطبيق', priority:'med', tags:['تنفيذ','أدوات','تطبيق'], objectives:['تصميم المواد','اختبار فعلي','تطوير مستمر'], c1:'#ff6bcb', c2:'#ff4d6d' },
+  { id:'fw6', num:'06', name:'النافذة الثابتة', icon:'🪟', desc:'إطار عمل لبناء العادات الثابتة والالتزام المنتظم بالممارسات التحويلية', duration:60, objective:'بناء عادات وأنظمة ثابتة', priority:'low', tags:['عادات','نظام','استمرارية'], objectives:['تحديد الممارسات الجوهرية','بناء نظام الالتزام','قياس الثبات'], c1:'#00d4ff', c2:'#4f8eff' },
+];
+
+const THEMES = [
+  { n:'أزرق كوني', c:'#4f8eff', g:'linear-gradient(135deg,#4f8eff,#7c5cf6)' },
+  { n:'أخضر زمردي', c:'#00e5a0', g:'linear-gradient(135deg,#00d4c8,#00e5a0)' },
+  { n:'بنفسجي', c:'#7c5cf6', g:'linear-gradient(135deg,#7c5cf6,#ff6bcb)' },
+  { n:'ذهبي', c:'#ffb340', g:'linear-gradient(135deg,#ffb340,#ff7c3a)' },
+  { n:'وردي', c:'#ff6bcb', g:'linear-gradient(135deg,#ff4d6d,#ff6bcb)' },
+  { n:'سماوي', c:'#00d4ff', g:'linear-gradient(135deg,#00d4ff,#4f8eff)' },
+  { n:'برتقالي', c:'#ff7c3a', g:'linear-gradient(135deg,#ff7c3a,#ffb340)' },
+  { n:'زهري', c:'#ff4d6d', g:'linear-gradient(135deg,#7c5cf6,#ff4d6d)' },
+];
+
+// ─── State ────────────────────────────────────────────────────
+const State = {
+  currentPage: 'dashboard',
+  currentAcademyId: null,
+  currentDetailTab: 'overview',
+  wizardStep: 1,
+  wizardData: {},
+  sessionMethod: null,
+  selectedTemplate: null,
+  confirmResolve: null,
+  searchQuery: '',
+  filterChip: 'all',
+  editingSessionId: null,
+};
+
+// ─── Utils ────────────────────────────────────────────────────
+const U = {
+  id: s => document.getElementById(s),
+  toast(msg, type='info', dur=3500){
+    const c = U.id('toasts');
+    const icons = {success:'✅',error:'❌',info:'ℹ️',warning:'⚠️'};
+    const el = document.createElement('div');
+    el.className = `toast ${type}`;
+    el.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${msg}</span>`;
+    c.appendChild(el);
+    setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateX(-20px)'; el.style.transition='0.3s'; setTimeout(()=>el.remove(),300); }, dur);
+  },
+  confirm(msg, title='تأكيد', icon='⚠️'){
+    return new Promise(res=>{
+      State.confirmResolve = res;
+      U.id('confirm-icon').textContent=icon;
+      U.id('confirm-title').textContent=title;
+      U.id('confirm-msg').textContent=msg;
+      U.id('confirm-overlay').classList.add('show');
+    });
+  },
+  sessionType(id){ return SESSION_TYPES.find(t=>t.id===id)||SESSION_TYPES[0]; },
+  formatDate(d){ if(!d) return '—'; try{ return new Date(d).toLocaleDateString('ar-EG',{year:'numeric',month:'short',day:'numeric'}); }catch(e){ return d; } },
+  timeAgo(d){ const s=Math.floor((Date.now()-new Date(d).getTime())/1000); if(s<60) return 'الآن'; if(s<3600) return `${Math.floor(s/60)}د`; if(s<86400) return `${Math.floor(s/3600)}س`; return `${Math.floor(s/86400)}ي`; },
+  shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); },
+};
+
+// ─── UI ──────────────────────────────────────────────────────
+const UI = {
+
+  /* ─── Navigation ────────────────────────────────────────── */
+  navigate(page, data){
+    State.currentPage = page;
+    if(page==='detail' && data) State.currentAcademyId = data;
+
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    const pg = U.id('page-'+page);
+    if(pg) pg.classList.add('active');
+
+    document.querySelectorAll('.nav-item').forEach(n=>{
+      n.classList.toggle('active', n.dataset.nav===page);
+    });
+
+    const titles = {
+      dashboard:'لوحة التحكم',academies:'الأكاديميات',create:'إنشاء أكاديمية',
+      detail:'تفاصيل الأكاديمية','session-library':'مكتبة المحاضرات',
+      templates:'مكتبة المحاضرات',timeline:'الجدول الزمني',settings:'الإعدادات',
+    };
+    // session-library is merged into templates
+    if(page==='session-library'){
+      State.currentPage='templates';
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const pg2 = U.id('page-templates'); if(pg2) pg2.classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.nav==='templates'));
+      U.id('hdr-title').textContent='مكتبة المحاضرات';
+      this.closeSidebar();
+      this.renderTemplates();
+      this.updateBadges();
+      return;
+    }
+    U.id('hdr-title').textContent = titles[page]||'';
+    this.closeSidebar();
+    this.render(page);
+    this.updateBadges();
+  },
+
+  render(page){
+    const map = {
+      dashboard: ()=>this.renderDashboard(),
+      academies: ()=>this.renderAcademies(),
+      create: ()=>this.renderCreate(),
+      detail: ()=>this.renderDetail(),
+      'session-library': ()=>this.renderTemplates(),
+      templates: ()=>this.renderTemplates(),
+      timeline: ()=>this.renderTimeline(),
+      settings: ()=>this.renderSettings(),
+    };
+    if(map[page]) map[page]();
+  },
+
+  updateBadges(){
+    const count = DB.getAcademies().length;
+    const b = U.id('nav-badge-academies');
+    if(b) b.textContent=count;
+    const tb = U.id('nav-badge-templates');
+    if(tb) tb.textContent=this._getUserTemplates().length||'';
+  },
+
+  openSidebar(){ U.id('sidebar').classList.add('open'); U.id('sb-overlay').classList.add('show'); },
+  closeSidebar(){ U.id('sidebar').classList.remove('open'); U.id('sb-overlay').classList.remove('show'); },
+  confirmResolve(v){ State.confirmResolve&&State.confirmResolve(v); U.id('confirm-overlay').classList.remove('show'); },
+  closeSessionModal(){ U.id('session-modal').classList.remove('show'); State.editingSessionId=null; },
+  globalSearch(q){ State.searchQuery=q; if(State.currentPage==='academies') this.renderAcademies(); },
+
+  exportData(){
+    // Collect ALL project keys
+    const academies = DB.getAcademies();
+    const fwKeys = {};
+    academies.forEach(a=>{
+      const key = 'iab_fw_'+a.id;
+      const val = localStorage.getItem(key);
+      if(val) fwKeys[key]=JSON.parse(val);
+    });
+    let lectureTypes=[]; try{ lectureTypes=JSON.parse(localStorage.getItem('iab_lecture_types')||'[]'); }catch(e){}
+    let userTemplates=[]; try{ userTemplates=JSON.parse(localStorage.getItem('iab_user_templates')||'[]'); }catch(e){}
+    let settings={}; try{ settings=JSON.parse(localStorage.getItem(DB.KEY_SETTINGS)||'{}'); }catch(e){}
+    const data = {
+      _version: 2,
+      exportedAt: new Date().toISOString(),
+      academies,
+      library: DB.getLibrary(),
+      userTemplates,
+      lectureTypes,
+      academyFrameworks: fwKeys,
+      settings,
+      iab2: (window.IAB2?IAB2.Store.exportDb():undefined),
+    };
+    const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=`movement-training-backup-${Date.now()}.json`; a.click();
+    URL.revokeObjectURL(url);
+    U.toast('تم تصدير جميع بيانات المشروع ✓','success');
+  },
+
+  triggerImport(){
+    const inp = U.id('import-file-input');
+    if(inp){ inp.value=''; inp.click(); }
+  },
+
+  importData(inp){
+    const file = inp.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if(!data || typeof data !== 'object' || !Array.isArray(data.academies)){
+          U.toast('ملف غير صالح. تأكد من اختيار ملف النسخة الاحتياطية الصحيح.','error',4000);
+          return;
+        }
+        // Restore all keys
+        localStorage.setItem(DB.KEY_ACADEMIES, JSON.stringify(data.academies));
+        if(Array.isArray(data.library)) localStorage.setItem(DB.KEY_LIB, JSON.stringify(data.library));
+        if(Array.isArray(data.userTemplates)) localStorage.setItem('iab_user_templates', JSON.stringify(data.userTemplates));
+        if(Array.isArray(data.lectureTypes)) localStorage.setItem('iab_lecture_types', JSON.stringify(data.lectureTypes));
+        if(data.settings && typeof data.settings==='object') localStorage.setItem(DB.KEY_SETTINGS, JSON.stringify(data.settings));
+        if(data.iab2 && window.IAB2) IAB2.Store.importDb(data.iab2);
+        // Restore per-academy frameworks
+        if(data.academyFrameworks && typeof data.academyFrameworks==='object'){
+          Object.entries(data.academyFrameworks).forEach(([k,v])=>{
+            localStorage.setItem(k, JSON.stringify(v));
+          });
+        }
+        U.toast('تم استيراد جميع بيانات المشروع بنجاح ✓','success',3000);
+        setTimeout(()=>{ this.updateBadges(); this.render(State.currentPage); }, 500);
+      } catch(err){
+        U.toast('ملف غير صالح. تأكد من اختيار ملف النسخة الاحتياطية الصحيح.','error',4000);
+      }
+    };
+    reader.readAsText(file);
+  },
+
+  /* ─── DASHBOARD ─────────────────────────────────────────── */
+  renderDashboard(){
+    const academies = DB.getAcademies();
+    const totalSessions = academies.reduce((s,a)=>s+(a.sessions||[]).length,0);
+    const el = U.id('page-dashboard');
+    el.innerHTML = `
+      <div class="dashboard-hero">
+        <div class="hero-content">
+          <div class="hero-greeting">Movement Training</div>
+          <div class="hero-title">مرحباً في منصة بناء الأكاديميات 🚀</div>
+          <div class="hero-sub">أنشئ وصمّم أكاديمياتك بشكل احترافي — ابنِ المناهج، وأضف الجلسات، وخطّط المسار التعليمي</div>
+          <div class="quick-actions">
+            <button class="qa-btn" onclick="UI.navigate('create')"><span class="qa-icon">✨</span> إنشاء أكاديمية</button>
+            <button class="qa-btn" onclick="UI.navigate('academies')"><span class="qa-icon">🎓</span> عرض الأكاديميات</button>
+            <button class="qa-btn" onclick="UI.navigate('session-library')"><span class="qa-icon">📚</span> مكتبة الجلسات</button>
+            <button class="qa-btn" onclick="UI.navigate('timeline')"><span class="qa-icon">📅</span> الجدول الزمني</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:24px;">
+        <div class="stat-card" style="--c:rgba(79,142,255,0.15);">
+          <div class="stat-label">إجمالي الأكاديميات</div>
+          <div class="stat-val">${academies.length}</div>
+          <div class="stat-trend"><span class="trend-up">▲</span> منصة متكاملة للبناء</div>
+        </div>
+        <div class="stat-card" style="--c:rgba(0,229,160,0.12);">
+          <div class="stat-label">إجمالي الجلسات</div>
+          <div class="stat-val">${totalSessions}</div>
+          <div class="stat-trend"><span class="trend-up" style="color:var(--green);">▲</span> جلسات مبرمجة</div>
+        </div>
+        <div class="stat-card" style="--c:rgba(124,92,246,0.12);">
+          <div class="stat-label">الإطار التأسيسي</div>
+          <div class="stat-val">6</div>
+          <div class="stat-trend" style="color:var(--t3);">جلسات أساسية موصى بها</div>
+        </div>
+        <div class="stat-card" style="--c:rgba(255,179,64,0.12);">
+          <div class="stat-label">مكتبة الجلسات</div>
+          <div class="stat-val">10</div>
+          <div class="stat-trend" style="color:var(--t3);">قالب جاهز للاستخدام</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="sec-hdr">
+            <div><div class="sec-title">أحدث الأكاديميات</div></div>
+            <button class="btn btn-ghost btn-sm" onclick="UI.navigate('academies')">عرض الكل ←</button>
+          </div>
+          ${academies.length===0
+            ? `<div class="empty" style="padding:32px;">
+                <div class="empty-icon">🎓</div>
+                <div class="empty-title">لا توجد أكاديميات بعد</div>
+                <div class="empty-sub">ابدأ بإنشاء أول أكاديمية</div>
+                <button class="btn btn-primary" onclick="UI.navigate('create')">✨ إنشاء الآن</button>
+              </div>`
+            : academies.slice(-4).reverse().map(a=>this._academyMiniCard(a)).join('')
+          }
+        </div>
+      </div>
+    `;
+  },
+
+  _academyMiniCard(a){
+    const t = THEMES.find(th=>th.n===a.theme)||THEMES[0];
+    const sess = (a.sessions||[]).length;
+    return `
+      <div class="card" style="margin-bottom:10px;cursor:pointer;padding:14px;" onclick="UI.navigate('detail','${a.id}')">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:42px;height:42px;border-radius:10px;background:${t.g};display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${a.emoji||'🎓'}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.name}</div>
+            <div style="font-size:12px;color:var(--t3);">${a.type||''} · ${sess} جلسة</div>
+          </div>
+          <span class="tag tag-blue" style="flex-shrink:0;">${a.status||'نشطة'}</span>
+        </div>
+        <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" style="width:${a.progress||0}%;"></div></div>
+      </div>`;
+  },
+
+  /* ─── ACADEMIES ─────────────────────────────────────────── */
+  renderAcademies(){
+    const all = DB.getAcademies();
+    const q = State.searchQuery.toLowerCase();
+    let list = q ? all.filter(a=>a.name.toLowerCase().includes(q)||a.description?.toLowerCase().includes(q)) : all;
+    const el = U.id('page-academies');
+    el.innerHTML = `
+      <div class="sec-hdr">
+        <div><div class="sec-title">الأكاديميات</div><div class="sec-sub">${list.length} أكاديمية</div></div>
+        <div class="sec-actions">
+          <button class="btn btn-primary" onclick="UI.navigate('create')">✨ إنشاء أكاديمية</button>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <div class="filter-search">
+          <span>🔍</span>
+          <input type="text" placeholder="البحث في الأكاديميات..." value="${State.searchQuery}" oninput="State.searchQuery=this.value;UI.renderAcademies()"/>
+        </div>
+        <div class="filter-chips">
+          ${['all','قيادة','تنمية ذاتية','روحانية','مجتمعية'].map(c=>`
+            <div class="chip ${State.filterChip===c?'active':''}" onclick="State.filterChip='${c}';UI.renderAcademies()">
+              ${c==='all'?'الكل':c}
+            </div>`).join('')}
+        </div>
+      </div>
+      ${list.length===0
+        ? `<div class="empty"><div class="empty-icon">🎓</div><div class="empty-title">لا توجد أكاديميات</div><div class="empty-sub">ابدأ ببناء أول أكاديمية تأثير</div><button class="btn btn-primary" onclick="UI.navigate('create')">✨ إنشاء أكاديمية</button></div>`
+        : `<div class="academy-grid">${list.map(a=>this._academyCard(a)).join('')}</div>`
+      }`;
+  },
+
+  _academyCard(a){
+    const t = THEMES.find(th=>th.n===a.theme)||THEMES[0];
+    const sess = (a.sessions||[]).length;
+    const maxSess = parseInt(a.numSessions)||1;
+    const prog = Math.round((sess/maxSess)*100);
+    return `
+      <div class="academy-card" onclick="UI.navigate('detail','${a.id}')">
+        <div class="ac-cover">
+          <div class="ac-cover-gradient" style="background:${t.g};opacity:0.6;"></div>
+          <div class="ac-cover-bg">${a.emoji||'🎓'}</div>
+          <div class="ac-cover-label">${a.type||'أكاديمية'}</div>
+        </div>
+        <div class="ac-body">
+          <div class="ac-name">${a.name}</div>
+          <div class="ac-meta">
+            <div class="ac-meta-item">📅 ${U.formatDate(a.startDate)}</div>
+            <div class="ac-meta-item">⏱ ${a.duration||'—'}</div>
+            <div class="ac-meta-item">👥 ${a.audience||'—'}</div>
+          </div>
+          <div class="ac-progress">
+            <div class="progress-label"><span>التقدم</span><span>${prog}%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${prog}%;"></div></div>
+          </div>
+          <div class="ac-footer">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t3);">
+              <span>🎯 ${sess}/${maxSess} جلسة</span>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="sc-action" onclick="event.stopPropagation();UI.navigate('detail','${a.id}')" title="تفاصيل">👁</button>
+              <button class="sc-action danger" onclick="event.stopPropagation();UI.deleteAcademy('${a.id}')" title="حذف">🗑</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  async deleteAcademy(id){
+    const ok = await U.confirm('سيتم حذف الأكاديمية وجميع جلساتها نهائياً','حذف الأكاديمية');
+    if(!ok) return;
+    DB.deleteAcademy(id);
+    U.toast('تم حذف الأكاديمية','success');
+    this.renderAcademies();
+    this.updateBadges();
+  },
+
+  /* ─── CREATE WIZARD ─────────────────────────────────────── */
+  renderCreate(){
+    State.wizardStep = 1;
+    State.wizardData = {};
+    const el = U.id('page-create');
+    el.innerHTML = `
+      <div class="create-wizard">
+        <div class="sec-hdr">
+          <div><div class="sec-title">إنشاء أكاديمية جديدة</div><div class="sec-sub">اتبع الخطوات لإنشاء أكاديمية تأثير متكاملة</div></div>
+        </div>
+        <div class="wizard-steps" id="wizard-steps">
+          <div class="wizard-progress-line" id="wizard-line" style="width:0%"></div>
+          ${['المعلومات الأساسية','الهوية والتصميم','التأكيد'].map((s,i)=>`
+            <div class="step-item ${i===0?'active':''}" data-step="${i+1}">
+              <div class="step-circle">${i+1}</div>
+              <div class="step-label">${s}</div>
+            </div>`).join('')}
+        </div>
+        <div class="wizard-body">
+          <!-- Step 1 -->
+          <div class="wizard-step active" id="wstep-1">
+            <div class="step-heading">المعلومات الأساسية</div>
+            <div class="step-sub">أدخل البيانات الجوهرية للأكاديمية الجديدة</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="form-label">اسم الأكاديمية <span class="required">*</span></label><input id="w-name" placeholder="مثال: أكاديمية القيادة المتقدمة"/></div>
+              <div class="form-group full"><label class="form-label">وصف الأكاديمية</label><textarea id="w-desc" placeholder="اكتب وصفاً شاملاً لأهداف ومحتوى الأكاديمية..."></textarea></div>
+              <div class="form-group full"><label class="form-label">الهدف الرئيسي</label><input id="w-goal" placeholder="ما الذي ستحققه هذه الأكاديمية؟"/></div>
+              <div class="form-group"><label class="form-label">المدة الإجمالية</label><input id="w-duration" placeholder="مثال: 3 أشهر"/></div>
+              <div class="form-group"><label class="form-label">عدد الجلسات المخططة</label><input id="w-num-sessions" type="number" min="1" value="12" placeholder="12"/></div>
+              <div class="form-group"><label class="form-label">الجمهور المستهدف</label><input id="w-audience" placeholder="مثال: شباب 18-25 سنة"/></div>
+              <div class="form-group"><label class="form-label">القائد / المشرف</label><input id="w-leader" placeholder="اسم القائد أو المشرف"/></div>
+              <div class="form-group"><label class="form-label">المدربون</label><input id="w-trainers" placeholder="أسماء المدربين مفصولة بفاصلة"/></div>
+              <div class="form-group"><label class="form-label">تاريخ البداية</label><input id="w-start" type="date"/></div>
+              <div class="form-group"><label class="form-label">تاريخ النهاية</label><input id="w-end" type="date"/></div>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="wizard-step" id="wstep-2">
+            <div class="step-heading">الهوية والتصميم</div>
+            <div class="step-sub">خصّص شخصية ومظهر الأكاديمية</div>
+            <div class="form-grid">
+              <div class="form-group full">
+                <label class="form-label">اختر لون هوية الأكاديمية</label>
+                <div class="theme-grid" id="theme-grid">
+                  ${THEMES.map((t,i)=>`
+                    <div class="theme-opt ${i===0?'selected':''}" style="background:${t.g};" data-theme="${t.n}" onclick="UI.selectTheme(this,'${t.n}')"></div>
+                  `).join('')}
+                </div>
+                <div class="form-hint" id="theme-label">اللون المختار: ${THEMES[0].n}</div>
+              </div>
+              <div class="form-group"><label class="form-label">إيموجي الأكاديمية</label>
+                <input id="w-emoji" placeholder="مثال: 🎓 🚀 ⚡" maxlength="4" value="🎓" style="font-size:24px;text-align:center;"/>
+              </div>
+              <div class="form-group"><label class="form-label">شعار قصير (Tagline)</label>
+                <input id="w-tagline" placeholder="جملة تعبّر عن روح الأكاديمية"/>
+              </div>
+              <div class="form-group full"><label class="form-label">ملاحظات إضافية</label><textarea id="w-notes" placeholder="أي معلومات أو تعليمات إضافية..."></textarea></div>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="wizard-step" id="wstep-3">
+            <div class="step-heading">التأكيد والإنشاء</div>
+            <div class="step-sub">راجع المعلومات وأنشئ الأكاديمية</div>
+            <div id="wizard-summary"></div>
+          </div>
+        </div>
+        <div class="wizard-nav">
+          <button class="btn btn-secondary" id="wizard-back" onclick="UI.wizardBack()" style="display:none;">→ رجوع</button>
+          <div class="step-count" id="wizard-step-count">الخطوة 1 من 3</div>
+          <button class="btn btn-primary" id="wizard-next" onclick="UI.wizardNext()">التالي ←</button>
+        </div>
+      </div>`;
+    State.wizardData.theme = THEMES[0].n;
+  },
+
+  selectTheme(el, name){
+    document.querySelectorAll('.theme-opt').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    State.wizardData.theme = name;
+    U.id('theme-label').textContent = `اللون المختار: ${name}`;
+  },
+
+  wizardNext(){
+    if(State.wizardStep===1){
+      const name = U.id('w-name').value.trim();
+      if(!name){ U.toast('اسم الأكاديمية مطلوب','error'); return; }
+      State.wizardData = {
+        ...State.wizardData,
+        name,
+        description:U.id('w-desc').value,
+        goal:U.id('w-goal').value,
+        duration:U.id('w-duration').value,
+        numSessions:U.id('w-num-sessions').value,
+        audience:U.id('w-audience').value,
+        leader:U.id('w-leader').value,
+        trainers:U.id('w-trainers').value,
+        startDate:U.id('w-start').value,
+        endDate:U.id('w-end').value,
+      };
+    } else if(State.wizardStep===2){
+      State.wizardData = {
+        ...State.wizardData,
+        emoji:U.id('w-emoji').value||'🎓',
+        tagline:U.id('w-tagline').value,
+        notes:U.id('w-notes').value,
+      };
+      this._buildWizardSummary();
+    } else if(State.wizardStep===3){
+      const a = DB.createAcademy({ ...State.wizardData, status:'نشطة', progress:0, sessions:[] });
+      U.toast('✅ تم إنشاء الأكاديمية بنجاح!','success');
+      this.updateBadges();
+      this.navigate('detail', a.id);
+      return;
+    }
+    State.wizardStep++;
+    this._updateWizardUI();
+  },
+
+  wizardBack(){
+    State.wizardStep--;
+    this._updateWizardUI();
+  },
+
+  _updateWizardUI(){
+    const s = State.wizardStep;
+    document.querySelectorAll('.wizard-step').forEach(el=>el.classList.remove('active'));
+    const ws = U.id('wstep-'+s); if(ws) ws.classList.add('active');
+    document.querySelectorAll('.step-item').forEach((el,i)=>{
+      el.classList.toggle('active', i+1===s);
+      el.classList.toggle('done', i+1<s);
+    });
+    const line = U.id('wizard-line');
+    if(line) line.style.width = `${((s-1)/2)*100}%`;
+    U.id('wizard-step-count').textContent = `الخطوة ${s} من 3`;
+    U.id('wizard-back').style.display = s>1?'':'none';
+    U.id('wizard-next').textContent = s===3?'🚀 إنشاء الأكاديمية':'التالي ←';
+  },
+
+  _buildWizardSummary(){
+    const d = State.wizardData;
+    const t = THEMES.find(th=>th.n===d.theme)||THEMES[0];
+    const rows = [
+      ['الاسم',d.name],['النوع',d.type],['الهدف',d.goal||'—'],
+      ['المدة',d.duration||'—'],['عدد الجلسات',d.numSessions||'—'],
+      ['الجمهور',d.audience||'—'],['القائد',d.leader||'—'],
+      ['تاريخ البداية',U.formatDate(d.startDate)],['تاريخ النهاية',U.formatDate(d.endDate)],
+      ['الهوية البصرية',`<span style="display:inline-flex;align-items:center;gap:8px;"><span style="width:20px;height:20px;border-radius:4px;background:${t.g};display:inline-block;"></span>${d.theme}</span>`],
+    ];
+    U.id('wizard-summary').innerHTML = `
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:52px;margin-bottom:8px;">${d.emoji||'🎓'}</div>
+        <div style="font-family:var(--f2);font-size:20px;font-weight:900;">${d.name}</div>
+        ${d.tagline?`<div style="color:var(--t3);font-size:13px;margin-top:4px;">${d.tagline}</div>`:''}
+      </div>
+      <div class="card">${rows.map(([k,v])=>`<div class="info-row"><div class="info-key">${k}</div><div class="info-val">${v}</div></div>`).join('')}</div>
+      ${d.description?`<div style="margin-top:12px;padding:14px;background:var(--bg3);border-radius:var(--r);font-size:13px;color:var(--t2);line-height:1.7;">${d.description}</div>`:''}`;
+  },
+
+  /* ─── DETAIL ────────────────────────────────────────────── */
+  renderDetail(){
+    const a = DB.getAcademy(State.currentAcademyId);
+    if(!a){ U.id('page-detail').innerHTML='<div class="empty"><div class="empty-title">الأكاديمية غير موجودة</div></div>'; return; }
+    const t = THEMES.find(th=>th.n===a.theme)||THEMES[0];
+    const sess = (a.sessions||[]).length;
+    const maxSess = parseInt(a.numSessions)||1;
+    const prog = Math.min(100,Math.round((sess/maxSess)*100));
+    const tabs = ['overview','curriculum','sessions','trainers','timeline','structure','notes'];
+    const tabNames = {overview:'نظرة عامة',curriculum:'المنهج',sessions:'الجلسات',trainers:'المدربون',timeline:'الجدول الزمني',structure:'هيكل الأكاديمية',notes:'الملاحظات'};
+    const el = U.id('page-detail');
+    el.innerHTML = `
+      <div class="detail-hero">
+        <div class="detail-cover">
+          <div class="detail-cover-gradient" style="background:${t.g};opacity:0.5;"></div>
+          <div class="detail-cover-emoji">${a.emoji||'🎓'}</div>
+        </div>
+        <div class="detail-info">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+            <div>
+              <div class="detail-name">${a.name}</div>
+              <div class="detail-meta">
+                <div class="detail-meta-item">🏷️ ${a.type||'أكاديمية'}</div>
+                <div class="detail-meta-item">📅 ${U.formatDate(a.startDate)} — ${U.formatDate(a.endDate)}</div>
+                <div class="detail-meta-item">⏱ ${a.duration||'—'}</div>
+                <div class="detail-meta-item">👥 ${a.audience||'—'}</div>
+                <div class="detail-meta-item">🎯 ${sess}/${a.numSessions||'?'} جلسة</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn btn-secondary btn-sm" onclick="UI.openSessionModal('${a.id}')">➕ إضافة جلسة</button>
+              <button class="btn btn-danger btn-sm" onclick="UI.deleteAcademy('${a.id}')">🗑 حذف</button>
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--t3);margin-bottom:6px;">
+              <span>التقدم الإجمالي</span><span>${prog}%</span>
+            </div>
+            <div class="progress-bar" style="height:6px;"><div class="progress-fill" style="width:${prog}%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-tabs">
+        ${tabs.map(tab=>`<div class="detail-tab ${tab===State.currentDetailTab?'active':''}" onclick="UI.switchDetailTab('${a.id}','${tab}')">${tabNames[tab]}</div>`).join('')}
+      </div>
+      <div id="detail-tab-content"></div>`;
+
+    this._renderDetailTab(a, State.currentDetailTab);
+  },
+
+  switchDetailTab(id, tab){
+    State.currentDetailTab = tab;
+    document.querySelectorAll('.detail-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()==={overview:'نظرة عامة',curriculum:'المنهج',sessions:'الجلسات',trainers:'المدربون',timeline:'الجدول الزمني',structure:'هيكل الأكاديمية',notes:'الملاحظات'}[tab]));
+    this._renderDetailTab(DB.getAcademy(id), tab);
+  },
+
+  _renderDetailTab(a, tab){
+    const c = U.id('detail-tab-content');
+    if(!c) return;
+    const methods = { overview:()=>this._detailOverview(a), curriculum:()=>this._detailCurriculum(a), sessions:()=>this._detailSessions(a), trainers:()=>this._detailTrainers(a), timeline:()=>this._detailTimeline(a), structure:()=>this._detailStructure(a), notes:()=>this._detailNotes(a) };
+    if(methods[tab]) c.innerHTML = methods[tab]();
+  },
+
+  _detailOverview(a){
+    return `
+      <div class="grid-2">
+        <div class="card">
+          <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:14px;">📋 معلومات الأكاديمية</div>
+          <div class="info-row"><div class="info-key">الهدف</div><div class="info-val">${a.goal||'—'}</div></div>
+          <div class="info-row"><div class="info-key">الجمهور المستهدف</div><div class="info-val">${a.audience||'—'}</div></div>
+          <div class="info-row"><div class="info-key">القائد</div><div class="info-val">${a.leader||'—'}</div></div>
+          <div class="info-row"><div class="info-key">المدربون</div><div class="info-val">${a.trainers||'—'}</div></div>
+          <div class="info-row"><div class="info-key">المدة</div><div class="info-val">${a.duration||'—'}</div></div>
+          <div class="info-row"><div class="info-key">تاريخ الإنشاء</div><div class="info-val">${U.formatDate(a.createdAt)}</div></div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:14px;">📊 إحصاءات</div>
+          <div class="grid-2" style="gap:10px;">
+            ${[
+              ['الجلسات المضافة',(a.sessions||[]).length,'var(--a)'],
+              ['الجلسات المخططة',a.numSessions||'—','var(--green)'],
+              ['أنواع الجلسات',[...new Set((a.sessions||[]).map(s=>s.type))].length,'var(--amber)'],
+              ['إجمالي الدقائق',(a.sessions||[]).reduce((s,x)=>s+(parseInt(x.duration)||0),0),'var(--a2)'],
+            ].map(([k,v,c])=>`
+              <div style="background:var(--bg3);border-radius:var(--r);padding:14px;text-align:center;">
+                <div style="font-family:var(--f2);font-size:24px;font-weight:900;color:${c};">${v}</div>
+                <div style="font-size:12px;color:var(--t3);margin-top:4px;">${k}</div>
+              </div>`).join('')}
+          </div>
+          ${a.description?`<div style="margin-top:14px;padding:12px;background:var(--bg3);border-radius:var(--r);font-size:13px;color:var(--t2);line-height:1.7;">${a.description}</div>`:''}
+        </div>
+      </div>`;
+  },
+
+  /* ─── EDITABLE CURRICULUM (per academy) ─────────────────── */
+  _getFwKey(academyId){ return 'iab_fw_'+academyId; },
+  _getAcademyFw(academyId){
+    try{
+      const stored = localStorage.getItem(this._getFwKey(academyId));
+      if(stored) return JSON.parse(stored);
+    }catch(e){}
+    // seed from FOUNDATION_FRAMEWORK
+    return FOUNDATION_FRAMEWORK.map(f=>({
+      id: f.id, name: f.name, icon: f.icon,
+      description: f.desc, duration: f.duration,
+      priority: f.priority, tags: f.tags,
+    }));
+  },
+  _saveAcademyFw(academyId, fw){ localStorage.setItem(this._getFwKey(academyId), JSON.stringify(fw)); },
+
+  _detailCurriculum(a){
+    const fw = this._getAcademyFw(a.id);
+    return `
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-title">الإطار التأسيسي</div>
+          <div class="sec-sub">اسحب لإعادة الترتيب — يمكن إضافة وحذف المحاضرات</div>
+        </div>
+        <button class="btn btn-primary" onclick="UI._openFwAddModal('${a.id}')">➕ إضافة محاضرة</button>
+      </div>
+      <div class="fw-editable-list" id="fw-list-${a.id}" data-academy="${a.id}">
+        ${fw.map((f,i)=>this._fwEditableItem(f,i,a.id,fw.length)).join('')}
+      </div>
+      ${fw.length===0?`<div class="empty" style="margin-top:16px;"><div class="empty-icon">🗺️</div><div class="empty-title">لا توجد محاضرات بعد</div><div class="empty-sub">أضف محاضرتك الأولى للإطار التأسيسي</div></div>`:''}
+      <div class="divider"></div>
+      <div class="sec-hdr">
+        <div><div class="sec-title">الجلسات المضافة</div><div class="sec-sub">${(a.sessions||[]).length} جلسة</div></div>
+        <button class="btn btn-primary" onclick="UI.openSessionModal('${a.id}')">➕ إضافة جلسة</button>
+      </div>
+      ${this._sessionsListHtml(a)}
+
+      <!-- FW Add/Edit Modal (injected inline) -->
+      <div class="modal-overlay" id="fw-modal" style="display:none;align-items:center;justify-content:center;padding:20px;z-index:1100;">
+        <div class="modal" style="max-width:500px;">
+          <div class="modal-hdr">
+            <div class="modal-title" id="fw-modal-title">إضافة محاضرة للإطار</div>
+            <button class="modal-close" onclick="UI._closeFwModal()">✕</button>
+          </div>
+          <div class="modal-body" id="fw-modal-body"></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="UI._closeFwModal()">إلغاء</button>
+            <button class="btn btn-primary" onclick="UI._saveFwItem()">💾 حفظ</button>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  _fwEditableItem(f, i, academyId, total){
+    const priorityClass = f.priority==='high'?'p-high':f.priority==='med'?'p-med':'p-low';
+    const priorityLabel = f.priority==='high'?'عالية':f.priority==='med'?'متوسطة':'منخفضة';
+    return `
+      <div class="fw-item" draggable="true"
+        ondragstart="UI._fwDragStart(event,'${academyId}',${i})"
+        ondragover="UI._fwDragOver(event)"
+        ondrop="UI._fwDrop(event,'${academyId}',${i})"
+        ondragend="UI._fwDragEnd(event)"
+        id="fw-item-${academyId}-${i}">
+        <div class="fw-drag-handle" title="اسحب لإعادة الترتيب">⠿</div>
+        <div class="fw-item-num">${String(i+1).padStart(2,'0')}</div>
+        <div style="font-size:22px;flex-shrink:0;">${f.icon||'📋'}</div>
+        <div class="fw-item-body">
+          <div class="fw-item-name">${f.name}</div>
+          <div class="fw-item-meta">
+            ${f.duration?`⏱ ${f.duration} دقيقة · `:''}
+            <span class="priority ${priorityClass}" style="display:inline-flex;"><div class="priority-dot" style="margin-left:5px;"></div>أولوية ${priorityLabel}</span>
+            ${(f.tags||[]).slice(0,2).map(t=>`<span class="tag tag-purple" style="margin-right:5px;">${t}</span>`).join('')}
+          </div>
+          ${f.description?`<div style="font-size:12px;color:var(--t3);margin-top:4px;">${f.description.slice(0,80)}${f.description.length>80?'...':''}</div>`:''}
+        </div>
+        <div class="fw-item-actions">
+          <button class="sc-action" onclick="UI._openFwEditModal('${academyId}',${i})" title="تعديل">✏️</button>
+          <button class="sc-action danger" onclick="UI._deleteFwItem('${academyId}',${i})" title="حذف">🗑</button>
+        </div>
+      </div>`;
+  },
+
+  // drag-and-drop state
+  _fwDragIdx: null,
+  _fwDragStart(e, academyId, idx){
+    this._fwDragIdx = idx;
+    e.dataTransfer.effectAllowed='move';
+    setTimeout(()=>{ const el=document.getElementById(`fw-item-${academyId}-${idx}`); if(el) el.classList.add('dragging'); },0);
+  },
+  _fwDragOver(e){
+    e.preventDefault();
+    e.dataTransfer.dropEffect='move';
+    const item = e.currentTarget;
+    document.querySelectorAll('.fw-item').forEach(el=>el.classList.remove('drag-over'));
+    item.classList.add('drag-over');
+  },
+  _fwDrop(e, academyId, dropIdx){
+    e.preventDefault();
+    document.querySelectorAll('.fw-item').forEach(el=>{ el.classList.remove('drag-over'); el.classList.remove('dragging'); });
+    const fromIdx = this._fwDragIdx;
+    if(fromIdx===null||fromIdx===dropIdx) return;
+    const fw = this._getAcademyFw(academyId);
+    const moved = fw.splice(fromIdx,1)[0];
+    fw.splice(dropIdx,0,moved);
+    this._saveAcademyFw(academyId, fw);
+    this._fwDragIdx=null;
+    // Re-render curriculum tab
+    this._renderDetailTab(DB.getAcademy(academyId),'curriculum');
+  },
+  _fwDragEnd(e){
+    document.querySelectorAll('.fw-item').forEach(el=>{ el.classList.remove('dragging'); el.classList.remove('drag-over'); });
+  },
+
+  _openFwAddModal(academyId){
+    State._fwEditAcademy=academyId; State._fwEditIdx=-1;
+    const modal=U.id('fw-modal'); if(!modal) return;
+    U.id('fw-modal-title').textContent='إضافة محاضرة للإطار';
+    this._buildFwForm(null);
+    modal.style.display='flex'; modal.classList.add('show');
+  },
+  _openFwEditModal(academyId,idx){
+    State._fwEditAcademy=academyId; State._fwEditIdx=idx;
+    const fw=this._getAcademyFw(academyId);
+    const modal=U.id('fw-modal'); if(!modal) return;
+    U.id('fw-modal-title').textContent='تعديل المحاضرة';
+    this._buildFwForm(fw[idx]);
+    modal.style.display='flex'; modal.classList.add('show');
+  },
+  _buildFwForm(data){
+    U.id('fw-modal-body').innerHTML=`
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">الأيقونة</label>
+          <input id="fw-f-icon" placeholder="مثال: 🎯" value="${data?.icon||''}" style="font-size:22px;text-align:center;" maxlength="4"/>
+        </div>
+        <div class="form-group"><label class="form-label">اسم المحاضرة <span class="required">*</span></label>
+          <input id="fw-f-name" placeholder="اسم المحاضرة" value="${data?.name||''}"/>
+        </div>
+        <div class="form-group full"><label class="form-label">الوصف</label>
+          <textarea id="fw-f-desc" placeholder="وصف المحاضرة...">${data?.description||''}</textarea>
+        </div>
+        <div class="form-group"><label class="form-label">المدة (دقيقة)</label>
+          <input id="fw-f-duration" type="number" min="1" placeholder="60" value="${data?.duration||''}"/>
+        </div>
+        <div class="form-group"><label class="form-label">الأولوية</label>
+          <select id="fw-f-priority">
+            <option value="high" ${(data?.priority||'high')==='high'?'selected':''}>عالية</option>
+            <option value="med" ${data?.priority==='med'?'selected':''}>متوسطة</option>
+            <option value="low" ${data?.priority==='low'?'selected':''}>منخفضة</option>
+          </select>
+        </div>
+        <div class="form-group full"><label class="form-label">الوسوم (مفصولة بفاصلة)</label>
+          <input id="fw-f-tags" placeholder="مثال: أساسي، تأسيس" value="${(data?.tags||[]).join(', ')}"/>
+        </div>
+      </div>`;
+  },
+  _closeFwModal(){
+    const modal=U.id('fw-modal'); if(modal){ modal.style.display='none'; modal.classList.remove('show'); }
+  },
+  _saveFwItem(){
+    const name=U.id('fw-f-name')?.value.trim();
+    if(!name){ U.toast('اسم المحاضرة مطلوب','error'); return; }
+    const academyId=State._fwEditAcademy;
+    const fw=this._getAcademyFw(academyId);
+    const obj={
+      id:'fw_'+Date.now(), name,
+      icon:U.id('fw-f-icon')?.value||'📋',
+      description:U.id('fw-f-desc')?.value||'',
+      duration:parseInt(U.id('fw-f-duration')?.value)||0,
+      priority:U.id('fw-f-priority')?.value||'med',
+      tags:(U.id('fw-f-tags')?.value||'').split(',').map(t=>t.trim()).filter(Boolean),
+    };
+    if(State._fwEditIdx>=0){ obj.id=fw[State._fwEditIdx].id; fw[State._fwEditIdx]=obj; }
+    else fw.push(obj);
+    this._saveAcademyFw(academyId,fw);
+    U.toast('تم حفظ المحاضرة','success');
+    this._closeFwModal();
+    this._renderDetailTab(DB.getAcademy(academyId),'curriculum');
+  },
+  async _deleteFwItem(academyId,idx){
+    const ok=await U.confirm('سيتم حذف المحاضرة من الإطار','حذف المحاضرة');
+    if(!ok) return;
+    const fw=this._getAcademyFw(academyId);
+    fw.splice(idx,1);
+    this._saveAcademyFw(academyId,fw);
+    U.toast('تم الحذف','success');
+    this._renderDetailTab(DB.getAcademy(academyId),'curriculum');
+  },
+
+  _foundationBlock(f){
+    return `
+      <div class="foundation-block" style="--c1:${f.c1};--c2:${f.c2};" onclick="UI.toggleFoundationBlock('${f.id}')">
+        <div class="fb-header">
+          <div class="fb-icon" style="background:linear-gradient(135deg,${f.c1}22,${f.c2}22);">${f.icon}</div>
+          <div class="fb-num">${f.num}</div>
+        </div>
+        <div class="fb-name">${f.name}</div>
+        <div class="fb-desc">${f.desc}</div>
+        <div class="fb-meta">
+          <span class="tag tag-blue">⏱ ${f.duration}د</span>
+          <div class="priority ${f.priority==='high'?'p-high':f.priority==='med'?'p-med':'p-low'}">
+            <div class="priority-dot"></div>${f.priority==='high'?'أولوية عالية':f.priority==='med'?'متوسطة':'منخفضة'}
+          </div>
+          ${f.tags.map(t=>`<span class="tag tag-purple">${t}</span>`).join('')}
+        </div>
+        <div class="fb-expand" id="fbe-${f.id}">
+          <div class="fb-expand-row"><span class="fb-expand-key">الهدف</span><span class="fb-expand-val">${f.objective}</span></div>
+          ${f.objectives.map(o=>`<div class="fb-expand-row"><span class="fb-expand-key">•</span><span class="fb-expand-val">${o}</span></div>`).join('')}
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--t3);margin-top:8px;">اضغط لرؤية التفاصيل ▾</div>
+      </div>`;
+  },
+
+  toggleFoundationBlock(id){
+    const el = U.id('fbe-'+id);
+    if(el) el.classList.toggle('open');
+  },
+
+  _detailSessions(a){
+    return `
+      <div class="sec-hdr">
+        <div><div class="sec-title">الجلسات</div></div>
+        <button class="btn btn-primary" onclick="UI.openSessionModal('${a.id}')">➕ إضافة جلسة</button>
+      </div>
+      ${this._sessionsListHtml(a)}`;
+  },
+
+  _sessionsListHtml(a){
+    const sessions = a.sessions||[];
+    if(!sessions.length) return `<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">لا توجد جلسات بعد</div><div class="empty-sub">أضف جلستك الأولى</div><button class="btn btn-primary" onclick="UI.openSessionModal('${a.id}')">➕ إضافة جلسة</button></div>`;
+    return `<div class="sessions-list">${sessions.map((s,i)=>this._sessionCard(s,i+1,a.id)).join('')}</div>`;
+  },
+
+  _sessionCard(s, num, academyId){
+    const st = U.sessionType(s.type);
+    return `
+      <div class="session-card" style="--c:${st.color};">
+        <div class="sc-num">${num}</div>
+        <div class="sc-body">
+          <div class="sc-name">${s.name||'جلسة بلا اسم'}</div>
+          <div class="sc-meta">
+            ${s.coachName?`<div class="sc-meta-i">👤 ${s.coachName}</div>`:''}
+            ${s.date?`<div class="sc-meta-i">📅 ${s.date}${s.time?' · ⏰ '+s.time:''}</div>`:''}
+            ${s.lectureRef?`<div class="sc-meta-i">🧩 ${s.lectureRef}</div>`:''}
+          </div>
+          ${s.goal?`<div style="font-size:12.5px;color:var(--t2);margin-top:5px;">🎯 ${s.goal}</div>`:''}
+          ${s.description?`<div style="font-size:12px;color:var(--t3);margin-top:4px;">${s.description.slice(0,100)}${s.description.length>100?'...':''}</div>`:''}
+          ${s.notes?`<div style="font-size:12px;color:var(--t3);margin-top:4px;font-style:italic;">📝 ${s.notes.slice(0,60)}${s.notes.length>60?'...':''}</div>`:''}
+        </div>
+        <div class="sc-actions">
+          <button class="sc-action" onclick="UI.editSession('${academyId}','${s.id}')" title="تعديل">✏️</button>
+          <button class="sc-action danger" onclick="UI.deleteSession('${academyId}','${s.id}')" title="حذف">🗑</button>
+        </div>
+      </div>`;
+  },
+
+  _detailTrainers(a){
+    const sessions = a.sessions||[];
+    const trainerMap = {};
+    sessions.forEach(s=>{
+      const name = (s.coachName||'').trim();
+      if(!name) return;
+      if(!trainerMap[name]){
+        trainerMap[name] = {
+          name,
+          specialization: s.coachSpecialization||'',
+          count: 0,
+          sessionNames: [],
+        };
+      }
+      trainerMap[name].count++;
+      if(s.name) trainerMap[name].sessionNames.push(s.name);
+    });
+    const trainers = Object.values(trainerMap).sort((a,b)=>b.count-a.count);
+    const topCount = trainers[0]?.count||0;
+
+    return `
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-title">المدربون</div>
+          <div class="sec-sub">يظهر المدربون تلقائياً عند تعيينهم داخل الجلسات — ${trainers.length} مدرب</div>
+        </div>
+      </div>
+      ${!trainers.length
+        ? `<div class="empty">
+            <div class="empty-icon">👥</div>
+            <div class="empty-title">لا يوجد مدربون بعد</div>
+            <div class="empty-sub">عند إضافة جلسة وتحديد المدرب، سيظهر هنا تلقائياً</div>
+            <button class="btn btn-primary" onclick="UI.openSessionModal('${a.id}')">➕ إضافة جلسة</button>
+          </div>`
+        : `<div class="grid-3" style="gap:16px;">
+            ${trainers.map(tr=>`
+              <div class="card" style="padding:24px;text-align:center;position:relative;overflow:hidden;">
+                ${tr.count===topCount&&topCount>0?`<div style="position:absolute;top:10px;left:10px;background:linear-gradient(135deg,var(--amber),var(--orange));color:#000;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;">⭐ الأكثر مشاركة</div>`:''}
+                <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-family:var(--f2);font-size:24px;font-weight:900;margin:0 auto 14px;color:#fff;box-shadow:0 4px 16px rgba(79,142,255,0.3);">${tr.name[0]||'م'}</div>
+                <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:4px;">${tr.name}</div>
+                ${tr.specialization?`<div style="font-size:12.5px;color:var(--t3);margin-bottom:12px;">${tr.specialization}</div>`:'<div style="margin-bottom:12px;"></div>'}
+                <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+                  <div class="tag tag-blue">📋 ${tr.count} جلسة</div>
+                </div>
+                ${tr.sessionNames.length?`
+                <div style="margin-top:14px;text-align:right;border-top:1px solid var(--border);padding-top:12px;">
+                  <div style="font-size:11.5px;color:var(--t3);margin-bottom:6px;font-weight:600;">الجلسات المقدمة:</div>
+                  ${tr.sessionNames.slice(0,3).map(n=>`<div style="font-size:12px;color:var(--t2);padding:2px 0;">• ${n}</div>`).join('')}
+                  ${tr.sessionNames.length>3?`<div style="font-size:11.5px;color:var(--t3);">+ ${tr.sessionNames.length-3} جلسة أخرى</div>`:''}
+                </div>`:''}
+              </div>`).join('')}
+          </div>`}`;
+  },
+
+  _detailTimeline(a){
+    const sess = a.sessions||[];
+    const start = a.startDate ? new Date(a.startDate) : new Date();
+    const items = [
+      { date: U.formatDate(a.startDate), title:'انطلاق الأكاديمية', desc:'بداية رحلة التحول والتأثير', type:'milestone', color:'var(--a)' },
+      ...sess.map((s,i)=>({ date:`الجلسة ${i+1}`, title:s.name, desc:s.description||s.goal||'', type:'session', color: U.sessionType(s.type).color })),
+      { date: U.formatDate(a.endDate), title:'التخرج والتكريم', desc:'احتفال بالإنجازات وإطلاق المسار القادم', type:'milestone', color:'var(--amber)' },
+    ];
+    return `
+      <div class="grid-2">
+        <div>
+          <div class="timeline">
+            ${items.map(item=>`
+              <div class="tl-item">
+                <div class="tl-dot" style="--c:${item.color};background:${item.color};"></div>
+                <div class="tl-card ${item.type==='milestone'?'tl-milestone':''}">
+                  <div class="tl-date">${item.date}</div>
+                  <div class="tl-title">${item.title}</div>
+                  ${item.desc?`<div class="tl-desc">${item.desc.slice(0,80)}${item.desc.length>80?'...':''}</div>`:''}
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:14px;">📊 ملخص الجدول</div>
+            <div class="info-row"><div class="info-key">إجمالي الجلسات</div><div class="info-val">${sess.length}</div></div>
+            <div class="info-row"><div class="info-key">تاريخ البداية</div><div class="info-val">${U.formatDate(a.startDate)}</div></div>
+            <div class="info-row"><div class="info-key">تاريخ النهاية</div><div class="info-val">${U.formatDate(a.endDate)}</div></div>
+            <div class="info-row"><div class="info-key">المدة الإجمالية</div><div class="info-val">${a.duration||'—'}</div></div>
+            <div class="info-row"><div class="info-key">إجمالي دقائق الجلسات</div><div class="info-val">${sess.reduce((s,x)=>s+(parseInt(x.duration)||0),0)} د</div></div>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  _detailStructure(a){
+    const sessions = a.sessions||[];
+    // Group by type as sections
+    const types = [...new Set(sessions.map(s=>s.type))];
+    return `
+      <div class="sec-hdr">
+        <div><div class="sec-title">هيكل الأكاديمية</div><div class="sec-sub">رؤية شاملة للبنية الهرمية</div></div>
+      </div>
+      <div class="structure-tree">
+        <div class="tree-row" style="background:var(--bg3);padding:16px;">
+          <span class="tree-icon">🎓</span>
+          <span class="tree-label" style="font-weight:800;font-size:15px;">${a.name}</span>
+          <span class="tree-meta">${sessions.length} جلسة</span>
+        </div>
+        ${types.length===0
+          ? `<div style="padding:24px;text-align:center;color:var(--t3);">لا توجد جلسات بعد — أضف جلسات من تبويب الجلسات</div>`
+          : types.map(type=>{
+              const st = U.sessionType(type);
+              const typeSessions = sessions.filter(s=>s.type===type);
+              return `
+                <div class="tree-node">
+                  <div class="tree-row" onclick="UI.toggleTree('tree-${type}','toggle-${type}')">
+                    <div class="tree-indent" style="width:20px;"></div>
+                    <div class="tree-toggle" id="toggle-${type}">▶</div>
+                    <span class="tree-icon">${st.icon}</span>
+                    <span class="tree-label">${st.name}</span>
+                    <span class="tree-meta">${typeSessions.length} جلسة</span>
+                  </div>
+                  <div class="tree-children" id="tree-${type}">
+                    ${typeSessions.map((s,i)=>`
+                      <div class="tree-row">
+                        <div class="tree-indent" style="width:50px;"></div>
+                        <span class="tree-icon" style="font-size:13px;">📋</span>
+                        <span class="tree-label" style="font-size:13px;">${s.name}</span>
+                        <span class="tree-meta">${s.duration||'—'}د</span>
+                      </div>`).join('')}
+                  </div>
+                </div>`;
+            }).join('')
+        }
+      </div>`;
+  },
+
+  toggleTree(childId, toggleId){
+    const c = U.id(childId); const t = U.id(toggleId);
+    if(c) c.classList.toggle('open');
+    if(t) t.classList.toggle('open');
+  },
+
+  _detailNotes(a){
+    return `
+      <div class="card">
+        <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:14px;">📝 الملاحظات</div>
+        <textarea id="notes-editor" placeholder="اكتب ملاحظاتك وأفكارك هنا..." style="min-height:200px;">${a.notes||''}</textarea>
+        <div style="margin-top:12px;display:flex;justify-content:flex-end;">
+          <button class="btn btn-primary" onclick="UI.saveNotes('${a.id}')">💾 حفظ الملاحظات</button>
+        </div>
+      </div>`;
+  },
+
+  saveNotes(id){
+    const notes = U.id('notes-editor')?.value||'';
+    DB.updateAcademy(id, { notes });
+    U.toast('تم حفظ الملاحظات','success');
+  },
+
+  /* ─── SESSION MODAL ─────────────────────────────────────── */
+  openSessionModal(academyId, sessionId){
+    State.currentAcademyId = academyId;
+    State.editingSessionId = sessionId||null;
+    State.sessionMethod = 'custom';
+    const modal = U.id('session-modal');
+    U.id('session-modal-title').textContent = sessionId ? 'تعديل الجلسة' : 'إضافة جلسة جديدة';
+    // Get existing coaches for autocomplete
+    const a = DB.getAcademy(academyId);
+    let editData = null;
+    if(sessionId) editData = (a?.sessions||[]).find(s=>s.id===sessionId)||null;
+    // Build existing coaches list from all sessions
+    const coachMap = {};
+    (a?.sessions||[]).forEach(s=>{ if(s.coachName){ coachMap[s.coachName]={ name:s.coachName, spec:s.coachSpecialization||'' }; } });
+    const coaches = Object.values(coachMap);
+    // Get user templates (lectures) for dropdown
+    const lectures = this._getUserTemplates();
+    U.id('session-modal-body').innerHTML = this._simpleSessionForm(editData, coaches, lectures);
+    modal.classList.add('show');
+    // Setup coach autocomplete
+    this._setupCoachAutocomplete(coaches, academyId);
+  },
+
+  _simpleSessionForm(data, coaches, lectures){
+    const lectureOptions = lectures.map(l=>`<option value="${l.title}" ${data?.lectureRef===l.title?'selected':''}>${l.title}</option>`).join('');
+    return `
+      <div style="display:flex;flex-direction:column;gap:22px;">
+
+        <!-- بيانات الجلسة -->
+        <div>
+          <div style="font-size:11px;font-weight:800;color:var(--a);letter-spacing:0.1em;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:18px;height:2px;background:var(--a);border-radius:2px;"></span>بيانات الجلسة</div>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label">اسم الجلسة <span class="required">*</span></label>
+              <input id="sf-name" placeholder="أدخل اسم الجلسة" value="${data?.name||''}"/>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">الهدف من الجلسة</label>
+              <input id="sf-goal" placeholder="ما الذي ستحققه هذه الجلسة؟" value="${data?.goal||''}"/>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">ماذا سيتم تقديمه داخل الجلسة</label>
+              <textarea id="sf-desc" placeholder="المحتوى، الأنشطة، والمواضيع التي ستُقدَّم...">${data?.description||''}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- المحاضرات -->
+        <div>
+          <div style="font-size:11px;font-weight:800;color:var(--a2);letter-spacing:0.1em;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:18px;height:2px;background:var(--a2);border-radius:2px;"></span>المحاضرة</div>
+          <div class="form-group">
+            <label class="form-label">اختر المحاضرة</label>
+            <select id="sf-lecture-ref">
+              <option value="">— اختر من القوالب (اختياري) —</option>
+              ${lectureOptions}
+            </select>
+            ${lectures.length===0?`<div class="form-hint">💡 أضف محاضرات من قسم "قوالب الجلسات" لتظهر هنا</div>`:''}
+          </div>
+        </div>
+
+        <!-- المدرب -->
+        <div>
+          <div style="font-size:11px;font-weight:800;color:var(--amber);letter-spacing:0.1em;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:18px;height:2px;background:var(--amber);border-radius:2px;"></span>المدرب</div>
+          <div class="form-grid">
+            <div class="form-group autocomplete-wrap">
+              <label class="form-label">من سيقدم الجلسة</label>
+              <input id="sf-coach-name" placeholder="اسم المدرب أو الكوتش" value="${data?.coachName||''}"
+                oninput="UI._onCoachInput(this.value)"
+                autocomplete="off"/>
+              <div class="autocomplete-list" id="coach-autocomplete"></div>
+              <div class="trainer-suggest" id="trainer-suggest">
+                <span>👤</span>
+                <span id="trainer-suggest-msg"></span>
+                <div style="display:flex;gap:6px;margin-right:auto;">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="UI._acceptTrainerSuggest()">نعم، نفس المدرب</button>
+                  <button type="button" class="btn btn-ghost btn-sm" onclick="UI._dismissTrainerSuggest()">مدرب جديد</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">التخصص</label>
+              <input id="sf-coach-spec" placeholder="تخصص المدرب" value="${data?.coachSpecialization||''}"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- الموعد -->
+        <div>
+          <div style="font-size:11px;font-weight:800;color:var(--green);letter-spacing:0.1em;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:18px;height:2px;background:var(--green);border-radius:2px;"></span>الموعد</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">التاريخ</label>
+              <input id="sf-date" type="date" value="${data?.date||''}"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">الساعة</label>
+              <input id="sf-time" type="time" value="${data?.time||''}"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ملاحظات -->
+        <div>
+          <div style="font-size:11px;font-weight:800;color:var(--teal);letter-spacing:0.1em;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:18px;height:2px;background:var(--teal);border-radius:2px;"></span>ملاحظات</div>
+          <div class="form-group">
+            <textarea id="sf-notes" placeholder="أي ملاحظات إضافية حول الجلسة...">${data?.notes||''}</textarea>
+          </div>
+        </div>
+
+      </div>`;
+  },
+
+  // stored coaches for current modal session
+  _modalCoaches: [],
+  _setupCoachAutocomplete(coaches, academyId){
+    this._modalCoaches = coaches;
+    State._coachAcademyId = academyId;
+  },
+
+  _onCoachInput(val){
+    const list = U.id('coach-autocomplete');
+    const suggest = U.id('trainer-suggest');
+    if(!list||!suggest) return;
+
+    // hide suggest initially
+    suggest.classList.remove('visible');
+
+    if(!val.trim()){ list.classList.remove('open'); list.innerHTML=''; return; }
+
+    const q = val.trim().toLowerCase();
+    const matches = this._modalCoaches.filter(c=>c.name.toLowerCase().includes(q) && c.name.toLowerCase()!==q);
+    const exactish = this._modalCoaches.find(c=>c.name.toLowerCase()===q);
+
+    if(matches.length>0){
+      list.innerHTML = matches.map(c=>`
+        <div class="autocomplete-item" onclick="UI._selectCoach('${c.name.replace(/'/g,"\\'")}','${c.spec.replace(/'/g,"\\'")}')">
+          <div class="ac-av">${c.name[0]||'م'}</div>
+          <div><div style="font-weight:600;">${c.name}</div>${c.spec?`<div style="font-size:11.5px;color:var(--t3);">${c.spec}</div>`:''}</div>
+        </div>`).join('');
+      list.classList.add('open');
+    } else {
+      list.classList.remove('open');
+    }
+
+    // similar-name fuzzy suggest (not exact match, but starts with same)
+    const similar = this._modalCoaches.find(c=>!exactish && c.name.toLowerCase().startsWith(q.slice(0,3)) && c.name.toLowerCase()!==q && q.length>=3);
+    if(similar){
+      U.id('trainer-suggest-msg').textContent = `هل هذا نفس المدرب "${similar.name}"؟`;
+      suggest.dataset.name = similar.name;
+      suggest.dataset.spec = similar.spec;
+      suggest.classList.add('visible');
+    }
+  },
+
+  _selectCoach(name, spec){
+    const inp = U.id('sf-coach-name'); if(inp) inp.value=name;
+    const specInp = U.id('sf-coach-spec'); if(specInp && spec) specInp.value=spec;
+    const list = U.id('coach-autocomplete'); if(list){ list.classList.remove('open'); list.innerHTML=''; }
+    U.id('trainer-suggest')?.classList.remove('visible');
+  },
+
+  _acceptTrainerSuggest(){
+    const s = U.id('trainer-suggest');
+    if(s){ this._selectCoach(s.dataset.name, s.dataset.spec); }
+  },
+  _dismissTrainerSuggest(){
+    U.id('trainer-suggest')?.classList.remove('visible');
+  },
+
+  _sessionModalContent(editId){
+    // redirect to simple form (kept for compat)
+    const a = DB.getAcademy(State.currentAcademyId);
+    const editData = editId ? (a?.sessions||[]).find(s=>s.id===editId)||null : null;
+    const coachMap = {};
+    (a?.sessions||[]).forEach(s=>{ if(s.coachName){ coachMap[s.coachName]={ name:s.coachName, spec:s.coachSpecialization||'' }; } });
+    const coaches = Object.values(coachMap);
+    const lectures = this._getUserTemplates();
+    return this._simpleSessionForm(editData, coaches, lectures);
+  },
+
+  selectSessionMethod(method){ State.sessionMethod=method; },
+
+  _existingPanel(){
+    const types = SESSION_TYPES.map(t=>`<option value="${t.id}">${t.icon} ${t.name}</option>`).join('');
+    return `
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <div class="filter-search" style="flex:1;">
+          <span>🔍</span>
+          <input type="text" placeholder="البحث في المكتبة..." oninput="UI.filterLibrary(this.value)" id="lib-search-input"/>
+        </div>
+        <select id="lib-type-filter" onchange="UI.filterLibrary(U.id('lib-search-input').value)" style="width:150px;">
+          <option value="">كل الأنواع</option>${types}
+        </select>
+      </div>
+      <div class="lib-list" id="lib-list-container">
+        ${SESSION_TEMPLATES.map(t=>this._libItem(t)).join('')}
+      </div>`;
+  },
+
+  _templatePanel(){
+    return `
+      <div style="margin-bottom:12px;color:var(--t3);font-size:13px;">اختر قالباً وعدّل عليه كما تشاء</div>
+      <div class="lib-list" style="max-height:200px;margin-bottom:16px;" id="template-list">
+        ${SESSION_TEMPLATES.map(t=>this._libItem(t, 'template')).join('')}
+      </div>
+      <div id="template-edit-area" style="display:none;">${this._customSessionForm()}</div>`;
+  },
+
+  _libItem(t, mode='existing'){
+    const st = U.sessionType(t.type);
+    const action = mode==='template'
+      ? `onclick="UI.selectTemplate('${t.id}')"`
+      : `onclick="UI.selectExistingSession('${t.id}')"`;
+    return `
+      <div class="lib-item" id="lib-${t.id}" ${action}>
+        <div class="lib-type-icon">${st.icon}</div>
+        <div class="lib-name">${t.name}</div>
+        <div class="lib-dur">${t.duration} دقيقة · <span style="color:${st.color};">${st.name}</span></div>
+        <div style="font-size:11.5px;color:var(--t3);margin-top:4px;">${t.description.slice(0,60)}...</div>
+      </div>`;
+  },
+
+  filterLibrary(q){
+    const typeFilter = U.id('lib-type-filter')?.value||'';
+    let items = SESSION_TEMPLATES;
+    if(q) items=items.filter(t=>t.name.includes(q)||t.description.includes(q));
+    if(typeFilter) items=items.filter(t=>t.type===typeFilter);
+    const c = U.id('lib-list-container');
+    if(c) c.innerHTML = items.map(t=>this._libItem(t)).join('');
+  },
+
+  selectExistingSession(id){
+    document.querySelectorAll('.lib-item').forEach(el=>el.classList.remove('selected'));
+    const el = U.id('lib-'+id); if(el) el.classList.add('selected');
+    State.selectedTemplate = SESSION_TEMPLATES.find(t=>t.id===id);
+    U.toast(`تم اختيار: ${State.selectedTemplate?.name}`,'info',1500);
+  },
+
+  selectTemplate(id){
+    document.querySelectorAll('#template-list .lib-item').forEach(el=>el.classList.remove('selected'));
+    const el = U.id('lib-'+id); if(el) el.classList.add('selected');
+    const t = SESSION_TEMPLATES.find(x=>x.id===id);
+    State.selectedTemplate = t;
+    const area = U.id('template-edit-area');
+    if(area){ area.style.display='block'; area.innerHTML = this._customSessionForm(t); }
+  },
+
+  _customSessionForm(data){
+    // Build lecture type options from saved custom types + SESSION_TYPES
+    const savedCustomTypes = (()=>{ try{ return JSON.parse(localStorage.getItem('iab_lecture_types')||'[]'); }catch(e){ return []; } })();
+    const allTypes = [...SESSION_TYPES.map(t=>t.name), ...savedCustomTypes];
+    const currentType = data?.lectureType||data?.type||'';
+    return `
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <!-- GROUP A: بيانات الجلسة -->
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--a);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="width:16px;height:2px;background:var(--a);display:inline-block;"></span>بيانات الجلسة</div>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">عنوان الجلسة <span class="required">*</span></label>
+              <input id="sf-name" placeholder="أدخل عنوان الجلسة" value="${data?.name||''}"/>
+            </div>
+            <div class="form-group"><label class="form-label">نوع المحاضرة</label>
+              <select id="sf-lecture-type" onchange="UI._onLectureTypeChange(this)">
+                <option value="">— اختر نوع المحاضرة —</option>
+                ${allTypes.map(t=>`<option value="${t}" ${currentType===t?'selected':''}>${t}</option>`).join('')}
+                <option value="__new__">➕ إضافة قسم جديد</option>
+              </select>
+            </div>
+            <div class="form-group full" id="sf-new-type-row" style="display:none;">
+              <label class="form-label">نوع جديد</label>
+              <div style="display:flex;gap:8px;">
+                <input id="sf-new-type-input" placeholder="اكتب نوع المحاضرة الجديد"/>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="UI._addLectureType()" style="white-space:nowrap;">➕ إضافة</button>
+              </div>
+            </div>
+            <div class="form-group full"><label class="form-label">وصف / Activity الجلسة</label>
+              <textarea id="sf-desc" placeholder="وصف تفصيلي أو النشاط الرئيسي للجلسة">${data?.description||''}</textarea>
+            </div>
+            <div class="form-group" style="display:flex;flex-direction:column;gap:6px;">
+              <label class="form-label">حالة الجلسة</label>
+              <div style="display:flex;align-items:center;gap:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:10px 14px;">
+                <label class="toggle">
+                  <input type="checkbox" id="sf-draft" ${(data?.draft!==false)?'checked':''}/>
+                  <div class="toggle-track"></div>
+                </label>
+                <span style="font-size:13px;color:var(--t2);" id="sf-draft-label">${(data?.draft!==false)?'مسودة (Draft)':'منشورة'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GROUP B: تفاصيل الموعد -->
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--green);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="width:16px;height:2px;background:var(--green);display:inline-block;"></span>تفاصيل الموعد</div>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">التاريخ</label>
+              <input id="sf-date" type="date" value="${data?.date||''}"/>
+            </div>
+            <div class="form-group"><label class="form-label">الساعة</label>
+              <input id="sf-time" type="time" value="${data?.time||''}"/>
+            </div>
+            <div class="form-group full"><label class="form-label">نوع الجلسة</label>
+              <div style="display:flex;gap:10px;">
+                <label style="flex:1;cursor:pointer;">
+                  <input type="radio" name="sf-mode" id="sf-mode-online" value="أونلاين" ${(data?.mode||'أونلاين')==='أونلاين'?'checked':''} style="display:none;" onchange="UI._onModeChange()"/>
+                  <div class="sf-mode-btn" id="sf-mode-btn-online" style="border:2px solid ${(data?.mode||'أونلاين')==='أونلاين'?'var(--a)':'var(--border2)'};background:${(data?.mode||'أونلاين')==='أونلاين'?'var(--ag)':'var(--bg3)'};border-radius:var(--r);padding:12px;text-align:center;transition:var(--tr);">
+                    <div style="font-size:20px;margin-bottom:4px;">💻</div>
+                    <div style="font-weight:700;font-size:13px;color:${(data?.mode||'أونلاين')==='أونلاين'?'var(--a)':'var(--t2)'};">أونلاين</div>
+                  </div>
+                </label>
+                <label style="flex:1;cursor:pointer;">
+                  <input type="radio" name="sf-mode" id="sf-mode-offline" value="أوفلاين" ${(data?.mode)==='أوفلاين'?'checked':''} style="display:none;" onchange="UI._onModeChange()"/>
+                  <div class="sf-mode-btn" id="sf-mode-btn-offline" style="border:2px solid ${(data?.mode)==='أوفلاين'?'var(--a)':'var(--border2)'};background:${(data?.mode)==='أوفلاين'?'var(--ag)':'var(--bg3)'};border-radius:var(--r);padding:12px;text-align:center;transition:var(--tr);">
+                    <div style="font-size:20px;margin-bottom:4px;">🏢</div>
+                    <div style="font-weight:700;font-size:13px;color:${(data?.mode)==='أوفلاين'?'var(--a)':'var(--t2)'};">أوفلاين</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GROUP C: بيانات المدرب -->
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="width:16px;height:2px;background:var(--amber);display:inline-block;"></span>بيانات المدرب</div>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">اسم الكوتش / المدرب</label>
+              <input id="sf-coach-name" placeholder="اسم المدرب أو الكوتش" value="${data?.coachName||''}"/>
+            </div>
+            <div class="form-group"><label class="form-label">التخصص</label>
+              <input id="sf-coach-spec" placeholder="تخصص المدرب" value="${data?.coachSpecialization||''}"/>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  _onLectureTypeChange(sel){
+    const row = U.id('sf-new-type-row');
+    if(row) row.style.display = sel.value==='__new__' ? 'flex' : 'none';
+  },
+
+  _addLectureType(){
+    const inp = U.id('sf-new-type-input');
+    const val = inp?.value.trim();
+    if(!val){ U.toast('أدخل اسم النوع الجديد','error'); return; }
+    const saved = (()=>{ try{ return JSON.parse(localStorage.getItem('iab_lecture_types')||'[]'); }catch(e){ return []; } })();
+    if(!saved.includes(val)){ saved.push(val); localStorage.setItem('iab_lecture_types', JSON.stringify(saved)); }
+    const sel = U.id('sf-lecture-type');
+    if(sel){
+      const opt = document.createElement('option');
+      opt.value=val; opt.textContent=val; opt.selected=true;
+      sel.insertBefore(opt, sel.lastElementChild);
+      sel.value=val;
+      U.id('sf-new-type-row').style.display='none';
+    }
+    U.toast(`تمت إضافة النوع: ${val}`,'success');
+  },
+
+  _onModeChange(){
+    const online = U.id('sf-mode-online')?.checked;
+    const btnOn = U.id('sf-mode-btn-online');
+    const btnOff = U.id('sf-mode-btn-offline');
+    if(btnOn){ btnOn.style.border=`2px solid ${online?'var(--a)':'var(--border2)'}`;btnOn.style.background=online?'var(--ag)':'var(--bg3)';btnOn.querySelector('div:last-child').style.color=online?'var(--a)':'var(--t2)'; }
+    if(btnOff){ btnOff.style.border=`2px solid ${!online?'var(--a)':'var(--border2)'}`;btnOff.style.background=!online?'var(--ag)':'var(--bg3)';btnOff.querySelector('div:last-child').style.color=!online?'var(--a)':'var(--t2)'; }
+  },
+
+  saveSession(){
+    const academyId = State.currentAcademyId;
+    const sessionData = this._collectSessionForm();
+    if(!sessionData) return;
+
+    if(State.editingSessionId){
+      const a = DB.getAcademy(academyId);
+      if(a){
+        const idx = a.sessions.findIndex(s=>s.id===State.editingSessionId);
+        if(idx!==-1){
+          a.sessions[idx] = { ...a.sessions[idx], ...sessionData };
+          DB.updateAcademy(academyId, { sessions: a.sessions });
+        }
+      }
+      U.toast('تم تحديث الجلسة ✓','success');
+    } else {
+      DB.addSession(academyId, sessionData);
+      U.toast('تمت إضافة الجلسة ✓','success');
+    }
+
+    // Update progress
+    const a = DB.getAcademy(academyId);
+    if(a){
+      const prog = Math.min(100, Math.round(((a.sessions||[]).length/(parseInt(a.numSessions)||1))*100));
+      DB.updateAcademy(academyId, { progress: prog });
+    }
+
+    this.closeSessionModal();
+    State.selectedTemplate = null;
+    this.renderDetail();
+  },
+
+  _collectSessionForm(){
+    const name = U.id('sf-name')?.value.trim();
+    if(!name){ U.toast('اسم الجلسة مطلوب','error'); return null; }
+    return {
+      name,
+      goal:       U.id('sf-goal')?.value.trim()||'',
+      description:U.id('sf-desc')?.value||'',
+      lectureRef: U.id('sf-lecture-ref')?.value||'',
+      coachName:  U.id('sf-coach-name')?.value.trim()||'',
+      coachSpecialization: U.id('sf-coach-spec')?.value.trim()||'',
+      date:       U.id('sf-date')?.value||'',
+      time:       U.id('sf-time')?.value||'',
+      notes:      U.id('sf-notes')?.value||'',
+      type:       'workshop',
+    };
+  },
+
+  editSession(academyId, sessionId){
+    this.openSessionModal(academyId, sessionId);
+  },
+
+  async deleteSession(academyId, sessionId){
+    const ok = await U.confirm('سيتم حذف الجلسة نهائياً','حذف الجلسة');
+    if(!ok) return;
+    DB.removeSession(academyId, sessionId);
+    U.toast('تم حذف الجلسة','success');
+    this.renderDetail();
+  },
+
+  /* ─── UNIFIED LECTURE LIBRARY (merged templates + session-library) ── */
+  renderSessionLibrary(){ this.renderTemplates(); }, // alias for compat
+
+  renderTemplates(){
+    const el = U.id('page-templates');
+    if(!el) return;
+    const templates = this._getUserTemplates();
+    // Build search query from state
+    const q = State._lectureSearch||'';
+    const filterPri = State._lectureFilter||'all';
+    let filtered = templates;
+    if(q) filtered = filtered.filter(t=>(t.title+t.description+t.sessionType+t.activity).toLowerCase().includes(q.toLowerCase()));
+    if(filterPri!=='all') filtered = filtered.filter(t=>t.priority===filterPri);
+
+    el.innerHTML = `
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-title">مكتبة المحاضرات</div>
+          <div class="sec-sub">${templates.length} محاضرة محفوظة</div>
+        </div>
+        <button class="btn btn-primary" onclick="UI._openLectureModal()">➕ إضافة محاضرة</button>
+      </div>
+
+      <!-- Search + Filter bar -->
+      <div class="filter-bar" style="margin-bottom:20px;">
+        <div class="filter-search" style="flex:1;">
+          <span>🔍</span>
+          <input type="text" placeholder="البحث في المحاضرات..." value="${q}"
+            oninput="State._lectureSearch=this.value;UI.renderTemplates()"/>
+        </div>
+        <div class="filter-chips">
+          <div class="chip ${filterPri==='all'?'active':''}" onclick="State._lectureFilter='all';UI.renderTemplates()">الكل (${templates.length})</div>
+          <div class="chip ${filterPri==='عالية'?'active':''}" onclick="State._lectureFilter='عالية';UI.renderTemplates()">🔴 عالية</div>
+          <div class="chip ${filterPri==='متوسطة'?'active':''}" onclick="State._lectureFilter='متوسطة';UI.renderTemplates()">🟡 متوسطة</div>
+          <div class="chip ${filterPri==='منخفضة'?'active':''}" onclick="State._lectureFilter='منخفضة';UI.renderTemplates()">🟢 منخفضة</div>
+        </div>
+      </div>
+
+      ${filtered.length===0 && templates.length===0
+        ? `<div class="empty">
+            <div class="empty-icon">📚</div>
+            <div class="empty-title">لا توجد محاضرات بعد</div>
+            <div class="empty-sub">أضف محاضراتك لاستخدامها عند بناء الجلسات والأكاديميات</div>
+            <button class="btn btn-primary" onclick="UI._openLectureModal()">➕ إضافة أول محاضرة</button>
+          </div>`
+        : filtered.length===0
+          ? `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-title">لا نتائج</div><div class="empty-sub">جرّب كلمة بحث مختلفة أو تصفية أخرى</div></div>`
+          : `
+            <div class="framework-header" style="margin-bottom:18px;">
+              <div class="fw-badge">RECOMMENDED CORE FRAMEWORK</div>
+              <div>
+                <div class="fw-title">مكتبة المحاضرات</div>
+                <div class="fw-sub">جميع محاضراتك المخصصة في مكان واحد</div>
+              </div>
+            </div>
+            <div class="library-grid">${filtered.map((t,i)=>this._lectureCard(t,templates.indexOf(t))).join('')}</div>`
+      }
+
+      <!-- Lecture Modal -->
+      <div class="modal-overlay" id="lecture-modal" style="display:none;align-items:center;justify-content:center;padding:20px;">
+        <div class="modal" style="max-width:560px;width:100%;">
+          <div class="modal-hdr">
+            <div class="modal-title" id="lecture-modal-title">إضافة محاضرة</div>
+            <button class="modal-close" onclick="UI._closeLectureModal()">✕</button>
+          </div>
+          <div class="modal-body" id="lecture-modal-body"></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="UI._closeLectureModal()">إلغاء</button>
+            <button class="btn btn-primary" onclick="UI._saveLecture()">💾 حفظ المحاضرة</button>
+          </div>
+        </div>
+      </div>`;
+    this.updateBadges();
+  },
+
+  _lectureCard(t, realIdx){
+    const pClass = {عالية:'p-high',متوسطة:'p-med',منخفضة:'p-low'}[t.priority]||'p-med';
+    return `
+      <div class="lib-card" style="--c1:var(--a);--c2:var(--a2);">
+        <div class="lc-type" style="font-size:28px;">${t.icon||'📋'}</div>
+        <div class="lc-name">${t.title}</div>
+        ${t.description?`<div class="lc-desc">${t.description.slice(0,110)}${t.description.length>110?'...':''}</div>`:''}
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;">
+          ${t.priority?`<div class="priority ${pClass}"><div class="priority-dot"></div>${t.priority}</div>`:''}
+          ${t.sessionType?`<span class="tag tag-blue">${t.sessionType}</span>`:''}
+          ${t.activity?`<span class="tag tag-teal">${t.activity}</span>`:''}
+          ${t.duration?`<span class="tag tag-amber">⏱ ${t.duration} ${t.durationUnit||'دقيقة'}</span>`:''}
+        </div>
+        <div class="lc-actions" style="margin-top:auto;padding-top:10px;border-top:1px solid var(--border);">
+          <button class="btn btn-secondary btn-sm" style="flex:1;" onclick="UI._openLectureModal(${realIdx})">✏️ تعديل</button>
+          <button class="btn btn-secondary btn-sm" onclick="UI._duplicateLecture(${realIdx})" title="نسخ">📋</button>
+          <button class="btn btn-danger btn-sm" onclick="UI._deleteLecture(${realIdx})" title="حذف">🗑</button>
+        </div>
+      </div>`;
+  },
+
+  _openLectureModal(editIdx){
+    const modal = U.id('lecture-modal');
+    if(!modal){ this.renderTemplates(); setTimeout(()=>this._openLectureModal(editIdx),50); return; }
+    const templates = this._getUserTemplates();
+    const data = editIdx !== undefined ? templates[editIdx] : null;
+    State._editUtIdx = editIdx !== undefined ? editIdx : -1;
+    U.id('lecture-modal-title').textContent = data ? 'تعديل المحاضرة' : 'إضافة محاضرة جديدة';
+    U.id('lecture-modal-body').innerHTML = this._buildLectureForm(data);
+    modal.style.display='flex'; modal.classList.add('show');
+  },
+
+  _closeLectureModal(){
+    const m = U.id('lecture-modal');
+    if(m){ m.style.display='none'; m.classList.remove('show'); }
+  },
+
+  _saveLecture(){
+    const title = U.id('ut-title')?.value.trim();
+    if(!title){ U.toast('عنوان المحاضرة مطلوب','error'); return; }
+    const templates = this._getUserTemplates();
+    const obj = this._collectLectureForm();
+    if(State._editUtIdx>=0){ obj.id=templates[State._editUtIdx].id; templates[State._editUtIdx]=obj; }
+    else templates.push(obj);
+    this._saveUserTemplates(templates);
+    U.toast(State._editUtIdx>=0?'تم تحديث المحاضرة ✓':'تمت إضافة المحاضرة ✓','success');
+    this._closeLectureModal();
+    this.renderTemplates();
+  },
+
+  _duplicateLecture(i){
+    const templates = this._getUserTemplates();
+    if(!templates[i]) return;
+    const copy = { ...templates[i], id:'ut_'+Date.now(), title: templates[i].title+' (نسخة)' };
+    templates.push(copy);
+    this._saveUserTemplates(templates);
+    U.toast('تم نسخ المحاضرة','success');
+    this.renderTemplates();
+  },
+
+  async _deleteLecture(i){
+    const ok = await U.confirm('سيتم حذف المحاضرة نهائياً','حذف المحاضرة','🗑');
+    if(!ok) return;
+    const templates = this._getUserTemplates();
+    templates.splice(i,1);
+    this._saveUserTemplates(templates);
+    U.toast('تم حذف المحاضرة','success');
+    this.renderTemplates();
+  },
+
+  // ── Legacy aliases kept for any remaining references ──────
+  openUserTemplateModal(i){ this._openLectureModal(i); },
+  closeUserTemplateModal(){ this._closeLectureModal(); },
+  saveUserTemplate(){ this._saveLecture(); },
+  editUserTemplate(i){ this._openLectureModal(i); },
+  duplicateUserTemplate(i){ this._duplicateLecture(i); },
+  async deleteUserTemplate(i){ await this._deleteLecture(i); },
+  _openLibLectureEdit(i){ this._openLectureModal(i); },
+  _closeLibLectureModal(){ this._closeLectureModal(); },
+  _saveLibLecture(){ this._saveLecture(); },
+  async _deleteLibLecture(i){ await this._deleteLecture(i); },
+
+  /* ─── TEMPLATES PAGE ────────────────────────────────────── */
+  _getUserTemplates(){ try{ return JSON.parse(localStorage.getItem('iab_user_templates')||'[]'); }catch(e){ return []; } },
+  _saveUserTemplates(d){ localStorage.setItem('iab_user_templates', JSON.stringify(d)); },
+
+  // Shared lecture form builder
+  _buildLectureForm(data){
+    return `
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label">الأيقونة</label>
+          <input id="ut-icon" placeholder="📋" value="${data?.icon||''}" style="font-size:20px;text-align:center;" maxlength="4"/>
+        </div>
+        <div class="form-group"><label class="form-label">عنوان المحاضرة <span class="required">*</span></label>
+          <input id="ut-title" placeholder="عنوان المحاضرة" value="${data?.title||''}"/>
+        </div>
+        <div class="form-group full"><label class="form-label">الوصف</label>
+          <textarea id="ut-desc" placeholder="وصف المحاضرة...">${data?.description||''}</textarea>
+        </div>
+        <div class="form-group"><label class="form-label">المدة</label>
+          <div style="display:flex;gap:8px;">
+            <input id="ut-duration" type="number" min="1" placeholder="60" value="${data?.duration||''}" style="flex:2;"/>
+            <select id="ut-duration-unit" style="flex:1;">
+              <option value="دقيقة" ${(data?.durationUnit||'دقيقة')==='دقيقة'?'selected':''}>دقيقة</option>
+              <option value="ساعة" ${data?.durationUnit==='ساعة'?'selected':''}>ساعة</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">الأولوية</label>
+          <select id="ut-priority">
+            <option value="عالية" ${(data?.priority||'عالية')==='عالية'?'selected':''}>عالية</option>
+            <option value="متوسطة" ${data?.priority==='متوسطة'?'selected':''}>متوسطة</option>
+            <option value="منخفضة" ${data?.priority==='منخفضة'?'selected':''}>منخفضة</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">نوع الجلسة</label>
+          <input id="ut-session-type" placeholder="نوع الجلسة" value="${data?.sessionType||''}"/>
+        </div>
+        <div class="form-group"><label class="form-label">التصنيف / Activity</label>
+          <input id="ut-activity" placeholder="النشاط أو التصنيف" value="${data?.activity||''}"/>
+        </div>
+      </div>`;
+  },
+
+  _collectLectureForm(){
+    return {
+      id: 'ut_'+Date.now(),
+      icon: U.id('ut-icon')?.value||'📋',
+      title: U.id('ut-title')?.value.trim()||'',
+      description: U.id('ut-desc')?.value||'',
+      duration: U.id('ut-duration')?.value||'',
+      durationUnit: U.id('ut-duration-unit')?.value||'دقيقة',
+      priority: U.id('ut-priority')?.value||'عالية',
+      sessionType: U.id('ut-session-type')?.value||'',
+      activity: U.id('ut-activity')?.value||'',
+    };
+  },
+
+  previewTemplate(id){},
+  addTemplateToAcademy(id){},
+
+  /* ─── TIMELINE PAGE ─────────────────────────────────────── */
+  renderTimeline(){
+    const academies = DB.getAcademies();
+    const el = U.id('page-timeline');
+    el.innerHTML = `
+      <div class="sec-hdr">
+        <div><div class="sec-title">الجدول الزمني الشامل</div><div class="sec-sub">نظرة شاملة على مسار جميع الأكاديميات</div></div>
+      </div>
+      ${academies.length===0
+        ? `<div class="empty"><div class="empty-icon">📅</div><div class="empty-title">لا توجد أكاديميات</div><div class="empty-sub">أنشئ أكاديمية لعرض جدولها الزمني</div><button class="btn btn-primary" onclick="UI.navigate('create')">✨ إنشاء أكاديمية</button></div>`
+        : academies.map(a=>`
+            <div class="card" style="margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                <div style="font-size:28px;">${a.emoji||'🎓'}</div>
+                <div>
+                  <div style="font-family:var(--f2);font-size:15px;font-weight:800;">${a.name}</div>
+                  <div style="font-size:12.5px;color:var(--t3);">${U.formatDate(a.startDate)} — ${U.formatDate(a.endDate)}</div>
+                </div>
+                <button class="btn btn-ghost btn-sm" style="margin-right:auto;" onclick="UI.navigate('detail','${a.id}');State.currentDetailTab='timeline';UI._renderDetailTab(DB.getAcademy('${a.id}'),'timeline');">رؤية الجدول الكامل ←</button>
+              </div>
+              <div style="display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;">
+                <div style="min-width:120px;background:var(--bg3);border:1px solid rgba(79,142,255,0.3);border-radius:var(--r);padding:12px;text-align:center;flex-shrink:0;">
+                  <div style="font-size:18px;margin-bottom:6px;">🚀</div>
+                  <div style="font-size:11.5px;color:var(--t3);">انطلاق</div>
+                  <div style="font-size:12px;font-weight:700;">${U.formatDate(a.startDate)||'—'}</div>
+                </div>
+                ${(a.sessions||[]).slice(0,5).map((s,i)=>{
+                  const st=U.sessionType(s.type);
+                  return `<div style="min-width:120px;background:var(--bg3);border:1px solid ${st.color}33;border-radius:var(--r);padding:12px;text-align:center;flex-shrink:0;">
+                    <div style="font-size:18px;margin-bottom:6px;">${st.icon}</div>
+                    <div style="font-size:11px;color:var(--t3);">جلسة ${i+1}</div>
+                    <div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${s.name}</div>
+                  </div>`;
+                }).join('')}
+                ${(a.sessions||[]).length>5?`<div style="min-width:80px;background:var(--bg3);border-radius:var(--r);padding:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--t3);font-size:12px;">+${(a.sessions||[]).length-5} جلسة</div>`:''}
+                <div style="min-width:120px;background:var(--bg3);border:1px solid rgba(255,179,64,0.3);border-radius:var(--r);padding:12px;text-align:center;flex-shrink:0;">
+                  <div style="font-size:18px;margin-bottom:6px;">🏆</div>
+                  <div style="font-size:11.5px;color:var(--t3);">تخرج</div>
+                  <div style="font-size:12px;font-weight:700;">${U.formatDate(a.endDate)||'—'}</div>
+                </div>
+              </div>
+            </div>`).join('')
+      }`;
+  },
+
+  /* ─── SETTINGS ──────────────────────────────────────────── */
+  renderSettings(){
+    const academies = DB.getAcademies();
+    const el = U.id('page-settings');
+    el.innerHTML = `
+      <div class="sec-hdr">
+        <div><div class="sec-title">الإعدادات</div></div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:16px;">📊 إحصاءات النظام</div>
+            <div class="grid-2" style="gap:10px;">
+              ${[
+                ['الأكاديميات',academies.length,'var(--a)'],
+                ['الجلسات',academies.reduce((s,a)=>s+(a.sessions||[]).length,0),'var(--green)'],
+                ['القوالب',SESSION_TEMPLATES.length,'var(--a2)'],
+                ['حجم البيانات',Math.round(JSON.stringify(localStorage).length/1024)+'KB','var(--amber)'],
+              ].map(([k,v,c])=>`
+                <div style="background:var(--bg3);border-radius:var(--r);padding:14px;text-align:center;">
+                  <div style="font-family:var(--f2);font-size:24px;font-weight:900;color:${c};">${v}</div>
+                  <div style="font-size:12px;color:var(--t3);margin-top:4px;">${k}</div>
+                </div>`).join('')}
+            </div>
+          </div>
+          <div class="card">
+            <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:16px;">🗄️ إدارة البيانات</div>
+            <div class="info-row">
+              <div><div style="font-weight:600;">استيراد البيانات</div><div style="font-size:12px;color:var(--t3);">تحميل بيانات من ملف نسخة احتياطية JSON</div></div>
+              <button class="btn btn-secondary btn-sm" onclick="UI.triggerImport()">📤 استيراد</button>
+            </div>
+            <div class="info-row">
+              <div><div style="font-weight:600;">تصدير البيانات</div><div style="font-size:12px;color:var(--t3);">تحميل كامل البيانات بصيغة JSON</div></div>
+              <button class="btn btn-secondary btn-sm" onclick="UI.exportData()">📥 تصدير</button>
+            </div>
+            <div class="info-row">
+              <div><div style="font-weight:600;">مسح جميع البيانات</div><div style="font-size:12px;color:var(--t3);">إعادة تعيين النظام بالكامل</div></div>
+              <button class="btn btn-danger btn-sm" onclick="UI.clearAll()">⚠️ مسح</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:16px;">ℹ️ عن المنصة</div>
+            <div class="info-row"><div class="info-key">الاسم</div><div class="info-val">Movement Training</div></div>
+            <div class="info-row"><div class="info-key">الإصدار</div><div class="info-val">v2.0.0</div></div>
+            <div class="info-row"><div class="info-key">التقنية</div><div class="info-val">HTML · CSS · JavaScript</div></div>
+            <div class="info-row"><div class="info-key">التخزين</div><div class="info-val">LocalStorage</div></div>
+          </div>
+          <div class="card">
+            <div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:14px;">🎓 دليل الاستخدام</div>
+            ${[
+              ['✨','إنشاء أكاديمية','اتبع المعالج متعدد الخطوات'],
+              ['📚','إضافة جلسات','اختر من المكتبة أو أنشئ مخصصة'],
+              ['🗺️','الإطار التأسيسي','6 جلسات أساسية موصى بها'],
+              ['📅','الجدول الزمني','تتبع تقدم جميع الأكاديميات'],
+            ].map(([icon,title,desc])=>`
+              <div class="info-row">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:20px;">${icon}</span>
+                  <div><div style="font-weight:600;font-size:13px;">${title}</div><div style="font-size:12px;color:var(--t3);">${desc}</div></div>
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+  },
+
+  async clearAll(){
+    const ok = await U.confirm('سيتم حذف جميع البيانات نهائياً وإعادة تعيين النظام','⚠️ تحذير: حذف كامل البيانات');
+    if(!ok) return;
+    localStorage.clear(); U.toast('تم المسح. إعادة تحميل...','warning',1500);
+    setTimeout(()=>location.reload(),1500);
+  },
+
+  /* ─── Init ──────────────────────────────────────────────── */
+  init(){
+    // nav events
+    document.querySelectorAll('[data-nav]').forEach(el=>{
+      el.addEventListener('click',()=>this.navigate(el.dataset.nav));
+    });
+    // card glow effect
+    document.addEventListener('mousemove', e=>{
+      document.querySelectorAll('.card').forEach(card=>{
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX-rect.left}px`);
+        card.style.setProperty('--my', `${e.clientY-rect.top}px`);
+      });
+    });
+    this.updateBadges();
+    
+    // Close coach autocomplete on outside click
+    document.addEventListener('click', e=>{
+      const list = U.id('coach-autocomplete');
+      if(list && !list.closest('.autocomplete-wrap')?.contains(e.target)){
+        list.classList.remove('open'); list.innerHTML='';
+      }
+    });
+  }
+};
+
+/* ─── Boot ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', ()=>UI.init());
+</script>
+<script>
+/* ═══ IAB2 — Programs · Master TOC · Drawer · DnD · Firebase Sync (additive; legacy iab_* keys untouched) ═══ */
+(()=>{
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const J=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}};
+const uid=p=>p+(window.crypto&&crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2,10));
+const COLL=['programs','categories','lectures','sessions','instances'];
+const DEV=(()=>{const m=J('iab2_meta',{});if(!m.dev){m.dev='d'+Math.random().toString(36).slice(2,8);localStorage.setItem('iab2_meta',JSON.stringify(m))}return m.dev})();
+
+const PROGS=[
+ {id:'prog_impact',name:'Impact Academy',icon:'🎓',g:'linear-gradient(135deg,#4f8eff,#7c5cf6)',d:'مساحة مستقلة لإدارة برنامج Impact Academy ومحتواه وجلساته.'},
+ {id:'prog_ms21',name:'Multiply School – MS 21 Day',icon:'🗓️',g:'linear-gradient(135deg,#00d4c8,#00e5a0)',d:'مساحة مستقلة لإدارة برنامج MS لمدة 21 يومًا.'},
+ {id:'prog_rsg10',name:'ReadySetGO Plus – 10 Day',icon:'🚀',g:'linear-gradient(135deg,#ff7c3a,#ffb340)',d:'مساحة مستقلة لإدارة برنامج ReadySetGO Plus لمدة 10 أيام.'}];
+const CATS=[{id:'cat_intro',name:'Introductory Sessions',icon:'🌱'},{id:'cat_movement',name:'Movement',icon:'🔥'},{id:'cat_go',name:'Go Modes Sessions',icon:'⚡'}];
+const OVERVIEW=['What Is Sports Ministry?','What Does Open Source Mean?','History of the Sports Movement','How to Recognize a Movement?','Sharing the Vision','Talking with a Pastor','Talking with a Sportsperson','Talking with Business or Government Leaders','ReadySetGO Physical Illustration','The Power and Potential of Sport','ReadySetGO Drama','ReadySetGO Videos','ReadySetGO Music','Prayer for ReadySetGO'];
+const LECS=[];
+[['cat_intro','i',['Sports Ministry Overview','Born to Play (Biblical Foundation for Sports Movement)','Heart of the Movement (Nine Values)','Mind Map']],
+ ['cat_movement','m',['DMM','Pray | Play | Say | Together','Six Windows','Servant Leadership','Mentoring','TREMMCAR','TOT (Training of Trainers)','Experiential Learning','Creativity','Family on Mission','Teams','Developing Teams','Fatherhood','Manhood','Identity','Team Health Check','Team Building Learning Activities','Generosity and Sustainability','Looking and Listening Exercise']],
+ ['cat_go','g',['Go Play','Go Sport','Go Fitness','Go Action','Team Games','Kids Games','Festivals','Coaches','Camps','Whole Life Coaching']]
+].forEach(([c,k,arr])=>arr.forEach((t,i)=>LECS.push({id:`lec_${k}_${String(i+1).padStart(2,'0')}`,c,t,no:i+1,d:(k==='i'&&i===0)?OVERVIEW.join(' • '):''})));
+
+/* ─── Constants, seeds, legacy inventory ─── */
+const FB_V='13.4.0',FB_BASE='https://www.gstatic.com/firebasejs/'+FB_V+'/';
+const FB_CFG={apiKey:'AIzaSyBVIyM2anUZL9FQJ8evF0rk1JLvek1dK-Y',authDomain:'movement-training.firebaseapp.com',projectId:'movement-training',storageBucket:'movement-training.firebasestorage.app',messagingSenderId:'912664614872',appId:'1:912664614872:web:339305b831acfa8c6c04ad',measurementId:'G-TW1HL73FQC'};
+const SYNC_COLL=[...COLL,'legacy'];
+const SEED={programs:{},categories:{},lectures:{},instances:{}};
+PROGS.forEach((p,i)=>{SEED.programs[p.id]={name:p.name,order:i+1};SEED.instances['inst_'+p.id+'_1']={programId:p.id,name:'النسخة 1',order:1}});
+CATS.forEach((c,i)=>{SEED.categories[c.id]={name:c.name,order:i+1}});
+LECS.forEach((l,i)=>{SEED.lectures[l.id]={title:l.t,description:l.d,categoryId:l.c,no:l.no,order:i+1}});
+/* Legacy persistent data synced as users/{uid}/legacy/{storageKey} = {key,json}. iab_settings (device UI prefs), iab2_* internals, Firebase config/tokens are never synced. */
+const LEG=['iab_academies','iab_session_library','iab_user_templates','iab_lecture_types'];
+const legKeys=()=>{const r=LEG.filter(k=>localStorage.getItem(k)!=null);for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('iab_fw_'))r.push(k)}return r};
+const INTERNAL=new Set(['_ft','_rev','_fr','_fu','_applied','revision','serverUpdatedAt','updatedBy','mutationId','createdAt','updatedAt']);
+const clean=r=>{const o={};for(const k in r)if(!INTERNAL.has(k))o[k]=r[k];return o};
+const eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const bo=n=>Math.min(60000,1000*2**n)*(0.5+Math.random()*0.5);
+const isTransient=e=>!navigator.onLine||['unavailable','deadline-exceeded','aborted','resource-exhausted','cancelled','internal'].includes(e&&e.code)||/network|offline|unavailable|fetch/i.test((e&&e.message)||'');
+const authMsg=e=>({'auth/invalid-credential':'بريد أو كلمة مرور غير صحيحة','auth/wrong-password':'كلمة المرور غير صحيحة','auth/user-not-found':'الحساب غير موجود','auth/user-disabled':'هذا الحساب معطّل','auth/email-already-in-use':'البريد مستخدم بالفعل','auth/weak-password':'كلمة المرور ضعيفة (6 أحرف على الأقل)','auth/invalid-email':'بريد غير صالح','auth/too-many-requests':'محاولات كثيرة — حاول لاحقًا','auth/network-request-failed':'تعذّر الاتصال بالشبكة','auth/operation-not-allowed':'فعّل Email/Password في Firebase Console','auth/unauthorized-domain':'النطاق غير مضاف إلى Authorized domains','auth/operation-not-supported-in-this-environment':'البيئة لا تدعم Auth (استخدم https أو localhost)','auth/api-key-not-valid.-please-pass-a-valid-api-key.':'API Key غير صالح — راجع الإعدادات','auth/invalid-api-key':'API Key غير صالح — راجع الإعدادات','auth/user-token-expired':'انتهت الجلسة — سجّل الدخول مجددًا','auth/requires-recent-login':'سجّل الدخول مجددًا'}[e.code]||((e.code||'error')+': '+(e.message||e)));
+
+/* ─── Store: local-first. Local doc = seed ⊕ confirmed remote ⊕ pending ops. Writes go through a persistent op queue. ─── */
+const S={db:{},Q:[],conf:J('iab2_conflicts',[]),quiet:0,
+ migrate(){const m=J('iab2_meta',{});if(m.schema>=2)return;const raw=localStorage.getItem('iab2_db');
+  if(raw&&!localStorage.getItem('iab2_db_v1_backup'))localStorage.setItem('iab2_db_v1_backup',raw);
+  let old={};try{old=JSON.parse(localStorage.getItem('iab2_db_v1_backup')||'{}')||{}}catch(e){}
+  const nd={},q=[];SYNC_COLL.forEach(c=>{nd[c]={}});
+  COLL.forEach(c=>Object.values(old[c]||{}).forEach(d=>{if(!d||!d.id)return;const ft=d._ft||{},ed={},n=nd[c][d.id]={_rev:0};
+   Object.keys(d).forEach(k=>{if(k==='_ft'||k==='createdAt'||k==='updatedAt')return;n[k]=d[k];if(ft[k]>0&&k!=='id')ed[k]=d[k]});
+   if(Object.keys(ed).length)q.push({id:uid('op_'),coll:c,docId:d.id,fields:ed,baseRev:0,created:Date.now(),tries:0})}));
+  try{localStorage.setItem('iab2_db',JSON.stringify(nd));localStorage.setItem('iab2_queue',JSON.stringify(q));const mm=J('iab2_meta',{});mm.schema=2;localStorage.setItem('iab2_meta',JSON.stringify(mm))}catch(e){console.error('IAB2 migration failed (v1 backup kept):',e)}},
+ load(){this.db=J('iab2_db',{});SYNC_COLL.forEach(c=>{this.db[c]=this.db[c]||{}});this.Q=J('iab2_queue',[]);this.Q.forEach(o=>{delete o.inflight})},
+ hasOp(c,id){return this.Q.some(o=>o.coll===c&&o.docId===id)},
+ seed(){Object.keys(SEED).forEach(c=>Object.entries(SEED[c]).forEach(([id,f])=>{const d=this.db[c][id];if(!d||(d._rev===0&&!this.hasOp(c,id)))this.db[c][id]={...f,id,_rev:0}}))},
+ init(){this.migrate();this.load();this.seed();this.save()},
+ save(){try{localStorage.setItem('iab2_db',JSON.stringify(this.db));localStorage.setItem('iab2_queue',JSON.stringify(this.Q.map(o=>{const{inflight,...r}=o;return r})));localStorage.setItem('iab2_conflicts',JSON.stringify(this.conf.slice(-50)))}catch(e){U.toast('تعذّر الحفظ المحلي: '+e.message,'error')}},
+ emit(){window.dispatchEvent(new Event('iab2'))},
+ get(c,id){return this.db[c][id]},
+ list(c){return Object.values(this.db[c]).filter(d=>!d.deleted).sort((a,b)=>(a.order??0)-(b.order??0))},
+ put(c,id,f){const base=this.db[c][id]||{id,_rev:0},ch={};
+  for(const k in f)if(f[k]!==undefined&&!eq(base[k],f[k]))ch[k]=f[k];
+  if(!Object.keys(ch).length)return base;
+  const d=this.db[c][id]={...base,...ch,id},last=[...this.Q].reverse().find(o=>o.coll===c&&o.docId===id);
+  if(last&&!last.inflight&&!last.parked)Object.assign(last.fields,ch);
+  else this.Q.push({id:uid('op_'),coll:c,docId:id,fields:ch,baseRev:d._rev||0,created:Date.now(),tries:0});
+  if(!this.quiet){this.save();this.emit()}Sync.kick();return d},
+ del(c,id){this.put(c,id,{deleted:true})},
+ applyRemote(c,r){const id=r.id,d={...(SEED[c]&&SEED[c][id]),...clean(r),id,_rev:r.revision||0};
+  if(c==='legacy'&&typeof r.json==='string'){const prev=this.db.legacy[id],cur=localStorage.getItem(id);if(cur==null||(prev&&cur===prev.json))try{localStorage.setItem(id,r.json)}catch(e){}}
+  this.Q.forEach(o=>{if(o.coll===c&&o.docId===id)Object.assign(d,o.fields)});this.db[c][id]=d},
+ ack(op,res){this.Q=this.Q.filter(o=>o!==op);const d=this.db[op.coll][op.docId],cf=res.conflicts||[];
+  if(d){d._rev=Math.max(d._rev||0,res.rev||0);cf.forEach(x=>{d[x.field]=x.kept;const lg=op.coll==='legacy';this.conf.push({ts:Date.now(),coll:op.coll,id:op.docId,field:x.field,kept:lg?'(cloud copy)':x.kept,lost:lg?'(local copy still in storage)':x.lost})});if(res.skipped)d.deleted=true}
+  if(cf.length)U.toast('تعارض مزامنة: أُبقيت القيمة الأسبق في السحابة ('+cf.length+') — التفاصيل في الإعدادات','warning',4500);
+  this.save();this.emit()},
+ exportDb(){const o={};COLL.forEach(c=>{o[c]={};Object.values(this.db[c]).forEach(d=>{o[c][d.id]=clean(d)})});return o},
+ importDb(db){this.quiet=1;try{COLL.forEach(c=>Object.values((db&&db[c])||{}).forEach(d=>{if(d&&d.id)this.put(c,d.id,clean(d))}))}finally{this.quiet=0}this.scanLegacy(1);this.save();this.emit()},
+ scanLegacy(force){if(Sync.user&&localStorage.getItem('iab2_owner')!==Sync.user.uid)return;this.quiet=1;Sync.legacyDiff=[];
+  try{legKeys().forEach(k=>{const j=localStorage.getItem(k);if(j==null)return;if(j.length>9e5){Sync.legacyDiff.push(k+' (>900KB, not synced)');return}
+   const d=this.db.legacy[k];if(!d||(force&&d.json!==j))this.put('legacy',k,{key:k,json:j});else if(d.json!==j)Sync.legacyDiff.push(k)})}finally{this.quiet=0}this.save()},
+ /* A different account signing in on this device never sees or uploads the previous account's data: it is stashed per-uid. */
+ adopt(uid){const o=localStorage.getItem('iab2_owner');if(o===uid)return;if(!o){localStorage.setItem('iab2_owner',uid);return}
+  const st={db:this.db,q:this.Q,leg:{}};legKeys().forEach(k=>{st.leg[k]=localStorage.getItem(k);localStorage.removeItem(k)});
+  localStorage.setItem('iab2_stash_'+o,JSON.stringify(st));const mine=J('iab2_stash_'+uid,null);
+  this.db=mine?mine.db:{};this.Q=mine?mine.q:[];SYNC_COLL.forEach(c=>{this.db[c]=this.db[c]||{}});
+  if(mine)Object.entries(mine.leg||{}).forEach(([k,v])=>{if(v!=null)localStorage.setItem(k,v)});
+  localStorage.setItem('iab2_owner',uid);this.seed();this.save();this.emit()},
+ pending(){return this.Q.length}};
+
+/* ─── Sync: Auth + Firestore users/{uid}/{collection}/{id}. Server-revision transactions; bootstrap gate; persistent queue. ─── */
+const Sync={user:null,fb:null,phase:'init',gen:0,unsubs:[],boot:null,booted:false,running:false,timer:null,lastErr:'',report:'',legacyDiff:[],verNote:'',last:J('iab2_meta',{}).lastSync||null,
+ cfg(){return{...FB_CFG,apiKey:localStorage.getItem('iab2_apikey')||FB_CFG.apiKey}},
+ async loadSDK(){if(window.__IAB2_SDK)return window.__IAB2_SDK;const[A,Au,F]=await Promise.all([import(FB_BASE+'firebase-app.js'),import(FB_BASE+'firebase-auth.js'),import(FB_BASE+'firebase-firestore.js')]);return{A,Au,F}},
+ status(){const on=navigator.onLine;if(this.phase==='init')return'init';if(this.phase==='fatal')return'error';if(!this.user)return'signedout';if(this.phase==='connecting')return on?'connecting':'offline';if(!on)return'offline';if(this.running)return'syncing';if(this.lastErr&&S.pending())return'error';if(S.pending())return'pending';return'synced'},
+ paint(){const s=this.status(),n=S.pending(),L={init:'Initializing',signedout:'Signed Out',connecting:'Connecting',syncing:'Syncing',synced:'Synced',offline:'Offline – Changes Saved Locally',pending:'Pending Changes',error:'Error'};
+  const e=document.getElementById('sync-chip');if(e){e.className='sync-chip '+({pending:'offline',connecting:'syncing',init:'syncing',signedout:''}[s]??s);e.textContent='● '+L[s]+(n&&s!=='synced'?' ('+n+')':'');e.title=this.lastErr}
+  const t=(id,v)=>{const x=document.getElementById(id);if(x)x.textContent=v};
+  t('fb-proj',FB_CFG.projectId+' · SDK '+FB_V+this.verNote);t('fb-stat',L[s]);t('fb-auth',this.user?'Signed in: '+this.user.email:'Signed out');t('fb-pend',String(n));
+  t('fb-last',this.last?new Date(this.last).toLocaleString('ar-EG'):'—');t('fb-err',this.lastErr||'—');t('fb-rep',this.report||'—');
+  t('fb-conf',S.conf.slice(-5).map(c=>`${c.coll}/${c.id}.${c.field}: kept «${c.kept}» · not applied «${c.lost}»`).join(' | ')||'—');t('fb-leg',this.legacyDiff.length?this.legacyDiff.join(', '):'—')},
+ boot(){window.addEventListener('online',()=>{this.lastErr='';this.paint();this.kick(true)});window.addEventListener('offline',()=>this.paint());this.connect()},
+ fatal(e){this.phase='fatal';this.lastErr=authMsg(e);console.error('Firebase:',e);this.paint()},
+ async connect(){try{const sdk=await this.loadSDK(),{A,Au,F}=sdk;this.fb={...sdk};
+   if(A.SDK_VERSION&&A.SDK_VERSION!==FB_V)this.verNote=' ⚠ loaded '+A.SDK_VERSION;
+   let app;if(A.getApps().length){app=A.getApp();if(app.options.projectId!==FB_CFG.projectId)throw new Error('Existing Firebase app belongs to another project ('+app.options.projectId+')')}else app=A.initializeApp(this.cfg());
+   this.fb.auth=Au.getAuth(app);this.fb.db=F.getFirestore(app);
+   try{await Au.setPersistence(this.fb.auth,Au.browserLocalPersistence)}catch(e){console.warn('Auth persistence:',e.code)}
+   this.phase='signedout';this.paint();Au.onAuthStateChanged(this.fb.auth,u=>this.onUser(u).catch(x=>this.fatal(x)),x=>this.fatal(x))}catch(e){this.fatal(e)}},
+ teardown(){this.gen++;this.unsubs.forEach(f=>{try{f()}catch(e){}});this.unsubs=[];clearTimeout(this.timer);this.timer=null;this.boot=null;this.booted=false;this.running=false;this.lastErr='';this.report='';this.user=null},
+ async onUser(u){this.teardown();if(!u){this.phase='signedout';this.paint();return}
+  this.user=u;this.phase='connecting';S.adopt(u.uid);this.paint();this.listen()},
+ listen(){if(this.unsubs.length)return;const{F,db}=this.fb,gen=this.gen,uid=this.user.uid;this.boot={left:new Set(SYNC_COLL),remote:0};
+  SYNC_COLL.forEach(c=>this.unsubs.push(F.onSnapshot(F.collection(db,'users',uid,c),{includeMetadataChanges:true},snap=>{if(gen!==this.gen)return;let n=0;
+    snap.docChanges().forEach(x=>{if(x.type==='removed'){const d=S.db[c][x.doc.id];if(d)d._rev=0;return}S.applyRemote(c,{...x.doc.data(),id:x.doc.id});n++});
+    if(n){S.save();S.emit()}
+    if(!snap.metadata.fromCache&&this.boot&&this.boot.left.has(c)){this.boot.left.delete(c);this.boot.remote+=snap.size;if(!this.boot.left.size)this.bootDone()}
+    this.paint()},e=>{if(gen!==this.gen)return;this.lastErr=(e.code||'error')+': '+e.message+(e.code==='permission-denied'?' — check Firestore rules / account':'');this.paint()})))},
+ /* Local ops are only uploaded after every collection's first SERVER snapshot has been applied. */
+ bootDone(){const rc=this.boot.remote;this.boot=null;S.scanLegacy();const n=S.pending();
+  this.report=rc?(n?`Merged: cloud had ${rc} docs, ${n} local changes uploading`:`Restored ${rc} docs from cloud`):(n?`First sync: uploading ${n} local changes`:'Cloud empty; nothing local to upload');
+  this.booted=true;this.phase='ready';if(!n)this.stamp();S.emit();this.kick(true)},
+ stamp(){this.last=new Date().toISOString();const m=J('iab2_meta',{});m.lastSync=this.last;try{localStorage.setItem('iab2_meta',JSON.stringify(m))}catch(e){}},
+ sched(ms){clearTimeout(this.timer);this.timer=setTimeout(()=>this.run(),Math.max(0,ms))},
+ kick(imm){if(!this.user||!this.booted){this.paint();return}this.sched(imm?0:400);this.paint()},
+ syncNow(){S.Q.forEach(o=>{o.parked=false;o.tries=0;delete o.nextAt});this.lastErr='';S.save();if(this.user&&!this.booted&&!this.unsubs.length)this.listen();this.kick(true)},
+ async run(){const gen=this.gen;if(this.running||!this.booted||!this.user||!navigator.onLine){this.paint();return}this.running=true;this.paint();
+  try{for(;;){if(gen!==this.gen)return;const t=Date.now(),op=S.Q.find((o,i)=>!o.parked&&(o.nextAt||0)<=t&&!S.Q.slice(0,i).some(p=>p.coll===o.coll&&p.docId===o.docId));
+    if(!op){const nx=S.Q.filter(o=>!o.parked&&o.nextAt).map(o=>o.nextAt);if(nx.length)this.sched(Math.min(...nx)-t);break}
+    op.inflight=true;let res;
+    try{res=await this.apply(op)}catch(e){op.inflight=false;if(gen!==this.gen)return;op.tries=(op.tries||0)+1;this.lastErr=(e.code||'error')+': '+(e.message||e);
+     if(e.code==='permission-denied'){op.parked=true;this.lastErr+=' — check Firestore rules / account';S.save();break}
+     if(op.tries>=(isTransient(e)?12:5)){op.parked=true;S.save();this.sched(50);break}
+     op.nextAt=Date.now()+bo(op.tries);S.save();this.sched(op.nextAt-Date.now());break}
+    if(gen!==this.gen)return;S.ack(op,res);this.lastErr=''}
+   if(gen===this.gen&&!S.Q.length)this.stamp()}
+  finally{if(gen===this.gen)this.running=false;this.paint()}},
+ /* Server-revision transaction: idempotent (mutation id), per-field conflict detection, tombstones never resurrected. */
+ apply(op){const{F,db}=this.fb,ref=F.doc(db,'users',this.user.uid,op.coll,op.docId);
+  return F.runTransaction(db,async tx=>{const sn=await tx.get(ref),r=sn.exists()?sn.data():null;
+   if(r&&(r._applied||[]).includes(op.id))return{rev:r.revision||0,conflicts:[]};
+   if(r&&r.deleted)return{rev:r.revision||0,conflicts:[],skipped:'deleted'};
+   const rev=(r?r.revision||0:0)+1,out=r?{...r}:{id:op.docId},fr={...(r&&r._fr)},fu={...(r&&r._fu)},conflicts=[];
+   for(const k in op.fields){const v=op.fields[k];
+    if(r&&k!=='deleted'&&k!=='id'&&(fr[k]||0)>op.baseRev&&fu[k]!==DEV&&!eq(r[k],v)){conflicts.push({field:k,kept:r[k],lost:v});continue}
+    out[k]=v;fr[k]=rev;fu[k]=DEV}
+   Object.assign(out,{id:op.docId,revision:rev,_fr:fr,_fu:fu,updatedBy:DEV,mutationId:op.id,_applied:[...((r&&r._applied)||[]).slice(-19),op.id]});
+   tx.set(ref,{...out,updatedAt:F.serverTimestamp(),serverUpdatedAt:F.serverTimestamp(),...(r?{}:{createdAt:F.serverTimestamp()})});
+   return{rev,conflicts}})},
+ async auth(mode){const f=this.fb;if(!f||!f.auth){U.toast('Firebase غير جاهز: '+(this.lastErr||'جارٍ التحميل'),'error');return}
+  const em=document.getElementById('fb-email').value.trim(),pw=document.getElementById('fb-pass').value;if(!em||pw.length<6){U.toast('أدخل بريدًا وكلمة مرور (6 أحرف على الأقل)','error');return}
+  try{mode==='up'?await f.Au.createUserWithEmailAndPassword(f.auth,em,pw):await f.Au.signInWithEmailAndPassword(f.auth,em,pw);document.getElementById('fb-pass').value=''}
+  catch(x){this.lastErr=authMsg(x);this.paint();U.toast(this.lastErr,'error',6000)}},
+ async out(){if(this.fb&&this.user)await this.fb.Au.signOut(this.fb.auth)},
+ saveKey(){const v=(document.getElementById('fb-key').value||'').trim();if(v)localStorage.setItem('iab2_apikey',v);else localStorage.removeItem('iab2_apikey');location.reload()},
+ html(){const row=(k,id)=>`<div class="info-row"><div class="info-key">${k}</div><div class="info-val" id="${id}" style="direction:ltr;text-align:left;word-break:break-word">—</div></div>`;
+  return `<div class="card" id="fb-card" style="margin-bottom:16px"><div style="font-family:var(--f2);font-size:15px;font-weight:800;margin-bottom:12px">☁️ Firebase Connection &amp; Sync</div>
+  ${location.protocol==='file:'?'<div class="form-hint" style="color:var(--amber);margin-bottom:8px">⚠ الملف مفتوح من file:// — Firebase Auth يحتاج https أو localhost.</div>':''}
+  ${row('Project / SDK','fb-proj')}${row('Status','fb-stat')}${row('Account','fb-auth')}${row('Pending changes','fb-pend')}${row('Last successful sync','fb-last')}${row('Last error','fb-err')}${row('Initial sync','fb-rep')}${row('Conflicts (latest)','fb-conf')}${row('Legacy keys differing from cloud','fb-leg')}
+  <div class="form-grid" style="margin-top:14px"><div class="form-group"><label class="form-label">Email</label><input id="fb-email" type="email" autocomplete="username" style="direction:ltr"/></div><div class="form-group"><label class="form-label">Password</label><input id="fb-pass" type="password" autocomplete="current-password" style="direction:ltr"/></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="Sync.auth('in')">Sign in</button><button class="btn btn-secondary btn-sm" onclick="Sync.auth('up')">Create account</button><button class="btn btn-secondary btn-sm" onclick="Sync.out()">Sign out</button><button class="btn btn-secondary btn-sm" onclick="Sync.syncNow()">🔄 Sync Now</button></div>
+  <details style="margin-top:14px"><summary style="cursor:pointer;color:var(--a)">Setup steps &amp; Firestore rules</summary>
+  <div class="form-hint">Firebase Console → (1) Authentication → Sign-in method → enable Email/Password. (2) Authentication → Settings → Authorized domains → add the domain hosting this file (localhost is allowed by default). (3) Firestore Database → Create database. (4) Firestore → Rules → paste and Publish:</div>
+  <pre>rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /users/{userId}/{document=**} {\n      allow read, write: if request.auth != null\n                         &amp;&amp; request.auth.uid == userId;\n    }\n  }\n}</pre>
+  <div class="form-group" style="margin-top:10px"><label class="form-label">API key override (leave empty to use the built-in key)</label><input id="fb-key" value="${esc(localStorage.getItem('iab2_apikey')||'')}" style="direction:ltr"/></div><button class="btn btn-secondary btn-sm" onclick="Sync.saveKey()">Save &amp; reload</button></details></div>`}};
+
+/* ─── App UI ─── */
+const App={col:{},dragging:0,just:null,edit:null,rt:null,
+ pname:id=>(S.get('programs',id)||{}).name||'',
+ insts:pid=>S.list('instances').filter(i=>i.programId===pid),
+ instOf:s=>s.instanceId||('inst_'+s.programId+'_1'),
+ sessions:iid=>S.list('sessions').filter(s=>App.instOf(s)===iid),
+ psessions:pid=>S.list('sessions').filter(s=>{const i=S.get('instances',App.instOf(s));return s.programId===pid&&i&&!i.deleted}),
+ title:s=>s.title||(S.get('lectures',s.lectureId)||{}).title||'جلسة بلا عنوان',
+ render(){const p=State.currentPage;if(p==='cover')this.cover();else if(p==='program')this.program();else if(p==='instance')this.instance();else if(p==='toc')this.tocPage();this.drawerList()},
+ cover(){const live=new Set(S.list('programs').map(p=>p.id)),ses=PROGS.flatMap(p=>this.psessions(p.id)),L=S.list('lectures').length;
+  const card=(ic,n,d,g,m,go)=>`<div class="cov-card" style="--g:${g}" onclick="${go}"><div class="cov-ic">${ic}</div><div class="cov-n">${n}</div><div class="cov-d">${d}</div><div class="cov-m">${m}</div></div>`;
+  U.id('page-cover').innerHTML=`<div class="cov"><div class="cov-orb o1"></div><div class="cov-orb o2"></div><div class="cov-in">
+   <div class="cov-badge">MINISTRY TRAINING PLATFORM</div><h1 class="cov-t">Movement Training<br><span>Training &amp; Content Management System</span></h1>
+   <p class="cov-s">ثلاثة برامج تدريبية ومكتبة محتوى مركزية واحدة — اسحب المحاضرة إلى البرنامج وجدولها.</p>
+   <div class="cov-stats"><div class="cov-st"><b>${PROGS.length}</b><small>برامج</small></div><div class="cov-st"><b>${ses.length}</b><small>جلسات</small></div><div class="cov-st"><b>${L}</b><small>عناصر المحتوى</small></div></div></div></div>
+   <div class="cov-grid">${PROGS.map(p=>{const n=this.psessions(p.id).length;return card(p.icon,esc(this.pname(p.id)||p.name),p.d,p.g,`<span class="tag tag-blue">${this.insts(p.id).length} نسخة</span><span class="tag tag-teal">${n} جلسة</span>`,`UI.navigate('program:${p.id}')`)}).join('')}
+   ${card('📚','Table of Contents','المكتبة المركزية التي تحتوي على جميع المحاضرات والموضوعات التدريبية.','linear-gradient(135deg,#ff6bcb,#7c5cf6)',`<span class="tag tag-purple">${L} عنصر</span>`,"UI.navigate('toc')")}</div>`},
+ program(){const pid=State.curProg,P=PROGS.find(x=>x.id===pid);if(!P)return;const is=this.insts(pid);
+  U.id('page-program').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">${P.icon} ${esc(this.pname(pid))}</div><div class="sec-sub">${is.length} نسخة منشأة</div></div><div class="sec-actions"><button class="btn btn-primary" onclick="App.newInst()">➕ إنشاء جديد</button></div></div>
+   <div class="cov-grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">${is.length?is.map(i=>{const ss=this.sessions(i.id),m=ss.reduce((a,s)=>a+(+s.duration||0),0);
+   return `<div class="cov-card" style="--g:${P.g}" onclick="UI.navigate('instance:${i.id}')"><div class="cov-n">${esc(i.name)}</div><div class="cov-m"><span class="tag tag-blue">${ss.length} جلسة</span><span class="tag tag-amber">${m} د</span></div><div class="cov-m" onclick="event.stopPropagation()"><button class="sc-action" onclick="App.renInst('${i.id}')" title="تعديل الاسم">✏️</button><button class="sc-action" onclick="App.exportPdf('${i.id}')" title="تصدير PDF">📄</button><button class="sc-action danger" onclick="App.delInst('${i.id}')" title="حذف">🗑</button></div></div>`}).join(''):'<div class="s2-empty">لا توجد نسخ — اضغط «إنشاء جديد»</div>'}</div>`},
+ instance(){const iid=State.curInst,I=S.get('instances',iid);if(!I||I.deleted){UI.navigate('program:'+State.curProg);return}const pid=I.programId,P=PROGS.find(x=>x.id===pid),ss=this.sessions(iid),mins=ss.reduce((a,s)=>a+(+s.duration||0),0);
+  U.id('page-instance').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">${P.icon} ${esc(I.name)}</div><div class="sec-sub">${esc(this.pname(pid))} · ${ss.length} جلسة · ${mins} دقيقة · ${ss.filter(s=>s.date).length} مجدولة</div></div>
+   <div class="sec-actions"><button class="btn btn-secondary" onclick="UI.navigate('program:${pid}')">← النسخ</button><button class="btn btn-secondary" onclick="App.exportPdf('${iid}')">📄 تصدير PDF</button><button class="btn btn-primary" onclick="App.drawer(!document.body.classList.contains('td-open'))">📚 Table of Contents</button><button class="btn btn-secondary" onclick="App.sesModal(null)">➕ جلسة يدوية</button></div></div>
+   <div id="s2-list" class="s2-list">${ss.length?ss.map((s,i)=>this.card(s,i)).join(''):'<div class="s2-empty">البرنامج فارغ — افتح Table of Contents واسحب محاضرة إلى هنا<br>(على الموبايل: اضغط ＋ بجوار المحاضرة)</div>'}</div>`;
+  this.just=null;this.bindList()},
+ card(s,i){const L=S.get('lectures',s.lectureId);
+  return `<div class="s2-card${s.id===this.just?' s2-new':''}" draggable="true" data-id="${s.id}"><div class="s2-h">⠿</div><div class="s2-no">${i+1}</div><div class="s2-b"><div class="s2-t">${esc(this.title(s))}</div>
+   <div class="s2-m">${L?`<span>🔗 ${esc(L.title)}</span>`:''}${s.speaker?`<span>👤 ${esc(s.speaker)}</span>`:''}${s.date?`<span>📅 ${esc(s.date)}</span>`:''}${s.startTime?`<span>⏰ ${esc(s.startTime)}</span>`:''}${+s.duration?`<span>⏱ ${+s.duration} د</span>`:''}</div>
+   ${s.notes?`<div class="s2-nt">📝 ${esc(s.notes.slice(0,90))}</div>`:''}</div>
+   <div class="sc-actions"><button class="sc-action" onclick="App.sesModal('${s.id}')" title="تعديل">✏️</button><button class="sc-action danger" onclick="App.delSes('${s.id}')" title="حذف">🗑</button></div></div>`},
+ idxAt(list,y,skip){const cs=[...list.querySelectorAll('.s2-card')].filter(c=>c.dataset.id!==skip),i=cs.findIndex(c=>{const r=c.getBoundingClientRect();return y<r.top+r.height/2});return i<0?cs.length:i},
+ ordAt(list,i){const p=list[i-1],n=list[i];return p&&n?(p.order+n.order)/2:p?p.order+1:n?n.order-1:1},
+ bindList(){const l=U.id('s2-list');if(!l)return;
+  l.addEventListener('dragover',e=>{e.preventDefault();l.classList.add('over');const d=(App.curDrag||''),skip=d.startsWith('ses:')?d.slice(4):null,i=this.idxAt(l,e.clientY,skip);
+   let ln=document.getElementById('s2-line');if(!ln){ln=document.createElement('div');ln.id='s2-line';ln.className='s2-line'}
+   l.insertBefore(ln,[...l.querySelectorAll('.s2-card')].filter(c=>c.dataset.id!==skip)[i]||null)});
+  l.addEventListener('dragleave',e=>{if(!l.contains(e.relatedTarget)){l.classList.remove('over');document.getElementById('s2-line')?.remove()}});
+  l.addEventListener('drop',e=>{e.preventDefault();const d=e.dataTransfer.getData('text/plain')||'';document.getElementById('s2-line')?.remove();l.classList.remove('over');
+   if(d.startsWith('lec:'))this.addLec(d.slice(4),this.idxAt(l,e.clientY));else if(d.startsWith('ses:')){const id=d.slice(4);this.move(id,this.idxAt(l,e.clientY,id))}})},
+ async addLec(lid,idx){const pid=State.curInst,I=S.get('instances',pid),l=S.get('lectures',lid);if(!l||!I||I.deleted)return;const ss=this.sessions(pid);
+  if(ss.some(s=>s.lectureId===lid)&&!await U.confirm('هذه المحاضرة موجودة بالفعل في البرنامج. هل تريد إضافتها مرة أخرى؟','محاضرة مكررة','📚'))return;
+  const id=uid('ses_');S.put('sessions',id,{programId:I.programId,instanceId:pid,lectureId:lid,title:'',speaker:'',date:'',startTime:'',duration:0,notes:'',content:'',order:this.ordAt(ss,idx===undefined?ss.length:idx)});
+  this.just=id;this.render();U.toast('أُدرجت «'+l.title+'»','success',1800)},
+ move(id,i){const ss=this.sessions(State.curInst).filter(s=>s.id!==id);S.put('sessions',id,{order:this.ordAt(ss,i)});this.render()},
+ sesModal(id){let m=U.id('s2-modal');if(!m){m=document.createElement('div');m.id='s2-modal';m.className='modal-overlay';document.body.appendChild(m)}
+  const s=id?S.get('sessions',id):{},L=s.lectureId?S.get('lectures',s.lectureId):null;this.edit=id;
+  const i=(k,l,t,full)=>`<div class="form-group${full?' full':''}"><label class="form-label">${l}</label><input id="m2-${k}" type="${t||'text'}" value="${esc(s[k]??'')}"/></div>`;
+  m.innerHTML=`<div class="modal"><div class="modal-hdr"><div class="modal-title">${id?'تعديل الجلسة':'جلسة جديدة'}</div><button class="modal-close" onclick="App.closeModal()">✕</button></div><div class="modal-body"><div class="form-grid">
+   <div class="form-group full"><label class="form-label">عنوان المحاضرة / الجلسة <span class="required">*</span></label><input id="m2-title" value="${esc(id?this.title(s):'')}"/>${L?`<div class="form-hint">مرتبطة بالمحاضرة الأصلية: ${esc(L.title)} — التعديل هنا لا يغيّر المكتبة.</div>`:''}</div>
+   ${i('speaker','المتحدث')}${i('duration','المدة (دقيقة)','number')}${i('date','التاريخ','date')}${i('startTime','وقت البدء','time')}
+   <div class="form-group full"><label class="form-label">ملاحظات</label><textarea id="m2-notes">${esc(s.notes)}</textarea></div>
+   <div class="form-group full"><label class="form-label">الوصف / المحتوى</label><textarea id="m2-content">${esc(s.content)}</textarea></div></div></div>
+   <div class="modal-footer"><button class="btn btn-secondary" onclick="App.closeModal()">إلغاء</button><button class="btn btn-primary" onclick="App.saveSes()">💾 حفظ</button></div></div>`;
+  m.classList.add('show')},
+ closeModal(){U.id('s2-modal')?.classList.remove('show');this.edit=null},
+ saveSes(){const v=k=>(U.id('m2-'+k).value||'').trim(),t=v('title');if(!t){U.toast('العنوان مطلوب','error');return}
+  const dur=Math.max(0,parseInt(v('duration'))||0),f={speaker:v('speaker'),date:v('date'),startTime:v('startTime'),duration:dur,notes:U.id('m2-notes').value,content:U.id('m2-content').value};
+  if(this.edit){const s=S.get('sessions',this.edit),L=S.get('lectures',s.lectureId);f.title=(L&&L.title===t)?'':t;S.put('sessions',this.edit,f)}
+  else{const I=S.get('instances',State.curInst),ss=this.sessions(State.curInst);S.put('sessions',uid('ses_'),{...f,title:t,programId:I.programId,instanceId:State.curInst,lectureId:'',order:this.ordAt(ss,ss.length)})}
+  this.closeModal();U.toast('تم الحفظ ✓','success',1500);this.render()},
+ async delSes(id){if(!await U.confirm('سيتم حذف الجلسة من هذا البرنامج فقط (المحاضرة الأصلية تبقى في المكتبة).','حذف الجلسة','🗑'))return;S.del('sessions',id);this.render();U.toast('تم الحذف','success',1500)},
+ lecRow(l,mode){const n=S.list('sessions').filter(s=>s.lectureId===l.id).length;
+  return `<div class="lec"${mode==='drawer'?` draggable="true" data-lec="${l.id}"`:''}><div class="lec-n">${l.no}</div><div class="lec-b"><div class="lec-t">${esc(l.title)}</div>${l.description?`<div class="lec-d">${esc(l.description)}</div>`:''}</div>
+   ${mode==='drawer'?`<button class="sc-action" data-ins="${l.id}" title="إدراج في نهاية البرنامج">＋</button>`:`<span class="tag tag-teal">${n} استخدام</span><button class="sc-action" onclick="App.ren('${l.id}')" title="تعديل الاسم">✏️</button>`}</div>`},
+ secs(q,mode){return CATS.map(c=>{const ls=S.list('lectures').filter(l=>l.categoryId===c.id&&(!q||(l.title+' '+l.description).toLowerCase().includes(q)));if(q&&!ls.length)return'';
+   const open=q||!this.col[c.id];return `<div class="td-sec"><div class="td-sh" onclick="App.tog('${c.id}')"><span>${open?'▾':'▸'} ${c.icon} ${esc(c.name)}</span><span class="tag tag-blue">${ls.length}</span></div>${open?ls.map(l=>this.lecRow(l,mode)).join(''):''}</div>`}).join('')||'<div class="s2-empty">لا نتائج</div>'},
+ tog(id){this.col[id]=!this.col[id];this.render()},
+ drawer(o){document.body.classList.toggle('td-open',!!o);U.id('toc-drawer').classList.toggle('open',!!o);if(o)this.drawerList()},
+ drawerList(){const b=U.id('td-body');if(!b)return;b.innerHTML=this.secs((U.id('td-q').value||'').trim().toLowerCase(),'drawer')},
+ tocPage(){U.id('page-toc').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">Table of Contents</div><div class="sec-sub">${S.list('lectures').length} عنصر — المكتبة المركزية (Master Content)</div></div></div>
+  <div class="filter-bar"><div class="filter-search" style="flex:1"><span>🔍</span><input id="toc-q" placeholder="ابحث في المحاضرات..." value="${esc(this._q||'')}" oninput="App._q=this.value;App.tocList()"/></div></div><div id="toc-list"></div>`;this.tocList()},
+ tocList(){const e=U.id('toc-list');if(e)e.innerHTML=this.secs((this._q||'').trim().toLowerCase(),'page')},
+ newInst(){const pid=State.curProg,t=prompt('اسم النسخة الجديدة:',this.pname(pid)+' '+(this.insts(pid).length+1));if(!t||!t.trim())return;const id=uid('inst_');S.put('instances',id,{programId:pid,name:t.trim(),order:Date.now()});UI.navigate('instance:'+id)},
+ renInst(id){const i=S.get('instances',id),t=prompt('اسم النسخة:',i.name);if(t&&t.trim()&&t.trim()!==i.name){S.put('instances',id,{name:t.trim()});this.render()}},
+ async delInst(id){const i=S.get('instances',id),n=this.sessions(id).length;if(!await U.confirm(`سيتم حذف «${i.name}» وجلساتها (${n}). المحاضرات الأصلية في المكتبة لن تتأثر.`,'حذف النسخة','🗑'))return;this.sessions(id).forEach(s=>S.del('sessions',s.id));S.del('instances',id);if(State.currentPage==='instance')UI.navigate('program:'+State.curProg);else this.render();U.toast('تم الحذف','success',1500)},
+ exportPdf(iid){const I=S.get('instances',iid);if(!I)return;const ss=this.sessions(iid);if(!ss.length){U.toast('لا توجد جلسات لتصديرها','warning');return}
+  let r=U.id('print-root');if(!r){r=document.createElement('div');r.id='print-root';document.body.appendChild(r)}
+  const mins=ss.reduce((a,s)=>a+(+s.duration||0),0),c=v=>v?esc(v):'—';
+  r.innerHTML=`<h1 dir="auto">${esc(I.name)}</h1><h2 dir="auto">${esc(this.pname(I.programId))}</h2><p>${ss.length} جلسة · ${mins} دقيقة · ${new Date().toLocaleDateString('ar-EG')}</p><table><thead><tr><th>#</th><th>المحاضرة</th><th>المحاضر</th><th>التاريخ</th><th>الوقت</th><th>المدة</th></tr></thead><tbody>${ss.map((s,i)=>`<tr><td>${i+1}</td><td dir="auto">${esc(this.title(s))}</td><td dir="auto">${c(s.speaker)}</td><td>${c(s.date)}</td><td>${c(s.startTime)}</td><td>${+s.duration?s.duration+' د':'—'}</td></tr>`).join('')}</tbody></table>`;
+  const t=document.title,back=()=>{document.title=t;window.removeEventListener('afterprint',back)};document.title=I.name;window.addEventListener('afterprint',back);setTimeout(()=>window.print(),60)},
+ ren(id){const l=S.get('lectures',id),t=prompt('اسم المحاضرة الأصلية (سيتحدّث في كل الجلسات المرتبطة):',l.title);if(t&&t.trim()&&t.trim()!==l.title){S.put('lectures',id,{title:t.trim()});this.render()}}};
+
+/* delegated drag events (registered once) */
+document.addEventListener('dragstart',e=>{const l=e.target.closest&&e.target.closest('[data-lec]'),c=e.target.closest&&e.target.closest('.s2-card');
+ if(l){App.curDrag='lec:'+l.dataset.lec;e.dataTransfer.setData('text/plain',App.curDrag);e.dataTransfer.effectAllowed='copy';document.body.classList.add('dnd')}
+ else if(c){App.curDrag='ses:'+c.dataset.id;e.dataTransfer.setData('text/plain',App.curDrag);e.dataTransfer.effectAllowed='move';App.dragging=1;document.body.classList.add('dnd')}});
+document.addEventListener('dragend',()=>{App.curDrag='';App.dragging=0;document.body.classList.remove('dnd');document.getElementById('s2-line')?.remove();U.id('s2-list')?.classList.remove('over')});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ins]');if(b)App.addLec(b.dataset.ins)});
+window.addEventListener('iab2',()=>{clearTimeout(App.rt);App.rt=setTimeout(()=>{if(App.dragging||document.querySelector('#s2-modal.show'))return;
+ if(['cover','program','instance','toc'].includes(State.currentPage))App.render();else App.drawerList();Sync.paint()},120)});
+
+/* ─── Integrate with legacy UI (wrappers; no legacy code removed) ─── */
+const _nav=UI.navigate;
+UI.navigate=function(page,data){page=String(page);let pid=null,iid=null;
+ if(['dashboard','academies','create','detail','templates','timeline','session-library'].includes(page))page='cover';
+ if(page.startsWith('program:')){pid=page.slice(8);page='program'}else if(page.startsWith('instance:')){iid=page.slice(9);page='instance'}
+ if(['cover','program','instance','toc'].includes(page)){
+  if(page==='instance'){const I=S.get('instances',iid);if(!I||I.deleted)page='cover';else{State.curInst=iid;State.curProg=I.programId}}
+  if(page==='program'){if(!PROGS.some(p=>p.id===pid))pid=State.curProg||PROGS[0].id;State.curProg=pid}
+  State.currentPage=page;document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.nav===(page==='program'||page==='instance'?'program:'+State.curProg:page)));
+  U.id('hdr-title').textContent={cover:'الغلاف الرئيسي',toc:'Table of Contents',program:App.pname(State.curProg),instance:(S.get('instances',State.curInst)||{}).name}[page];
+  this.closeSidebar();if(page!=='instance')App.drawer(false);App.render();return}
+ App.drawer(false);return _nav.call(this,page,data)};
+const _rs=UI.renderSettings;
+UI.renderSettings=function(){_rs.call(this);U.id('page-settings').insertAdjacentHTML('afterbegin',Sync.html());Sync.paint()};
+
+window.App=App;window.Sync=Sync;window.IAB2={Store:S,LECS,PROGS,CATS,Sync};
+S.init();
+document.addEventListener('DOMContentLoaded',()=>{UI.navigate('cover');Sync.boot()});
+document.addEventListener('DOMContentLoaded',()=>{const sp=document.getElementById('splash'),b=document.getElementById('sp-open');if(!sp||!b)return;
+ const k=e=>{if(e.key==='Enter')go()},go=()=>{document.removeEventListener('keydown',k);sp.classList.add('out');setTimeout(()=>sp.remove(),700)};
+ b.addEventListener('click',go);document.addEventListener('keydown',k);b.focus()});
+})();
+</script>
+</body>
+</html>
