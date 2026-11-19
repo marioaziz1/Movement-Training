@@ -1041,9 +1041,64 @@ body.td-open .content{padding-left:414px}
 
 #print-root{display:none}
 @page{margin:14mm}
-@media print{html,body{background:#fff!important}body>*{display:none!important}body>#print-root{display:block!important;color:#000;font-family:Cairo,Tajawal,sans-serif;direction:rtl}
-#print-root h1{font-size:24px;margin:0 0 4px}#print-root h2{font-size:15px;color:#444;font-weight:600;margin:0 0 6px}#print-root p{font-size:12px;color:#555;margin:0 0 14px}
-#print-root table{width:100%;border-collapse:collapse;font-size:13px}#print-root th,#print-root td{border:1px solid #999;padding:7px 9px;text-align:right}#print-root th{background:#eee}#print-root tr{page-break-inside:avoid}}
+@media print{html,body{background:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}body>*{display:none!important}body>#print-root{display:block!important;color:#111;font-family:Cairo,Tajawal,sans-serif;direction:rtl}
+#print-root .pr-head{text-align:center;margin:0 0 20px;padding:0 0 16px;border-bottom:3px double #4f46e5}
+#print-root .pr-brand{letter-spacing:.34em;font-size:10px;font-weight:700;color:#6366f1;direction:ltr;margin-bottom:10px}
+#print-root h1{font-size:30px;font-weight:900;margin:0 0 6px;line-height:1.3;text-align:center}
+#print-root h2{font-size:16px;color:#555;font-weight:600;margin:0 0 10px;text-align:center}
+#print-root .pr-meta{font-size:12px;color:#666;text-align:center}
+#print-root .pr-day{margin:0 0 18px;page-break-inside:avoid}
+#print-root .pr-dh{display:flex;justify-content:space-between;align-items:center;background:#eef0ff;border-right:5px solid #4f46e5;padding:8px 14px;font-weight:800;font-size:15px}
+#print-root .pr-dh small{font-weight:600;color:#667;font-size:11px}
+#print-root table{width:100%;border-collapse:collapse;font-size:12.5px}
+#print-root th,#print-root td{border:1px solid #cfd2e6;padding:7px 10px;text-align:right}
+#print-root th{background:#f6f7fc;font-weight:700;font-size:11.5px}
+#print-root td.n,#print-root th.n{width:36px;text-align:center}
+#print-root tr{page-break-inside:avoid}}
+/* ═══ Days / meetings + mobile polish ═══ */
+.main,.content{min-width:0}
+.content{overflow:visible;overflow-x:clip}
+.s2-chips{display:flex;gap:6px;overflow-x:auto;padding:8px 2px 10px;margin:0 -2px 14px;position:sticky;top:var(--hh);z-index:50;background:var(--bg);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.s2-chips::-webkit-scrollbar{display:none}
+.s2-chip{flex:0 0 auto;min-width:38px;height:36px;padding:0 10px;border-radius:10px;background:var(--bg2);border:1px solid var(--border2);color:var(--t2);font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.s2-chip i{font-style:normal;font-size:10px;background:var(--a);color:#fff;border-radius:99px;padding:0 6px;line-height:16px}
+.s2-chip.on{border-color:var(--a);color:var(--a);background:var(--ag)}
+.s2-day{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:12px;overflow:hidden;scroll-margin-top:calc(var(--hh) + 64px)}
+.s2-day.is-active{border-color:var(--a);box-shadow:0 0 0 1px var(--a) inset}
+.s2-dh{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;background:var(--bg2);border-bottom:1px solid var(--border)}
+.s2-dt{display:flex;align-items:center;gap:10px;font-family:var(--f2);font-weight:800;font-size:15px;flex:1;min-width:0}
+.s2-dn{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0}
+.s2-dl{min-height:60px;padding:10px;margin:0}
+.s2-ph{padding:18px 12px;font-size:12.5px}
+.s2-b{min-width:0;word-break:break-word}
+.td-day{display:flex;align-items:center;gap:10px;padding:0 14px 10px;font-size:12.5px;color:var(--t2);font-weight:600}
+.td-day select{flex:1}.td-day:empty{display:none}
+.breadcrumb{min-width:0;flex:1 1 0%;overflow:hidden}.breadcrumb span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.header-right{min-width:0;flex-shrink:1}
+.sec-actions{flex-wrap:wrap}
+@media(hover:none){.s2-h{display:none}}
+@media(max-width:900px){.toc-drawer{padding-bottom:env(safe-area-inset-bottom)}}
+@media(max-width:600px){
+ html{font-size:14.5px}
+ input,select,textarea{font-size:16px}
+ .header{padding:0 10px;gap:6px;overflow:hidden}
+ .header-right{gap:6px}.sync-chip{max-width:104px!important;font-size:10px;padding:4px 8px}.icon-btn{width:34px;height:34px;flex-shrink:0}
+ .content{padding:14px 12px calc(20px + env(safe-area-inset-bottom))}
+ body.td-open .content{padding-left:12px}
+ .sec-hdr{margin-bottom:16px;gap:12px}.sec-title{font-size:19px}
+ .sec-actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.sec-actions .btn{justify-content:center;width:100%;padding:9px 10px}
+ .btn{min-height:42px}
+ .cov{padding:28px 18px;margin-bottom:16px}.cov-t{font-size:26px}.cov-t span{font-size:15px}
+ .cov-stats{gap:8px;margin-top:18px}.cov-st{flex:1;min-width:0;padding:10px 8px;text-align:center}
+ .cov-grid{gap:12px}.cov-card{padding:18px}.cov-d{min-height:0}
+ .s2-card{padding:12px;gap:8px}
+ .sc-action{width:38px;height:38px}
+ .s2-dl{padding:8px}.s2-dh{padding:9px 10px;gap:8px}
+ .modal-overlay{align-items:flex-end;padding:0}
+ .modal{max-width:100%!important;border-radius:18px 18px 0 0;max-height:92vh}
+ .modal-hdr{padding:16px 18px}.modal-body{padding:18px}.modal-footer{padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
+ .toast-container{left:12px;right:12px;bottom:12px}.toast{min-width:0;max-width:none}
+ .confirm-box{padding:22px}
+}
 /* ═══ Splash ═══ */
 #splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 25% 15%,#1b1760,#080a20 60%);overflow:hidden;transition:opacity .6s,transform .6s,visibility .6s}
 #splash.out{opacity:0;transform:scale(1.08);visibility:hidden;pointer-events:none}
@@ -1192,8 +1247,9 @@ body.td-open .content{padding-left:414px}
 <aside class="toc-drawer" id="toc-drawer" aria-label="Table of Contents">
   <div class="td-hdr"><span>📚 Table of Contents</span><button class="modal-close" onclick="App.drawer(false)">✕</button></div>
   <div class="td-q"><input id="td-q" placeholder="🔍 بحث في المحاضرات..." oninput="App.drawerList()"/></div>
+  <div class="td-day" id="td-day"></div>
   <div id="td-body"></div>
-  <div class="td-foot">اسحب المحاضرة وأفلتها داخل البرنامج · أو اضغط ＋ للإدراج في نهاية البرنامج</div>
+  <div class="td-foot">اسحب المحاضرة إلى اليوم المطلوب · أو اختر اليوم من الأعلى ثم اضغط ＋</div>
 </aside>
 <script>
 /* ═══════════════════════════════════════════════════════════════
@@ -3089,9 +3145,9 @@ const COLL=['programs','categories','lectures','sessions','instances'];
 const DEV=(()=>{const m=J('iab2_meta',{});if(!m.dev){m.dev='d'+Math.random().toString(36).slice(2,8);localStorage.setItem('iab2_meta',JSON.stringify(m))}return m.dev})();
 
 const PROGS=[
- {id:'prog_impact',name:'Impact Academy',icon:'🎓',g:'linear-gradient(135deg,#4f8eff,#7c5cf6)',d:'مساحة مستقلة لإدارة برنامج Impact Academy ومحتواه وجلساته.'},
- {id:'prog_ms21',name:'Multiply School – MS 21 Day',icon:'🗓️',g:'linear-gradient(135deg,#00d4c8,#00e5a0)',d:'مساحة مستقلة لإدارة برنامج MS لمدة 21 يومًا.'},
- {id:'prog_rsg10',name:'ReadySetGO Plus – 10 Day',icon:'🚀',g:'linear-gradient(135deg,#ff7c3a,#ffb340)',d:'مساحة مستقلة لإدارة برنامج ReadySetGO Plus لمدة 10 أيام.'}];
+ {id:'prog_impact',name:'Impact Academy',icon:'🎓',g:'linear-gradient(135deg,#4f8eff,#7c5cf6)',d:'مساحة مستقلة لإدارة برنامج Impact Academy مقسّمة إلى لقاءات.',unit:'meeting'},
+ {id:'prog_ms21',name:'Multiply School – MS 21 Day',icon:'🗓️',g:'linear-gradient(135deg,#00d4c8,#00e5a0)',d:'مساحة مستقلة لإدارة برنامج MS مقسّمة على 22 يومًا.',unit:'day',n:22},
+ {id:'prog_rsg10',name:'ReadySetGO Plus – 10 Day',icon:'🚀',g:'linear-gradient(135deg,#ff7c3a,#ffb340)',d:'مساحة مستقلة لإدارة برنامج ReadySetGO Plus مقسّمة على 10 أيام.',unit:'day',n:10}];
 const CATS=[{id:'cat_intro',name:'Introductory Sessions',icon:'🌱'},{id:'cat_movement',name:'Movement',icon:'🔥'},{id:'cat_go',name:'Go Modes Sessions',icon:'⚡'}];
 const OVERVIEW=['What Is Sports Ministry?','What Does Open Source Mean?','History of the Sports Movement','How to Recognize a Movement?','Sharing the Vision','Talking with a Pastor','Talking with a Sportsperson','Talking with Business or Government Leaders','ReadySetGO Physical Illustration','The Power and Potential of Sport','ReadySetGO Drama','ReadySetGO Videos','ReadySetGO Music','Prayer for ReadySetGO'];
 const LECS=[];
@@ -3246,49 +3302,72 @@ const App={col:{},dragging:0,just:null,edit:null,rt:null,
    <div class="cov-stats"><div class="cov-st"><b>${PROGS.length}</b><small>برامج</small></div><div class="cov-st"><b>${ses.length}</b><small>جلسات</small></div><div class="cov-st"><b>${L}</b><small>عناصر المحتوى</small></div></div></div></div>
    <div class="cov-grid">${PROGS.map(p=>{const n=this.psessions(p.id).length;return card(p.icon,esc(this.pname(p.id)||p.name),p.d,p.g,`<span class="tag tag-blue">${this.insts(p.id).length} نسخة</span><span class="tag tag-teal">${n} جلسة</span>`,`UI.navigate('program:${p.id}')`)}).join('')}
    ${card('📚','Table of Contents','المكتبة المركزية التي تحتوي على جميع المحاضرات والموضوعات التدريبية.','linear-gradient(135deg,#ff6bcb,#7c5cf6)',`<span class="tag tag-purple">${L} عنصر</span>`,"UI.navigate('toc')")}</div>`},
+ progOf:pid=>PROGS.find(x=>x.id===pid)||PROGS[0],
+ unitName(P,n){return (P.unit==='meeting'?'اللقاء ':'اليوم ')+n},
+ unitWord(P,n){return P.unit==='meeting'?n+' لقاء':n+' يوم'},
+ units(I){const P=this.progOf(I.programId),mx=this.sessions(I.id).reduce((a,s)=>Math.max(a,parseInt(s.day)||1),1);return P.n||Math.max(parseInt(I.units)||1,mx)},
+ dayOf(s,n){return Math.min(Math.max(parseInt(s.day)||1,1),n)},
+ dayList(iid,n,d){return this.sessions(iid).filter(s=>this.dayOf(s,n)===d)},
+ activeDay:1,actInst:null,
  program(){const pid=State.curProg,P=PROGS.find(x=>x.id===pid);if(!P)return;const is=this.insts(pid);
   U.id('page-program').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">${P.icon} ${esc(this.pname(pid))}</div><div class="sec-sub">${is.length} نسخة منشأة</div></div><div class="sec-actions"><button class="btn btn-primary" onclick="App.newInst()">➕ إنشاء جديد</button></div></div>
-   <div class="cov-grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">${is.length?is.map(i=>{const ss=this.sessions(i.id),m=ss.reduce((a,s)=>a+(+s.duration||0),0);
-   return `<div class="cov-card" style="--g:${P.g}" onclick="UI.navigate('instance:${i.id}')"><div class="cov-n">${esc(i.name)}</div><div class="cov-m"><span class="tag tag-blue">${ss.length} جلسة</span><span class="tag tag-amber">${m} د</span></div><div class="cov-m" onclick="event.stopPropagation()"><button class="sc-action" onclick="App.renInst('${i.id}')" title="تعديل الاسم">✏️</button><button class="sc-action" onclick="App.exportPdf('${i.id}')" title="تصدير PDF">📄</button><button class="sc-action danger" onclick="App.delInst('${i.id}')" title="حذف">🗑</button></div></div>`}).join(''):'<div class="s2-empty">لا توجد نسخ — اضغط «إنشاء جديد»</div>'}</div>`},
- instance(){const iid=State.curInst,I=S.get('instances',iid);if(!I||I.deleted){UI.navigate('program:'+State.curProg);return}const pid=I.programId,P=PROGS.find(x=>x.id===pid),ss=this.sessions(iid),mins=ss.reduce((a,s)=>a+(+s.duration||0),0);
-  U.id('page-instance').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">${P.icon} ${esc(I.name)}</div><div class="sec-sub">${esc(this.pname(pid))} · ${ss.length} جلسة · ${mins} دقيقة · ${ss.filter(s=>s.date).length} مجدولة</div></div>
-   <div class="sec-actions"><button class="btn btn-secondary" onclick="UI.navigate('program:${pid}')">← النسخ</button><button class="btn btn-secondary" onclick="App.exportPdf('${iid}')">📄 تصدير PDF</button><button class="btn btn-primary" onclick="App.drawer(!document.body.classList.contains('td-open'))">📚 Table of Contents</button><button class="btn btn-secondary" onclick="App.sesModal(null)">➕ جلسة يدوية</button></div></div>
-   <div id="s2-list" class="s2-list">${ss.length?ss.map((s,i)=>this.card(s,i)).join(''):'<div class="s2-empty">البرنامج فارغ — افتح Table of Contents واسحب محاضرة إلى هنا<br>(على الموبايل: اضغط ＋ بجوار المحاضرة)</div>'}</div>`;
-  this.just=null;this.bindList()},
+   <div class="cov-grid" style="grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr))">${is.length?is.map(i=>{const ss=this.sessions(i.id),n=this.units(i);
+   return `<div class="cov-card" style="--g:${P.g}" onclick="UI.navigate('instance:${i.id}')"><div class="cov-n">${esc(i.name)}</div><div class="cov-m"><span class="tag tag-blue">${ss.length} موضوع</span><span class="tag tag-teal">${this.unitWord(P,n)}</span></div><div class="cov-m" onclick="event.stopPropagation()"><button class="sc-action" onclick="App.renInst('${i.id}')" title="تعديل الاسم">✏️</button><button class="sc-action" onclick="App.exportPdf('${i.id}')" title="تصدير PDF">📄</button><button class="sc-action danger" onclick="App.delInst('${i.id}')" title="حذف">🗑</button></div></div>`}).join(''):'<div class="s2-empty">لا توجد نسخ — اضغط «إنشاء جديد»</div>'}</div>`},
+ instance(){const iid=State.curInst,I=S.get('instances',iid);if(!I||I.deleted){UI.navigate('program:'+State.curProg);return}
+  const pid=I.programId,P=this.progOf(pid),ss=this.sessions(iid),n=this.units(I);
+  if(this.actInst!==iid){this.actInst=iid;this.activeDay=1}
+  this.activeDay=Math.min(Math.max(this.activeDay||1,1),n);
+  const by={};ss.forEach(s=>{const d=this.dayOf(s,n);(by[d]=by[d]||[]).push(s)});
+  const ds=Array.from({length:n},(_,i)=>i+1);
+  U.id('page-instance').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">${P.icon} ${esc(I.name)}</div><div class="sec-sub">${esc(this.pname(pid))} · ${this.unitWord(P,n)} · ${ss.length} موضوع</div></div>
+   <div class="sec-actions"><button class="btn btn-secondary" onclick="UI.navigate('program:${pid}')">← النسخ</button><button class="btn btn-secondary" onclick="App.exportPdf('${iid}')">📄 تصدير PDF</button><button class="btn btn-primary" onclick="App.drawer(!document.body.classList.contains('td-open'))">📚 Table of Contents</button>${P.unit==='meeting'?'<button class="btn btn-secondary" onclick="App.addUnit()">➕ إضافة لقاء</button>':''}<button class="btn btn-secondary" onclick="App.sesModal(null)">➕ جلسة يدوية</button></div></div>
+   <div class="s2-chips" id="s2-chips">${ds.map(d=>{const c=(by[d]||[]).length;return `<button class="s2-chip${d===this.activeDay?' on':''}" data-d="${d}" onclick="App.pickDay(${d},0,1)">${d}${c?`<i>${c}</i>`:''}</button>`}).join('')}</div>
+   ${ds.map(d=>{const l=by[d]||[];return `<section class="s2-day${d===this.activeDay?' is-active':''}" id="s2-day-${d}" data-day="${d}"><div class="s2-dh" onclick="App.pickDay(${d})"><div class="s2-dt"><span class="s2-dn">${d}</span><span>${this.unitName(P,d)}</span></div><span class="tag tag-blue">${l.length} موضوع</span>${P.unit==='meeting'&&d===n&&n>1&&!l.length?`<button class="sc-action danger" onclick="event.stopPropagation();App.rmUnit()" title="حذف اللقاء">🗑</button>`:''}<button class="sc-action" onclick="event.stopPropagation();App.pickDay(${d},1)" title="إضافة محاضرة">＋</button></div><div class="s2-list s2-dl" data-day="${d}">${l.length?l.map((s,i)=>this.card(s,i)).join(''):`<div class="s2-empty s2-ph">فارغ — اضغط ＋ أو اسحب محاضرة إلى ${this.unitName(P,d)}</div>`}</div></section>`}).join('')}`;
+  this.just=null;this.bindList();this.dayBar()},
+ markActive(){document.querySelectorAll('.s2-day').forEach(e=>e.classList.toggle('is-active',+e.dataset.day===this.activeDay));document.querySelectorAll('.s2-chip').forEach(e=>e.classList.toggle('on',+e.dataset.d===this.activeDay));const sel=U.id('td-sel');if(sel)sel.value=String(this.activeDay)},
+ pickDay(d,openDr,scroll){this.activeDay=d;this.markActive();if(openDr)this.drawer(true);if(scroll){const e=document.getElementById('s2-day-'+d);if(e)e.scrollIntoView({behavior:'smooth',block:'start'})}},
+ dayBar(){const w=U.id('td-day');if(!w)return;const I=State.currentPage==='instance'?S.get('instances',State.curInst):null;if(!I||I.deleted){w.innerHTML='';return}
+  const P=this.progOf(I.programId),n=this.units(I);
+  w.innerHTML=`<label for="td-sel">إضافة إلى:</label><select id="td-sel" onchange="App.pickDay(+this.value)">${Array.from({length:n},(_,i)=>`<option value="${i+1}"${i+1===this.activeDay?' selected':''}>${this.unitName(P,i+1)}</option>`).join('')}</select>`},
+ addUnit(){const iid=State.curInst,I=S.get('instances',iid);if(!I)return;const n=this.units(I);S.put('instances',iid,{units:n+1});this.activeDay=n+1;this.render();setTimeout(()=>this.pickDay(n+1,0,1),60)},
+ rmUnit(){const iid=State.curInst,I=S.get('instances',iid);if(!I)return;const n=this.units(I);if(n<=1||this.dayList(iid,n,n).length)return;S.put('instances',iid,{units:n-1});this.activeDay=Math.min(this.activeDay,n-1);this.render()},
  card(s,i){const L=S.get('lectures',s.lectureId);
   return `<div class="s2-card${s.id===this.just?' s2-new':''}" draggable="true" data-id="${s.id}"><div class="s2-h">⠿</div><div class="s2-no">${i+1}</div><div class="s2-b"><div class="s2-t">${esc(this.title(s))}</div>
-   <div class="s2-m">${L?`<span>🔗 ${esc(L.title)}</span>`:''}${s.speaker?`<span>👤 ${esc(s.speaker)}</span>`:''}${s.date?`<span>📅 ${esc(s.date)}</span>`:''}${s.startTime?`<span>⏰ ${esc(s.startTime)}</span>`:''}${+s.duration?`<span>⏱ ${+s.duration} د</span>`:''}</div>
+   <div class="s2-m">${L?`<span>🔗 ${esc(L.title)}</span>`:''}${s.speaker?`<span>👤 ${esc(s.speaker)}</span>`:''}${s.date?`<span>📅 ${esc(s.date)}</span>`:''}${s.startTime?`<span>⏰ ${esc(s.startTime)}</span>`:''}</div>
    ${s.notes?`<div class="s2-nt">📝 ${esc(s.notes.slice(0,90))}</div>`:''}</div>
    <div class="sc-actions"><button class="sc-action" onclick="App.sesModal('${s.id}')" title="تعديل">✏️</button><button class="sc-action danger" onclick="App.delSes('${s.id}')" title="حذف">🗑</button></div></div>`},
  idxAt(list,y,skip){const cs=[...list.querySelectorAll('.s2-card')].filter(c=>c.dataset.id!==skip),i=cs.findIndex(c=>{const r=c.getBoundingClientRect();return y<r.top+r.height/2});return i<0?cs.length:i},
  ordAt(list,i){const p=list[i-1],n=list[i];return p&&n?(p.order+n.order)/2:p?p.order+1:n?n.order-1:1},
- bindList(){const l=U.id('s2-list');if(!l)return;
-  l.addEventListener('dragover',e=>{e.preventDefault();l.classList.add('over');const d=(App.curDrag||''),skip=d.startsWith('ses:')?d.slice(4):null,i=this.idxAt(l,e.clientY,skip);
+ bindList(){document.querySelectorAll('.s2-dl').forEach(l=>{
+  l.addEventListener('dragover',e=>{e.preventDefault();document.querySelectorAll('.s2-dl.over').forEach(x=>{if(x!==l)x.classList.remove('over')});l.classList.add('over');const d=(App.curDrag||''),skip=d.startsWith('ses:')?d.slice(4):null,i=this.idxAt(l,e.clientY,skip);
    let ln=document.getElementById('s2-line');if(!ln){ln=document.createElement('div');ln.id='s2-line';ln.className='s2-line'}
    l.insertBefore(ln,[...l.querySelectorAll('.s2-card')].filter(c=>c.dataset.id!==skip)[i]||null)});
   l.addEventListener('dragleave',e=>{if(!l.contains(e.relatedTarget)){l.classList.remove('over');document.getElementById('s2-line')?.remove()}});
-  l.addEventListener('drop',e=>{e.preventDefault();const d=e.dataTransfer.getData('text/plain')||'';document.getElementById('s2-line')?.remove();l.classList.remove('over');
-   if(d.startsWith('lec:'))this.addLec(d.slice(4),this.idxAt(l,e.clientY));else if(d.startsWith('ses:')){const id=d.slice(4);this.move(id,this.idxAt(l,e.clientY,id))}})},
- async addLec(lid,idx){const pid=State.curInst,I=S.get('instances',pid),l=S.get('lectures',lid);if(!l||!I||I.deleted)return;const ss=this.sessions(pid);
-  if(ss.some(s=>s.lectureId===lid)&&!await U.confirm('هذه المحاضرة موجودة بالفعل في البرنامج. هل تريد إضافتها مرة أخرى؟','محاضرة مكررة','📚'))return;
-  const id=uid('ses_');S.put('sessions',id,{programId:I.programId,instanceId:pid,lectureId:lid,title:'',speaker:'',date:'',startTime:'',duration:0,notes:'',content:'',order:this.ordAt(ss,idx===undefined?ss.length:idx)});
-  this.just=id;this.render();U.toast('أُدرجت «'+l.title+'»','success',1800)},
- move(id,i){const ss=this.sessions(State.curInst).filter(s=>s.id!==id);S.put('sessions',id,{order:this.ordAt(ss,i)});this.render()},
+  l.addEventListener('drop',e=>{e.preventDefault();const d=e.dataTransfer.getData('text/plain')||'',day=+l.dataset.day;document.getElementById('s2-line')?.remove();l.classList.remove('over');
+   if(d.startsWith('lec:'))this.addLec(d.slice(4),day,this.idxAt(l,e.clientY));else if(d.startsWith('ses:')){const id=d.slice(4);this.move(id,day,this.idxAt(l,e.clientY,id))}})})},
+ async addLec(lid,day,idx){const iid=State.curInst,I=S.get('instances',iid),l=S.get('lectures',lid);if(!l||!I||I.deleted)return;const P=this.progOf(I.programId),n=this.units(I),d=day||this.activeDay||1,dl=this.dayList(iid,n,d);
+  if(this.sessions(iid).some(s=>s.lectureId===lid)&&!await U.confirm('هذه المحاضرة موجودة بالفعل في البرنامج. هل تريد إضافتها مرة أخرى؟','محاضرة مكررة','📚'))return;
+  const id=uid('ses_');S.put('sessions',id,{programId:I.programId,instanceId:iid,lectureId:lid,day:d,title:'',speaker:'',date:'',startTime:'',notes:'',content:'',order:this.ordAt(dl,idx===undefined?dl.length:idx)});
+  this.just=id;this.render();U.toast('أُدرجت «'+l.title+'» في '+this.unitName(P,d),'success',1800)},
+ move(id,day,i){const iid=State.curInst,I=S.get('instances',iid),n=this.units(I),ss=this.dayList(iid,n,day).filter(s=>s.id!==id);S.put('sessions',id,{day,order:this.ordAt(ss,i)});this.render()},
  sesModal(id){let m=U.id('s2-modal');if(!m){m=document.createElement('div');m.id='s2-modal';m.className='modal-overlay';document.body.appendChild(m)}
-  const s=id?S.get('sessions',id):{},L=s.lectureId?S.get('lectures',s.lectureId):null;this.edit=id;
-  const i=(k,l,t,full)=>`<div class="form-group${full?' full':''}"><label class="form-label">${l}</label><input id="m2-${k}" type="${t||'text'}" value="${esc(s[k]??'')}"/></div>`;
+  const I=S.get('instances',State.curInst),P=this.progOf(I.programId),n=this.units(I),s=id?S.get('sessions',id):{},L=s.lectureId?S.get('lectures',s.lectureId):null;this.edit=id;
+  const dv=id?this.dayOf(s,n):this.activeDay,i=(k,l,t,full)=>`<div class="form-group${full?' full':''}"><label class="form-label">${l}</label><input id="m2-${k}" type="${t||'text'}" value="${esc(s[k]??'')}"/></div>`;
   m.innerHTML=`<div class="modal"><div class="modal-hdr"><div class="modal-title">${id?'تعديل الجلسة':'جلسة جديدة'}</div><button class="modal-close" onclick="App.closeModal()">✕</button></div><div class="modal-body"><div class="form-grid">
    <div class="form-group full"><label class="form-label">عنوان المحاضرة / الجلسة <span class="required">*</span></label><input id="m2-title" value="${esc(id?this.title(s):'')}"/>${L?`<div class="form-hint">مرتبطة بالمحاضرة الأصلية: ${esc(L.title)} — التعديل هنا لا يغيّر المكتبة.</div>`:''}</div>
-   ${i('speaker','المتحدث')}${i('duration','المدة (دقيقة)','number')}${i('date','التاريخ','date')}${i('startTime','وقت البدء','time')}
+   <div class="form-group full"><label class="form-label">${P.unit==='meeting'?'اللقاء':'اليوم'}</label><select id="m2-day">${Array.from({length:n},(_,k)=>`<option value="${k+1}"${k+1===dv?' selected':''}>${this.unitName(P,k+1)}</option>`).join('')}</select></div>
+   ${i('speaker','المتحدث',0,1)}${i('date','التاريخ','date')}${i('startTime','وقت البدء','time')}
    <div class="form-group full"><label class="form-label">ملاحظات</label><textarea id="m2-notes">${esc(s.notes)}</textarea></div>
    <div class="form-group full"><label class="form-label">الوصف / المحتوى</label><textarea id="m2-content">${esc(s.content)}</textarea></div></div></div>
    <div class="modal-footer"><button class="btn btn-secondary" onclick="App.closeModal()">إلغاء</button><button class="btn btn-primary" onclick="App.saveSes()">💾 حفظ</button></div></div>`;
   m.classList.add('show')},
  closeModal(){U.id('s2-modal')?.classList.remove('show');this.edit=null},
  saveSes(){const v=k=>(U.id('m2-'+k).value||'').trim(),t=v('title');if(!t){U.toast('العنوان مطلوب','error');return}
-  const dur=Math.max(0,parseInt(v('duration'))||0),f={speaker:v('speaker'),date:v('date'),startTime:v('startTime'),duration:dur,notes:U.id('m2-notes').value,content:U.id('m2-content').value};
-  if(this.edit){const s=S.get('sessions',this.edit),L=S.get('lectures',s.lectureId);f.title=(L&&L.title===t)?'':t;S.put('sessions',this.edit,f)}
-  else{const I=S.get('instances',State.curInst),ss=this.sessions(State.curInst);S.put('sessions',uid('ses_'),{...f,title:t,programId:I.programId,instanceId:State.curInst,lectureId:'',order:this.ordAt(ss,ss.length)})}
+  const iid=State.curInst,I=S.get('instances',iid),n=this.units(I),d=Math.min(Math.max(parseInt(U.id('m2-day').value)||1,1),n),f={speaker:v('speaker'),date:v('date'),startTime:v('startTime'),notes:U.id('m2-notes').value,content:U.id('m2-content').value};
+  if(this.edit){const s=S.get('sessions',this.edit),L=S.get('lectures',s.lectureId);f.title=(L&&L.title===t)?'':t;
+   if(d!==this.dayOf(s,n)){const dl=this.dayList(iid,n,d).filter(x=>x.id!==this.edit);f.day=d;f.order=this.ordAt(dl,dl.length)}
+   S.put('sessions',this.edit,f)}
+  else{const dl=this.dayList(iid,n,d);S.put('sessions',uid('ses_'),{...f,title:t,programId:I.programId,instanceId:iid,lectureId:'',day:d,order:this.ordAt(dl,dl.length)});this.activeDay=d}
   this.closeModal();U.toast('تم الحفظ ✓','success',1500);this.render()},
  async delSes(id){if(!await U.confirm('سيتم حذف الجلسة من هذا البرنامج فقط (المحاضرة الأصلية تبقى في المكتبة).','حذف الجلسة','🗑'))return;S.del('sessions',id);this.render();U.toast('تم الحذف','success',1500)},
  lecRow(l,mode){const n=S.list('sessions').filter(s=>s.lectureId===l.id).length;
@@ -3298,7 +3377,7 @@ const App={col:{},dragging:0,just:null,edit:null,rt:null,
    const open=q||!this.col[c.id];return `<div class="td-sec"><div class="td-sh" onclick="App.tog('${c.id}')"><span>${open?'▾':'▸'} ${c.icon} ${esc(c.name)}</span><span class="tag tag-blue">${ls.length}</span></div>${open?ls.map(l=>this.lecRow(l,mode)).join(''):''}</div>`}).join('')||'<div class="s2-empty">لا نتائج</div>'},
  tog(id){this.col[id]=!this.col[id];this.render()},
  drawer(o){document.body.classList.toggle('td-open',!!o);U.id('toc-drawer').classList.toggle('open',!!o);if(o)this.drawerList()},
- drawerList(){const b=U.id('td-body');if(!b)return;b.innerHTML=this.secs((U.id('td-q').value||'').trim().toLowerCase(),'drawer')},
+ drawerList(){this.dayBar();const b=U.id('td-body');if(!b)return;b.innerHTML=this.secs((U.id('td-q').value||'').trim().toLowerCase(),'drawer')},
  tocPage(){U.id('page-toc').innerHTML=`<div class="sec-hdr"><div><div class="sec-title">Table of Contents</div><div class="sec-sub">${S.list('lectures').length} عنصر — المكتبة المركزية (Master Content)</div></div></div>
   <div class="filter-bar"><div class="filter-search" style="flex:1"><span>🔍</span><input id="toc-q" placeholder="ابحث في المحاضرات..." value="${esc(this._q||'')}" oninput="App._q=this.value;App.tocList()"/></div></div><div id="toc-list"></div>`;this.tocList()},
  tocList(){const e=U.id('toc-list');if(e)e.innerHTML=this.secs((this._q||'').trim().toLowerCase(),'page')},
@@ -3307,8 +3386,11 @@ const App={col:{},dragging:0,just:null,edit:null,rt:null,
  async delInst(id){const i=S.get('instances',id),n=this.sessions(id).length;if(!await U.confirm(`سيتم حذف «${i.name}» وجلساتها (${n}). المحاضرات الأصلية في المكتبة لن تتأثر.`,'حذف النسخة','🗑'))return;this.sessions(id).forEach(s=>S.del('sessions',s.id));S.del('instances',id);if(State.currentPage==='instance')UI.navigate('program:'+State.curProg);else this.render();U.toast('تم الحذف','success',1500)},
  exportPdf(iid){const I=S.get('instances',iid);if(!I)return;const ss=this.sessions(iid);if(!ss.length){U.toast('لا توجد جلسات لتصديرها','warning');return}
   let r=U.id('print-root');if(!r){r=document.createElement('div');r.id='print-root';document.body.appendChild(r)}
-  const mins=ss.reduce((a,s)=>a+(+s.duration||0),0),c=v=>v?esc(v):'—';
-  r.innerHTML=`<h1 dir="auto">${esc(I.name)}</h1><h2 dir="auto">${esc(this.pname(I.programId))}</h2><p>${ss.length} جلسة · ${mins} دقيقة · ${new Date().toLocaleDateString('ar-EG')}</p><table><thead><tr><th>#</th><th>المحاضرة</th><th>المحاضر</th><th>التاريخ</th><th>الوقت</th><th>المدة</th></tr></thead><tbody>${ss.map((s,i)=>`<tr><td>${i+1}</td><td dir="auto">${esc(this.title(s))}</td><td dir="auto">${c(s.speaker)}</td><td>${c(s.date)}</td><td>${c(s.startTime)}</td><td>${+s.duration?s.duration+' د':'—'}</td></tr>`).join('')}</tbody></table>`;
+  const P=this.progOf(I.programId),n=this.units(I),c=v=>v?esc(v):'—',by={};
+  ss.forEach(s=>{const d=this.dayOf(s,n);(by[d]=by[d]||[]).push(s)});
+  const ds=Object.keys(by).map(Number).sort((a,b)=>a-b);
+  const blocks=ds.map(d=>`<div class="pr-day"><div class="pr-dh"><span>${this.unitName(P,d)}</span><small>${by[d].length} موضوع</small></div><table><thead><tr><th class="n">#</th><th>الموضوع</th><th>المحاضر</th><th>التاريخ</th><th>الوقت</th></tr></thead><tbody>${by[d].map((s,i)=>`<tr><td class="n">${i+1}</td><td dir="auto">${esc(this.title(s))}</td><td dir="auto">${c(s.speaker)}</td><td>${c(s.date)}</td><td>${c(s.startTime)}</td></tr>`).join('')}</tbody></table></div>`).join('');
+  r.innerHTML=`<div class="pr-head"><div class="pr-brand">MOVEMENT TRAINING</div><h1 dir="auto">${esc(I.name)}</h1><h2 dir="auto">${esc(this.pname(I.programId))}</h2><div class="pr-meta">${ds.length} ${P.unit==='meeting'?'لقاء':'يوم'} · ${ss.length} موضوع · ${new Date().toLocaleDateString('ar-EG')}</div></div>${blocks}`;
   const t=document.title,back=()=>{document.title=t;window.removeEventListener('afterprint',back)};document.title=I.name;window.addEventListener('afterprint',back);setTimeout(()=>window.print(),60)},
  ren(id){const l=S.get('lectures',id),t=prompt('اسم المحاضرة الأصلية (سيتحدّث في كل الجلسات المرتبطة):',l.title);if(t&&t.trim()&&t.trim()!==l.title){S.put('lectures',id,{title:t.trim()});this.render()}}};
 
